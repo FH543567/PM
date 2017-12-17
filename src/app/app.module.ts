@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
 import { BacklogComponent } from './backlog/backlog.component';
 import { BacklogPageComponent } from './backlog-page/backlog-page.component';
+import { SprintComponent } from './sprint/sprint.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BacklogPageComponent } from './backlog-page/backlog-page.component';
     RegisterComponent,
     UserComponent,
     BacklogComponent,
-    BacklogPageComponent
+    BacklogPageComponent,
+    SprintComponent
   ],
   imports: [
     BrowserModule,
