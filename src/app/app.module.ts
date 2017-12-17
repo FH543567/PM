@@ -14,6 +14,7 @@ import { SprintComponent } from './sprint/sprint.component';
 import { SprintPageComponent } from './sprint-page/sprint-page.component';
 import { ScrumboardPageComponent } from './scrumboard-page/scrumboard-page.component';
 import { PlanningpokerPageComponent } from './planningpoker-page/planningpoker-page.component';
+import { ChartPageComponent } from './chart-page/chart-page.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PlanningpokerPageComponent } from './planningpoker-page/planningpoker-p
     SprintComponent,
     SprintPageComponent,
     ScrumboardPageComponent,
-    PlanningpokerPageComponent
+    PlanningpokerPageComponent,
+    ChartPageComponent
   ],
   imports: [
     BrowserModule,
