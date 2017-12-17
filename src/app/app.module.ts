@@ -12,6 +12,7 @@ import { BacklogComponent } from './backlog/backlog.component';
 import { BacklogPageComponent } from './backlog-page/backlog-page.component';
 import { SprintComponent } from './sprint/sprint.component';
 import { SprintPageComponent } from './sprint-page/sprint-page.component';
+import { ScrumboardPageComponent } from './scrumboard-page/scrumboard-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SprintPageComponent } from './sprint-page/sprint-page.component';
     BacklogComponent,
     BacklogPageComponent,
     SprintComponent,
-    SprintPageComponent
+    SprintPageComponent,
+    ScrumboardPageComponent
   ],
   imports: [
     BrowserModule,
