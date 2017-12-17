@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { TaskComponent } from './task/task.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskComponent,
-    HomePageComponent
+    HomePageComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
