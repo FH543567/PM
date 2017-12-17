@@ -8,6 +8,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
+import { BacklogComponent } from './backlog/backlog.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { UserComponent } from './user/user.component';
     HomePageComponent,
     LoginComponent,
     RegisterComponent,
-    UserComponent
+    UserComponent,
+    BacklogComponent
   ],
   imports: [
     BrowserModule,
