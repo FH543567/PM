@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
-import { TaskComponent } from './task/task.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -16,11 +15,13 @@ import { ScrumboardPageComponent } from './scrumboard-page/scrumboard-page.compo
 import { PlanningpokerPageComponent } from './planningpoker-page/planningpoker-page.component';
 import { ChartPageComponent } from './chart-page/chart-page.component';
 import { RoadmapPageComponent } from './roadmap-page/roadmap-page.component';
+import { routes } from './app.router';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskComponent,
     HomePageComponent,
     LoginComponent,
     RegisterComponent,
@@ -32,12 +33,13 @@ import { RoadmapPageComponent } from './roadmap-page/roadmap-page.component';
     ScrumboardPageComponent,
     PlanningpokerPageComponent,
     ChartPageComponent,
-    RoadmapPageComponent
+    RoadmapPageComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    [MatButtonModule, MatCheckboxModule],
+    RouterModule.forRoot(routes),
+    [MatButtonModule, MatCheckboxModule]
   ],
   providers: [],
   bootstrap: [AppComponent]
