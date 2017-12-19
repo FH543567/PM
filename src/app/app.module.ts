@@ -19,6 +19,8 @@ import { routes } from './app.router';
 import { RouterModule } from '@angular/router';
 import { DataService } from './services/data.service';
 import { TaskComponent } from './task/task.component';
+import { StoryComponent } from './story/story.component';
+import { EpicComponent } from './epic/epic.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { TaskComponent } from './task/task.component';
     ChartPageComponent,
     RoadmapPageComponent,
     TaskComponent,
+    StoryComponent,
+    EpicComponent,
   ],
   imports: [
     BrowserModule,
