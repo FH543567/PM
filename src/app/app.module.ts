@@ -17,7 +17,8 @@ import { ChartPageComponent } from './chart-page/chart-page.component';
 import { RoadmapPageComponent } from './roadmap-page/roadmap-page.component';
 import { routes } from './app.router';
 import { RouterModule } from '@angular/router';
-
+import { DataService } from './services/data.service';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { RouterModule } from '@angular/router';
     PlanningpokerPageComponent,
     ChartPageComponent,
     RoadmapPageComponent,
+    TaskComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,7 @@ import { RouterModule } from '@angular/router';
     RouterModule.forRoot(routes),
     [MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule, MatMenuModule]
   ],
-  providers: [],
+  providers: [ DataService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
