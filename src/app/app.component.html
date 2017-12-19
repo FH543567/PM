@@ -1,9 +1,31 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<header>
+  <mat-toolbar class="navbar-static-top navbar-fixed-top" color="primary">
+    <h2 mat-element routerLink="home">MFJ-Scrum</h2>
+    <div class="box" float="left">
+        <button mat-button routerLink="backlog" ><mat-icon>assessment</mat-icon>Product Backlog</button>
+        <button mat-button routerLink="sprint" >Sprint Planning</button>
+        <button mat-button routerLink="scrumboard" >Scrum Board</button>
+        <button mat-button routerLink="planningpoker" >Planning Poker</button>
+        <button mat-button routerLink="chart" >Burn-Down-Chart</button>
+        <button mat-button routerLink="roadmap" >Roadmap</button>
+    </div>
+    <div class="box" float="right">
+      Hello Username_here
+      <button mat-button [matMenuTriggerFor]="appMenu"><mat-icon>more_vert</mat-icon></button>
+      <mat-menu #appMenu="matMenu">
+        <button mat-menu-item routerLink="login"><mat-icon>account_box</mat-icon>Login</button>
+        <button mat-menu-item routerLink="register"><mat-icon>assignment-ind</mat-icon>Register</button>
+        <button mat-menu-item (click)="logout()"><mat-icon>close</mat-icon>Logout</button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+</header>
+<!--<div style="text-align:center">
   <h1>
     {{ title }}!
   </h1>
- </div>
+ </div>-->
  <body>
    <main>
      <router-outlet></router-outlet>
