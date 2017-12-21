@@ -1,3 +1,18 @@
-<p>
-  backlog-page works!
-</p>
+
+<div class="example-container mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="Id">
+      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let backlog"> {{backlog.id}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+
+
+<button mat-raised-button color="primary" RouterLink="create">Create New</button>
+
+<p *ngFor="let backlog of backlogItems">{{backlog.id}} {{backlog.name}} {{backlog.priority}} {{backlog.estimatedTime}} {{backlog.workedTime}}</p>

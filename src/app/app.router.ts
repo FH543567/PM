@@ -9,6 +9,7 @@ import { ScrumboardPageComponent } from './scrumboard-page/scrumboard-page.compo
 import { PlanningpokerPageComponent } from './planningpoker-page/planningpoker-page.component';
 import { ChartPageComponent } from './chart-page/chart-page.component';
 import { RoadmapPageComponent } from './roadmap-page/roadmap-page.component';
+import { BacklogComponent } from './backlog/backlog.component';
 
 export const routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -16,6 +17,7 @@ export const routes = [
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'backlog', component: BacklogPageComponent},
+    { path: 'create', component: BacklogComponent},
     { path: 'sprint', component: SprintPageComponent},
     { path: 'scrumboard', component: ScrumboardPageComponent},
     { path: 'planningpoker', component: PlanningpokerPageComponent},
