@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EPIC, TASK, STORY } from './mockdata';
+import { EPICS, TASKS, STORIES } from './mockdata';
 import { Task } from '../task/task';
 
 @Injectable()
@@ -8,7 +8,7 @@ export class TaskService {
   constructor() { }
 
   getAll(): Task[] {
-    return TASK;
+    return TASKS;
   }
 
   create(task: Task) {
