@@ -5,6 +5,9 @@ import { Story } from '../story/story';
 import { Epic } from '../epic/epic';
 import { Backlog } from '../backlog/backlog';
 import {MatTableDataSource} from '@angular/material';
+import { DataSource } from '@angular/cdk/collections';
+import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'app-backlog-page',
@@ -16,8 +19,9 @@ export class BacklogPageComponent implements OnInit {
   stories: Story[];
   epics: Epic[];
   backlogItems: Backlog[];
-  displayedColumns = ['Id'];
-  dataSource = new MatTableDataSource<Backlog>(this.tasks);
+  displayedColumns = ['Id', 'Name', 'Priority', 'Estimated', 'Worked'];
+  dataSource: any;
+  // dataSource = new BacklogDataSource(this.dataService);
 
   constructor(private dataService: DataService) { }
 
@@ -29,6 +33,7 @@ export class BacklogPageComponent implements OnInit {
     this.taskToBacklog(this.tasks);
     this.storyToBacklog(this.stories);
     this.epicToBacklog(this.epics);
+    this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems);
   }
 
   taskToBacklog(tasks: Task[]) {
@@ -103,3 +108,15 @@ export class BacklogPageComponent implements OnInit {
       .subscribe(epics => this.epics = epics);
   }
 }
+/*
+// Alternative Herangehensweise um Daten für eine Tabelle zu ziehen
+export class BacklogDataSource extends DataSource<any> {
+  constructor(private dataService: DataService) {
+    super();
+  }
+  connect(): Observable<Task[]> {
+    return this.dataService.getTasks();
+  }
+  disconnect() {}
+}
+*/
