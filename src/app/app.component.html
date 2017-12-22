@@ -1,18 +1,17 @@
 <header>
-  <mat-toolbar role="header" color="primary">
+  <div>
+  <mat-toolbar color="primary">
     <mat-toolbar-row>
     <span><h2 mat-element routerLink="home">MFJ-Scrum</h2></span>
-    <span>
       <div class="box">
-        <button mat-button routerLink="backlog" ><mat-icon>assessment</mat-icon>Product Backlog</button>
-        <button mat-button routerLink="sprint" >Sprint Planning</button>
-        <button mat-button routerLink="scrumboard" >Scrum Board</button>
-        <button mat-button routerLink="planningpoker" >Planning Poker</button>
-        <button mat-button routerLink="chart" >Burn-Down-Chart</button>
-        <button mat-button routerLink="roadmap" >Roadmap</button>
+        <button mat-button routerLink="backlog"><mat-icon>assessment</mat-icon>Product Backlog</button>
+        <button mat-button routerLink="sprint">Sprint Planning</button>
+        <button mat-button routerLink="scrumboard">Scrum Board</button>
+        <button mat-button routerLink="planningpoker">Planning Poker</button>
+        <button mat-button routerLink="chart">Burn-Down-Chart</button>
+        <button mat-button routerLink="roadmap">Roadmap</button>
       </div>
-    </span>
-    <span class="fill-remaining-space"></span>
+    <span class="spacer"></span>
     <span>
       <div class="box">
         Hello Username_here
@@ -26,6 +25,7 @@
     </span>
     </mat-toolbar-row>
   </mat-toolbar>
+  </div>
 </header>
  <body>
    <main>
