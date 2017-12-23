@@ -27,6 +27,7 @@ export class AuthService {
 
   logout() {
     this.loggedIn.next(false);
+    localStorage.removeItem('username');
     console.log(this.loggedIn.getValue());
     this.router.navigate(['/login']);
   }

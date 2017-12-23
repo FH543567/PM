@@ -9,12 +9,16 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
+  username: string;
   isLoggedIn$: Observable<boolean>;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+    this.username = localStorage.getItem('username');
+  }
 
   get isLoggedIn(){
     if (localStorage.getItem('username') != null) {
+      this.username = localStorage.getItem('username');
       return true;
     }
   }

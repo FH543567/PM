@@ -4,7 +4,7 @@
     <img src="assets/img/logo.jpg" class="angular-logo" routerLink="/home">
   </span>
 
-  <div *ngIf="isLoggedIn$ | async">
+  <div *ngIf="isLoggedIn">
     <button mat-button routerLink="backlog"><mat-icon>assessment</mat-icon>Product Backlog</button>
     <button mat-button routerLink="sprint">Sprint Planning</button>
     <button mat-button routerLink="scrumboard">Scrum Board</button>
@@ -15,15 +15,15 @@
 
   <span class="fill-remaining-space"></span>
 
-  <div *ngIf="isLoggedIn$ | async">
+  <div *ngIf="isLoggedIn">
     <span>Hello {{this.username}}!</span>
   </div>
 
   <button mat-button [matMenuTriggerFor]="appMenu"><mat-icon>more_vert</mat-icon></button>
   <mat-menu #appMenu="matMenu">
-    <button mat-menu-item routerLink="login"><mat-icon>account_box</mat-icon>Login</button>
-    <button mat-menu-item routerLink="register"><mat-icon>assignment-ind</mat-icon>Register</button>
-    <button mat-menu-item (click)="onLogout()" *ngIf="isLoggedIn$ | async"><mat-icon>close</mat-icon>Logout</button>
+    <button mat-menu-item routerLink="login" *ngIf="!isLoggedIn"><mat-icon>account_box</mat-icon>Login</button>
+    <button mat-menu-item routerLink="register" *ngIf="!isLoggedIn"><mat-icon>assignment-ind</mat-icon>Register</button>
+    <button mat-menu-item (click)="onLogout()" *ngIf="isLoggedIn"><mat-icon>close</mat-icon>Logout</button>
   </mat-menu>
 
 </mat-toolbar>
