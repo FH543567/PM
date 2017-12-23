@@ -9,10 +9,11 @@ import { ScrumboardPageComponent } from './scrumboard-page/scrumboard-page.compo
 import { PlanningpokerPageComponent } from './planningpoker-page/planningpoker-page.component';
 import { ChartPageComponent } from './chart-page/chart-page.component';
 import { RoadmapPageComponent } from './roadmap-page/roadmap-page.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full'},
-    { path: 'home', component: HomePageComponent},
+    { path: 'home', component: HomePageComponent },
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'backlog', component: BacklogPageComponent},
