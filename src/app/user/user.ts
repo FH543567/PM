@@ -1,33 +1,28 @@
-/*export interface User {
-  username: string;
-  password: string;
-}*/
 import { JsonObject, JsonProperty } from 'json2typescript';
 
 @JsonObject
 export class User {
-  @JsonProperty('_id', Number)
+  @JsonProperty('id', Number)
   id: number;
-  @JsonProperty('_username', String)
+  @JsonProperty('username', String)
   username: string;
-  @JsonProperty('_password', String)
+  @JsonProperty('password', String)
   password: string;
-  @JsonProperty('_fname', String)
-  fname: string;
-  @JsonProperty('_lname', String)
-  lname: string;
-  @JsonProperty('_role', Number)
+  @JsonProperty('firstname', String)
+  firstname: string;
+  @JsonProperty('lastname', String)
+  lastname: string;
+  @JsonProperty('role', Number)
   role: number;
 
-  constructor(id?: number, username?: string, password?: string, fname?: string, lname?: string, role?: number) {
+  constructor(id?: number, username?: string, password?: string, firstname?: string, lastname?: string, role?: number) {
     this.id = id;
     this.username = username;
     this.password = password;
-    this.fname = fname;
-    this.lname = lname;
+    this.firstname = firstname;
+    this.lastname = lastname;
     this.role = role;
   }
-
 }
 
 /*

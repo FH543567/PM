@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
 export class HeaderComponent implements OnInit {
 
   username: string;
-  isLoggedIn$: Observable<boolean>;
+  // isLoggedIn$: Observable<boolean>;
 
   constructor(private authService: AuthService) {
     this.username = localStorage.getItem('username');
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     }
   }
   ngOnInit() {
-    this.isLoggedIn$ = this.authService.isLoggedIn;
+    // this.isLoggedIn$ = this.authService.isLoggedIn;
   }
 
   onLogout() {

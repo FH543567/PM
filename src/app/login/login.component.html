@@ -5,14 +5,14 @@
         <p>Please login to continue</p>
         <mat-input-container class="full-width-input">
           <input matInput placeholder="User"
-                 formControlName="username" required>
+                 formControlName="username">
           <mat-error *ngIf="isFieldInvalid('username')">
             Please enter your username.
           </mat-error>
         </mat-input-container>
         <mat-input-container class="full-width-input">
           <input matInput type="password" placeholder="Password"
-                 formControlName="password" required>
+                 formControlName="password">
           <mat-error *ngIf="isFieldInvalid('password')">
             Please enter your password.
           </mat-error>

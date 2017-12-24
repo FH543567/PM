@@ -8,8 +8,14 @@ import {JsonConvert, JsonObject, JsonProperty} from 'json2typescript';
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
 
-  get isLoggedIn() {
-    return this.loggedIn.asObservable();
+  get isLoggedIn(): boolean {
+    if (localStorage.getItem('username') != null) {
+      return true;
+    } else {
+      return false;
+    }
+   // return this.loggedIn.getValue();
+   // return this.loggedIn.asObservable();
   }
 
   constructor(
@@ -20,7 +26,6 @@ export class AuthService {
     if (user.username !== '' && user.password !== '') {
       this.loggedIn.next(true);                     // muss um weitere login logic erweitert werden
       localStorage.setItem('username', user.username);
-      console.log(this.loggedIn.getValue());
       this.router.navigate(['/home']);
     }
   }

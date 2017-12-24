@@ -1,3 +1,59 @@
-<p>
-  register works!
-</p>
+<div class="register-content">
+  <mat-card>
+    <mat-card-title>Registration</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Username -->
+        <mat-input-container class="full-width-input">
+          <input matInput placeholder="Username"
+                 formControlName="username">
+          <mat-error *ngIf="isFieldInvalid('username')">
+            Please enter a valid username.
+          </mat-error>
+        </mat-input-container>
+
+        <!-- Password -->
+        <mat-input-container class="full-width-input">
+          <input matInput placeholder="Password"
+                 formControlName="password" type="password">
+          <mat-error *ngIf="isFieldInvalid('password')">
+            Please enter a valid password.
+          </mat-error>
+        </mat-input-container>
+
+        <!-- Firstname -->
+        <mat-input-container class="full-width-input">
+          <input matInput placeholder="Firstname"
+                 formControlName="firstname">
+          <mat-error *ngIf="isFieldInvalid('firstname')">
+            Please enter a valid firstname.
+          </mat-error>
+        </mat-input-container>
+
+        <!-- Lastname -->
+        <mat-input-container class="full-width-input">
+          <input matInput placeholder="Lastname"
+                 formControlName="lastname">
+          <mat-error *ngIf="isFieldInvalid('lastname')">
+            Please enter a valid lastname.
+          </mat-error>
+        </mat-input-container>
+
+        <!-- Role -->
+        <mat-form-field class="full-width-input">
+          <mat-select formControlName="role" placeholder="Your Role">
+            <mat-option *ngFor="let role of roles" [value]="role">
+              {{role.viewValue}}
+            </mat-option>
+
+          </mat-select>
+          <mat-error *ngIf="isFieldInvalid('role')">
+            Please select a role.
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Create your account</button><span class="spacer"></span>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
