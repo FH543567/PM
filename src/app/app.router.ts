@@ -17,7 +17,7 @@ export const routes = [
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'backlog', component: BacklogPageComponent},
-    { path: 'create', component: BacklogComponent},
+    { path: 'backlog/create', component: BacklogComponent},
     { path: 'sprint', component: SprintPageComponent},
     { path: 'scrumboard', component: ScrumboardPageComponent},
     { path: 'planningpoker', component: PlanningpokerPageComponent},

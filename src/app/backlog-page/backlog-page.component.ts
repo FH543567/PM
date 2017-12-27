@@ -38,13 +38,7 @@ export class BacklogPageComponent implements OnInit {
 
   taskToBacklog(tasks: Task[]) {
     for (const task of tasks) {
-      const backlog = new Backlog();
-      backlog.id = task.id;
-      backlog.name = task.name;
-      backlog.description = task.description;
-      backlog.priority = task.priority;
-      backlog.estimatedTime = task.estimatedTime;
-      backlog.workedTime = task.workedTime;
+      const backlog = new Backlog(task.id, task.name, 'Task', task.description, task.priority, task.estimatedTime, task.workedTime);
       this.backlogItems.push(backlog);
     }
   }
@@ -57,13 +51,7 @@ export class BacklogPageComponent implements OnInit {
         estimateSum += task.estimatedTime;
         workedSum += task.workedTime;
       }
-      const backlog = new Backlog();
-      backlog.id = story.id;
-      backlog.name = story.name;
-      backlog.description = story.description;
-      backlog.priority = story.priority;
-      backlog.estimatedTime = estimateSum;
-      backlog.workedTime = workedSum;
+      const backlog = new Backlog(story.id, story.name, 'Story', story.description, story.priority, estimateSum, workedSum);
       this.backlogItems.push(backlog);
     }
   }
@@ -82,13 +70,7 @@ export class BacklogPageComponent implements OnInit {
         estimateSum += estimateSumTemp;
         workedSum += workedSumTemp;
       }
-      const backlog = new Backlog();
-      backlog.id = epic.id;
-      backlog.name = epic.name;
-      backlog.description = epic.description;
-      backlog.priority = epic.priority;
-      backlog.estimatedTime = estimateSum;
-      backlog.workedTime = workedSum;
+      const backlog = new Backlog(epic.id, epic.name, 'Epic', epic.description, epic.priority, estimateSum, workedSum);
       this.backlogItems.push(backlog);
     }
   }
