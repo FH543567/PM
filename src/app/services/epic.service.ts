@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EPICS, TASKS, STORIES } from './mockdata';
+import { EPICS, TASKS, STORIES, SPRINTS } from './mockdata';
 import { Epic } from '../epic/epic';
 
 @Injectable()
