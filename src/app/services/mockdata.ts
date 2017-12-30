@@ -14,10 +14,10 @@ const story2: Story = new Story(2, 'Story 2', 'Beschreibung Story 2', 2, [task2,
 
 const epic1: Epic = new Epic(1, 'Epic 1', 'Beschreibung Epic 1', 1, [story1, story2]);
 
-//TODO: Daten anpassen
-const sprint1: Sprint = new Sprint(1, "Sprint 1", "Beschreibung Sprint 1", 5, new Date(), new Date, [task1,task2]);
+const sprint1: Sprint = new Sprint(1, 'Sprint 1', 'Beschreibung Sprint 1', 5, new Date('2017-12-15'), new Date(2017, 12, 31), [task1, task2]);
+const sprint2: Sprint = new Sprint(2, 'Sprint 2', 'Beschreibung Sprint 2', 5, new Date(2018, 1, 7), new Date(2018, 1, 14), [task3, task5]);
 
 export const TASKS: Task[] = [task1, task2, task3, task4, task5];
 export const STORIES: Story[] = [story1, story2];
 export const EPICS: Epic[] = [epic1];
-export const SPRINTS: Sprint[] = [sprint1];
+export const SPRINTS: Sprint[] = [sprint1, sprint2];
