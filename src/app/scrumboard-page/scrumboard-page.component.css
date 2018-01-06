@@ -1,0 +1,27 @@
+.first-column {
+  float: left;
+  width: 24%;
+  margin-right: 1%;
+  text-align: left;
+}
+
+.second-column {
+  float: left;
+  width: 24%;
+  margin-right: 1%;
+  text-align: center;
+}
+.third-column {
+  float: left;
+  width: 24%;
+  margin-right: 1%;
+  text-align: center;
+}
+
+.fourth-column {
+  float: left;
+  width: 24%;
+  margin-right: 1%;
+  text-align: center;
+}
+

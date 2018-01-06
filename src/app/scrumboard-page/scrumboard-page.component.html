@@ -1,3 +1,74 @@
-<p>
-  scrumboard-page works!
-</p>
+<div>
+  <div class="first-column">
+    <table>
+      <thead>
+        User Story
+      </thead>
+      <tbody>
+        <tr>
+          <td>first user story</td>
+        </tr>
+        <tr>
+          <td>second user story</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="second-column">
+    <table>
+      <thead>
+      To Do
+      </thead>
+      <tbody [dragula]='"first-bag"'>
+      <tr>
+        <td>You can move these elements between these two containers</td>
+      </tr>
+      <tr>
+        <td>Moving them anywhere else isn't quite possible</td>
+      </tr>
+      <tr>
+        <td>There's also the possibility of moving elements around in the same container, changing their position</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="third-column">
+    <table>
+      <thead>
+      In Progress
+      </thead>
+      <tbody [dragula]='"first-bag"'>
+      <tr>
+        <td>You can move these elements between these two containers</td>
+      </tr>
+      <tr>
+        <td>Moving them anywhere else isn't quite possible</td>
+      </tr>
+      <tr>
+        <td>There's also the possibility of moving elements around in the same container, changing their position</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fourth-column">
+    <table>
+      <thead>
+      Done
+      </thead>
+      <tbody [dragula]='"first-bag"'>
+      <tr>
+        <td>This is the default use case. You only need to specify the containers you want to use</td>
+      </tr>
+      <tr>
+        <td>More interactive use cases lie ahead</td>
+      </tr>
+      <tr>
+        <td>Make sure to check out the documentation on GitHub!</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

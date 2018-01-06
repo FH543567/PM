@@ -22,6 +22,7 @@ import { TaskComponent } from './task/task.component';
 import { StoryComponent } from './story/story.component';
 import { EpicComponent } from './epic/epic.component';
 import { SprintDetailsComponent } from './sprint-details/sprint-details.component';
+import { DragulaModule } from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { SprintDetailsComponent } from './sprint-details/sprint-details.componen
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    DragulaModule,
     RouterModule.forRoot(routes),
     [MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule, MatMenuModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatSidenavModule, MatListModule]
   ],
