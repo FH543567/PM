@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule, MatMenuModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatSidenavModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule, MatMenuModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatSidenavModule, MatListModule} from '@angular/material';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -21,6 +21,7 @@ import { DataService } from './services/data.service';
 import { TaskComponent } from './task/task.component';
 import { StoryComponent } from './story/story.component';
 import { EpicComponent } from './epic/epic.component';
+import { SprintDetailsComponent } from './sprint-details/sprint-details.component';
 
 @NgModule({
   declarations: [
@@ -40,12 +41,13 @@ import { EpicComponent } from './epic/epic.component';
     TaskComponent,
     StoryComponent,
     EpicComponent,
+    SprintDetailsComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
-    [MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule, MatMenuModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatSidenavModule]
+    [MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule, MatMenuModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatSidenavModule, MatListModule]
   ],
   providers: [ DataService ],
   bootstrap: [AppComponent]

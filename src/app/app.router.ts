@@ -11,6 +11,7 @@ import { ChartPageComponent } from './chart-page/chart-page.component';
 import { RoadmapPageComponent } from './roadmap-page/roadmap-page.component';
 import { BacklogComponent } from './backlog/backlog.component';
 import { SprintComponent } from './sprint/sprint.component';
+import { SprintDetailsComponent } from './sprint-details/sprint-details.component';
 
 export const routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -21,6 +22,8 @@ export const routes = [
     { path: 'backlog/create', component: BacklogComponent},
     { path: 'sprint', component: SprintPageComponent},
     { path: 'sprint/create', component: SprintComponent},
+    { path: 'sprint/details', component: SprintDetailsComponent},
+    { path: 'sprint/details/:id', component: SprintDetailsComponent},
     { path: 'scrumboard', component: ScrumboardPageComponent},
     { path: 'planningpoker', component: PlanningpokerPageComponent},
     { path: 'chart', component: ChartPageComponent},
