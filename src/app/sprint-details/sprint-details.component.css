@@ -1,0 +1,22 @@
+.left-side {
+  float: left;
+  width: 52%;
+  margin-right: 3%;
+
+}
+.right-side {
+  float: left;
+  width: 44%;
+  margin-right: 1%;
+}
+.sprint-table {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
