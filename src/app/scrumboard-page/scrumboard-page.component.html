@@ -2,23 +2,41 @@
   <div class="first-column">
     <table>
       <thead>
-        User Story
+        <tr>
+          <td><button mat-raised-button color="primary">User Story</button></td>
+        </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>first user story</td>
-        </tr>
-        <tr>
-          <td>second user story</td>
+        <tr *ngFor="let story of stories">
+          <td>{{story.name}}</td>
         </tr>
       </tbody>
     </table>
   </div>
 
+  <div class="first-column">
+    <table>
+      <thead>
+      <tr>
+        <td><button mat-raised-button color="primary">ToDo</button></td>
+        <td><button mat-raised-button color="primary">In Progress</button></td>
+        <td><button mat-raised-button color="primary">Done</button></td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let story of stories" [dragula]='"first-bag"'>
+        <td *ngFor="let task of story.tasks" >{{task.name}}</td>
+      </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+  <!--
   <div class="second-column">
     <table>
       <thead>
-      To Do
+        <button mat-raised-button color="primary">ToDo</button>
       </thead>
       <tbody [dragula]='"first-bag"'>
       <tr>
@@ -37,7 +55,7 @@
   <div class="third-column">
     <table>
       <thead>
-      In Progress
+        <button mat-raised-button color="primary">In Progress</button>
       </thead>
       <tbody [dragula]='"first-bag"'>
       <tr>
@@ -56,7 +74,7 @@
   <div class="fourth-column">
     <table>
       <thead>
-      Done
+        <button mat-raised-button color="primary">Done</button>
       </thead>
       <tbody [dragula]='"first-bag"'>
       <tr>
@@ -71,4 +89,30 @@
       </tbody>
     </table>
   </div>
+
+
+
+
+
+
+  <div class="first-column">
+    <table>
+      <thead>
+        <tr>
+          <td><button mat-raised-button color="primary">User Story</button></td>
+          <td><button mat-raised-button color="primary">ToDo</button></td>
+          <td><button mat-raised-button color="primary">In Progress</button></td>
+          <td><button mat-raised-button color="primary">Done</button></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let story of stories" [dragula]='"first-bag"'>
+          <td>{{story.name}}</td>
+          <td *ngFor="let task of story.tasks">{{task.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  -->
 </div>
