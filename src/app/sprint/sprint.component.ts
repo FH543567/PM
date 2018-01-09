@@ -31,7 +31,7 @@ export class SprintComponent implements OnInit {
   }
 
   createSprint() {
-    const sprint = new Sprint(this.id, this.name, this.description, this.availableTime, new Date(2018, 2, 5), new Date(2018, 2, 10), []);
+    const sprint = new Sprint(this.id, this.name, this.description, this.availableTime, new Date(2018, 2, 5), new Date(2018, 2, 10));
     this.id = this.id + 1;
     this.sprints.push(sprint);
     console.log('created Sprint');
