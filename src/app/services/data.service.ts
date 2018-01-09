@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { EPICS, TASKS, STORIES } from './mockdata';
+import { EPICS, TASKS, STORIES, SPRINTS } from './mockdata';
 import { Task } from '../task/task';
 import { Story } from '../story/story';
 import { Epic } from '../epic/epic';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { User } from '../user/user';
+import { Sprint } from '../sprint/sprint';
 
 @Injectable()
 export class DataService {
@@ -32,5 +33,9 @@ export class DataService {
 
   getEpics(): Observable<Epic[]> {
     return of(EPICS);
+  }
+
+  getSprints(): Observable<Sprint[]> {
+    return of(SPRINTS);
   }
 }

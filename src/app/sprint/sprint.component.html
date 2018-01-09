@@ -1,3 +1,47 @@
-<p>
-  sprint works!
-</p>
+<div class="example-container">
+  <mat-form-field>
+    <input matInput placeholder="Name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Type">
+      <mat-option value="option" (click)="setType('Task')">Task</mat-option>
+      <mat-option value="option" (click)="setType('Story')">Story</mat-option>
+      <mat-option value="option" (click)="setType('Epic')">Epic</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput #input type="number" placeholder="Estimation in h">
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Priority">
+      <mat-option value="option" (click)="setPriority(1)">1</mat-option>
+      <mat-option value="option" (click)="setPriority(2)">2</mat-option>
+      <mat-option value="option" (click)="setPriority(3)">3</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Person in charge">
+      <mat-option value="option">Person 1</mat-option>
+      <mat-option value="option">Person 2</mat-option>
+      <mat-option value="option">Person 3</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Assigned to">
+      <mat-option value="option">User Story 1</mat-option>
+      <mat-option value="option">User Story 2</mat-option>
+      <mat-option value="option">User Story 3</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<button mat-raised-button color="primary" (click)="createBacklog()" routerLink="/backlog">Submit</button>
+<p *ngFor="let backlog of backlogs">{{backlog.name}}</p>

@@ -12,6 +12,8 @@ import { RoadmapPageComponent } from './roadmap-page/roadmap-page.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoggedOutGuard } from './guards/logged-out.guard';
 import { BacklogComponent } from './backlog/backlog.component';
+import { SprintComponent } from './sprint/sprint.component';
+import { SprintDetailsComponent } from './sprint-details/sprint-details.component';
 
 export const routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -19,7 +21,11 @@ export const routes = [
     { path: 'login', component: LoginComponent, canActivate: [LoggedOutGuard]},
     { path: 'register', component: RegisterComponent, canActivate: [LoggedOutGuard]},
     { path: 'backlog', component: BacklogPageComponent, canActivate: [AuthGuard]},
+    { path: 'backlog/create', component: BacklogComponent, canActivate: [AuthGuard]},
     { path: 'sprint', component: SprintPageComponent, canActivate: [AuthGuard]},
+    { path: 'sprint/create', component: SprintComponent, canActivate: [AuthGuard]},
+    { path: 'sprint/details', component: SprintDetailsComponent, canActivate: [AuthGuard]},
+    { path: 'sprint/details/:id', component: SprintDetailsComponent, canActivate: [AuthGuard]},
     { path: 'scrumboard', component: ScrumboardPageComponent, canActivate: [AuthGuard]},
     { path: 'planningpoker', component: PlanningpokerPageComponent, canActivate: [AuthGuard]},
     { path: 'chart', component: ChartPageComponent, canActivate: [AuthGuard]},
