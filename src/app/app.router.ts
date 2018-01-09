@@ -11,6 +11,7 @@ import { ChartPageComponent } from './chart-page/chart-page.component';
 import { RoadmapPageComponent } from './roadmap-page/roadmap-page.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoggedOutGuard } from './guards/logged-out.guard';
+import { BacklogComponent } from './backlog/backlog.component';
 
 export const routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full'},

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { EPIC, TASK, STORY } from './mockdata';
+import { EPICS, TASKS, STORIES } from './mockdata';
 import { Task } from '../task/task';
 import { Story } from '../story/story';
 import { Epic } from '../epic/epic';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 import { User } from '../user/user';
 
 @Injectable()
@@ -19,15 +21,16 @@ export class DataService {
     console.log('role:', user.role);
     return true;
   }
-  getTasks(): Task[] {
-    return TASK;
+
+  getTasks(): Observable<Task[]> {
+    return of(TASKS);
   }
 
-  getStory(): Story[] {
-    return STORY;
+    getStories(): Observable<Story[]> {
+    return of(STORIES);
   }
 
-  getEpic(): Epic[] {
-    return EPIC;
+  getEpics(): Observable<Epic[]> {
+    return of(EPICS);
   }
 }
