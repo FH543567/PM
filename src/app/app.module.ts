@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule} from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule, MatMenuModule, MatTableModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
+  MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule , MatOptionModule, MatTableModule} from '@angular/material';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -21,6 +23,11 @@ import { DataService } from './services/data.service';
 import { TaskComponent } from './task/task.component';
 import { StoryComponent } from './story/story.component';
 import { EpicComponent } from './epic/epic.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './header/header.component';
+import { AuthGuard } from './guards/auth.guard';
+import { AuthService } from './services/auth.service';
+import { LoggedOutGuard } from './guards/logged-out.guard';
 
 @NgModule({
   declarations: [
@@ -40,14 +47,24 @@ import { EpicComponent } from './epic/epic.component';
     TaskComponent,
     StoryComponent,
     EpicComponent,
+    HeaderComponent,
   ],
   imports: [
+    ReactiveFormsModule,
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
-    [MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule, MatMenuModule, MatTableModule]
+    FormsModule,
+    [MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule,
+      MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule, MatOptionModule, MatTableModule]
   ],
-  providers: [ DataService ],
+  providers: [
+    DataService,
+    AuthService,
+    AuthGuard,
+    LoggedOutGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
