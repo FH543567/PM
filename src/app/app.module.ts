@@ -35,6 +35,7 @@ import { SprintService } from './services/sprint.service';
 import { TaskService } from './services/task.service';
 import { StoryService } from './services/story.service';
 import { EpicService } from './services/epic.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { EpicService } from './services/epic.service';
       MatSidenavModule, MatListModule]
   ],
   providers: [
+    UserService,
     SprintService,
     StoryService,
     EpicService,
