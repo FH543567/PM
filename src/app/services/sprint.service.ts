@@ -12,7 +12,6 @@ export class SprintService {
   }
 
   create(epic: Sprint) {
-    
   }
 
   update(epic: Sprint) {
