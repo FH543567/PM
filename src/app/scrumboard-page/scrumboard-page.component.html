@@ -25,7 +25,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let story of stories" [dragula]='"first-bag"'>
-        <td *ngFor="let task of story.tasks" >{{task.name}}</td>
+        <td *ngFor="let task of tasks">{{task.name}}</td>
       </tr>
       </tbody>
 

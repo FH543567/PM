@@ -45,6 +45,11 @@ export class BacklogPageComponent implements OnInit {
 
   storyToBacklog(stories: Story[]) {
     for (const story of stories) {
+      const backlog = new Backlog(story.id, story.name, 'Story', story.description, story.priority, 0, 0);
+      this.backlogItems.push(backlog);
+    }
+    /* backup
+    for (const story of stories) {
       let estimateSum = 0;
       let workedSum = 0;
       for (const task of story.tasks) {
@@ -54,9 +59,15 @@ export class BacklogPageComponent implements OnInit {
       const backlog = new Backlog(story.id, story.name, 'Story', story.description, story.priority, estimateSum, workedSum);
       this.backlogItems.push(backlog);
     }
+     */
   }
 
   epicToBacklog(epics: Epic[]) {
+    for (const epic of epics) {
+      const backlog = new Backlog(epic.id, epic.name, 'Epic', epic.description, epic.priority, 0, 0);
+      this.backlogItems.push(backlog);
+    }
+    /* backup
     for (const epic of epics) {
       let estimateSum = 0;
       let workedSum = 0;
@@ -73,6 +84,7 @@ export class BacklogPageComponent implements OnInit {
       const backlog = new Backlog(epic.id, epic.name, 'Epic', epic.description, epic.priority, estimateSum, workedSum);
       this.backlogItems.push(backlog);
     }
+     */
   }
 
   getTasks() {

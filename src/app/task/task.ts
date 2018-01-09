@@ -1,4 +1,5 @@
 import { Backlog } from '../backlog/backlog';
+import { Story } from '../story/story';
 
 export class Task {
   id: number;
@@ -27,5 +28,4 @@ export class Task {
     this.storyId = storyId;
     this.sprintId = sprintId;
   }
-
 }
