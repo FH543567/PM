@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Story } from '../story/story';
 import { Task } from '../task/task';
 import { DataService } from '../services/data.service';
+import { StoryService } from '../services/story.service';
 
 @Component({
   selector: 'app-scrumboard-page',
@@ -11,14 +12,14 @@ import { DataService } from '../services/data.service';
 export class ScrumboardPageComponent implements OnInit {
   stories: Story[];
   tasks: Task[];
-  constructor(private dataService: DataService) { }
+  constructor(private storyService: StoryService) { }
 
   ngOnInit() {
     this.getStories();
   }
 
   getStories() {
-    this.dataService.getStories()
+    this.storyService.getStories()
       .subscribe(stories => this.stories = stories);
   }
 }

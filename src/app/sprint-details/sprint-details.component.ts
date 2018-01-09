@@ -4,6 +4,8 @@ import { DataService } from '../services/data.service';
 import { Sprint } from '../sprint/sprint';
 import { Task } from '../task/task';
 import { MatTableDataSource } from '@angular/material';
+import { SprintService } from '../services/sprint.service';
+import { TaskService } from '../services/task.service';
 
 @Component({
   selector: 'app-sprint-details',
@@ -18,7 +20,7 @@ export class SprintDetailsComponent implements OnInit {
   tasks: Task[];
   displayedColumns = ['Id', 'Name', 'EstTime'];
   dataSource: any;
-  constructor(private route: ActivatedRoute, private dataService: DataService) { }
+  constructor(private route: ActivatedRoute, private sprintService: SprintService, private taskService: TaskService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -39,12 +41,12 @@ export class SprintDetailsComponent implements OnInit {
   }
 
   getSprints()  {
-    this.dataService.getSprints()
+    this.sprintService.getSprints()
       .subscribe(sprints => this.sprints = sprints);
   }
 
   getTasks()  {
-    this.dataService.getTasks()
+    this.taskService.getTasks()
       .subscribe(tasks => this.tasks = tasks);
   }
 }

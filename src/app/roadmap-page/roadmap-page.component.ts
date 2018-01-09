@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Sprint } from '../sprint/sprint';
 import { Epic } from '../epic/epic';
 import { Story } from '../story/story';
-import { DataService } from '../services/data.service';
+import { EpicService } from '../services/epic.service';
+import { SprintService } from '../services/sprint.service';
+import { StoryService } from '../services/story.service';
 
 @Component({
   selector: 'app-roadmap-page',
@@ -15,7 +17,7 @@ export class RoadmapPageComponent implements OnInit {
   epics: Epic[];
   sprints: Sprint[];
   stories: Story[];
-  constructor(private dataService: DataService) { }
+  constructor(private epicService: EpicService, private sprintService: SprintService, private storyService: StoryService) { }
 
   ngOnInit() {
     this.getEpics();
@@ -24,17 +26,17 @@ export class RoadmapPageComponent implements OnInit {
   }
 
   getEpics() {
-    this.dataService.getEpics()
+    this.epicService.getEpics()
       .subscribe(epics => this.epics = epics);
   }
 
   getSprints() {
-    this.dataService.getSprints()
+    this.sprintService.getSprints()
       .subscribe(sprints => this.sprints = sprints);
   }
 
   getStories() {
-    this.dataService.getStories()
+    this.storyService.getStories()
       .subscribe(stories => this.stories = stories);
   }
 }

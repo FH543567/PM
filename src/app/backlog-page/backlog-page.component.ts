@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../task/task';
-import { DataService } from '../services/data.service';
 import { Story } from '../story/story';
 import { Epic } from '../epic/epic';
 import { Backlog } from '../backlog/backlog';
-import {MatTableDataSource} from '@angular/material';
-import { DataSource } from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material';
+import { TaskService } from '../services/task.service';
+import { StoryService } from '../services/story.service';
+import { EpicService } from '../services/epic.service';
 import { Observable } from 'rxjs/Observable';
 
 
@@ -23,7 +24,7 @@ export class BacklogPageComponent implements OnInit {
   dataSource: any;
   // dataSource = new BacklogDataSource(this.dataService);
 
-  constructor(private dataService: DataService) { }
+  constructor(private taskService: TaskService, private storyService: StoryService, private epicService: EpicService) { }
 
   ngOnInit() {
     this.backlogItems = [];
@@ -34,6 +35,21 @@ export class BacklogPageComponent implements OnInit {
     this.storyToBacklog(this.stories);
     this.epicToBacklog(this.epics);
     this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems);
+  }
+
+  getTasks() {
+    this.taskService.getTasks()
+      .subscribe(tasks => this.tasks = tasks);
+  }
+
+  getStories() {
+    this.storyService.getStories()
+      .subscribe(stories => this.stories = stories);
+  }
+
+  getEpics() {
+    this.epicService.getEpics()
+      .subscribe(epics => this.epics = epics);
   }
 
   taskToBacklog(tasks: Task[]) {
@@ -85,21 +101,6 @@ export class BacklogPageComponent implements OnInit {
       this.backlogItems.push(backlog);
     }
      */
-  }
-
-  getTasks() {
-    this.dataService.getTasks()
-      .subscribe(tasks => this.tasks = tasks);
-  }
-
-  getStories() {
-    this.dataService.getStories()
-      .subscribe(stories => this.stories = stories);
-  }
-
-  getEpics() {
-    this.dataService.getEpics()
-      .subscribe(epics => this.epics = epics);
   }
 }
 /*

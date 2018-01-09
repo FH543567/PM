@@ -4,7 +4,8 @@ import { CommonModule} from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
-  MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule , MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule} from '@angular/material';
+  MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule ,
+  MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule} from '@angular/material';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -30,6 +31,10 @@ import { AuthService } from './services/auth.service';
 import { LoggedOutGuard } from './guards/logged-out.guard';
 import { SprintDetailsComponent } from './sprint-details/sprint-details.component';
 import { DragulaModule } from 'ng2-dragula';
+import { SprintService } from './services/sprint.service';
+import { TaskService } from './services/task.service';
+import { StoryService } from './services/story.service';
+import { EpicService } from './services/epic.service';
 
 @NgModule({
   declarations: [
@@ -66,6 +71,10 @@ import { DragulaModule } from 'ng2-dragula';
       MatSidenavModule, MatListModule]
   ],
   providers: [
+    SprintService,
+    StoryService,
+    EpicService,
+    TaskService,
     DataService,
     AuthService,
     AuthGuard,

@@ -23,11 +23,12 @@ export class DataService {
     return true;
   }
 
+  /*
   getTasks(): Observable<Task[]> {
     return of(TASKS);
   }
 
-    getStories(): Observable<Story[]> {
+  getStories(): Observable<Story[]> {
     return of(STORIES);
   }
 
@@ -38,4 +39,5 @@ export class DataService {
   getSprints(): Observable<Sprint[]> {
     return of(SPRINTS);
   }
+  */
 }
