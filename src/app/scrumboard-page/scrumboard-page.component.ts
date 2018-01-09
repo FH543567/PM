@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Story } from '../story/story';
+import { Task } from '../task/task';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { DataService } from '../services/data.service';
 })
 export class ScrumboardPageComponent implements OnInit {
   stories: Story[];
+  tasks: Task[];
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
