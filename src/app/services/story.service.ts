@@ -3,10 +3,12 @@ import { STORIES } from './mockdata';
 import { Story } from '../story/story';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { TASKS } from './mockdata';
+import { Task } from '../task/task';
 
 @Injectable()
 export class StoryService {
-
+  tasks: Task[];
   constructor() { }
 
   getStories(): Observable<Story[]> {
@@ -20,6 +22,15 @@ export class StoryService {
       }
     }
     return null;
+  }
+
+  getTasks(id: number): Observable<Task[]> {
+    for (let i = 0; i < TASKS.length; i++) {
+      if (TASKS[i].storyId = id) {
+        this.tasks.push(TASKS[i]);
+      }
+    }
+    return of(this.tasks);
   }
 
   create(story: Story) {
