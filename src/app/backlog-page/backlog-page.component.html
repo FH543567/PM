@@ -4,29 +4,23 @@
 
     <ng-container matColumnDef="Id">
       <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-      <mat-cell *matCellDef="let task"> {{task.id}} </mat-cell>
+      <mat-cell *matCellDef="let backlog"> {{backlog.id}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let task"> {{task.name}} </mat-cell>
+      <mat-cell *matCellDef="let backlog"> {{backlog.name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="Priority">
       <mat-header-cell *matHeaderCellDef> Priority </mat-header-cell>
-      <mat-cell *matCellDef="let task"> {{task.priority}} </mat-cell>
+      <mat-cell *matCellDef="let backlog"> {{backlog.priority}} </mat-cell>
     </ng-container>
 
     <!-- TODO: Add progress instead of Estimated -->
-    <ng-container matColumnDef="Estimated">
-      <mat-header-cell *matHeaderCellDef> Estimation </mat-header-cell>
-      <mat-cell *matCellDef="let task"> {{task.estimatedTime}} </mat-cell>
-    </ng-container>
-
-    <!-- TODO: Delete worked when above TODO is done -->
-    <ng-container matColumnDef="Worked">
-      <mat-header-cell *matHeaderCellDef> Worked </mat-header-cell>
-      <mat-cell *matCellDef="let task"> {{task.workedTime}} </mat-cell>
+    <ng-container matColumnDef="Progress">
+      <mat-header-cell *matHeaderCellDef> Progress </mat-header-cell>
+      <mat-cell *matCellDef="let backlog"> {{backlog.progress | number:0}}%  </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -30,8 +30,6 @@ export class DataService {
     console.log('description', backlog.description);
     console.log('priority', backlog.priority);
     console.log('type', backlog.type);
-    console.log('workload', backlog.workload);
-    console.log('estimation', backlog.estimation);
     return true;
   }
 

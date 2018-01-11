@@ -106,13 +106,6 @@ export class BacklogComponent implements OnInit {
     console.log('Name: ' + name);
   }
 
-  createBacklog() {
-    const backlog = new Backlog(this.id, this.name, this.type, this.description, this.priority, this.estimatedTime, 0);
-    this.id = this.id + 1;
-    this.backlogs.push(backlog);
-    console.log('createBacklog');
-  }
-
   isFieldInvalid(field: string) {
     return (
       (!this.form.get(field).valid && this.form.get(field).touched) ||

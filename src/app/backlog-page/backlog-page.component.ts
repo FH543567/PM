@@ -20,7 +20,7 @@ export class BacklogPageComponent implements OnInit {
   stories: Story[];
   epics: Epic[];
   backlogItems: Backlog[];
-  displayedColumns = ['Id', 'Name', 'Priority', 'Estimated', 'Worked'];
+  displayedColumns = ['Id', 'Name', 'Priority', 'Progress'];
   dataSource: any;
   // dataSource = new BacklogDataSource(this.dataService);
 
@@ -31,9 +31,9 @@ export class BacklogPageComponent implements OnInit {
     this.getTasks();
     this.getStories();
     this.getEpics();
-    this.taskToBacklog(this.tasks);
-    this.storyToBacklog(this.stories);
-    this.epicToBacklog(this.epics);
+    this.taskToBacklog();
+    this.storyToBacklog();
+    this.epicToBacklog();
     this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems);
   }
 
@@ -52,16 +52,26 @@ export class BacklogPageComponent implements OnInit {
       .subscribe(epics => this.epics = epics);
   }
 
-  taskToBacklog(tasks: Task[]) {
-    for (const task of tasks) {
-      const backlog = new Backlog(task.id, task.name, 'Task', task.description, task.priority, task.workload, task.workedTime);
+  taskToBacklog() {
+    for (const task of this.tasks) {
+      const progress = task.workedTime / task.workload * 100;
+      const backlog = new Backlog(task.id, task.name, 'Task', task.description, task.priority, progress);
       this.backlogItems.push(backlog);
     }
   }
 
-  storyToBacklog(stories: Story[]) {
-    for (const story of stories) {
-      const backlog = new Backlog(story.id, story.name, 'Story', story.description, story.priority, 0, 0);
+  storyToBacklog() {
+    for (const story of this.stories) {
+      let workloadTask = 0;
+      let workedTimeTask = 0;
+      for (const task of this.tasks) {
+        if (task.storyId === story.id) {
+          workloadTask += task.workload;
+          workedTimeTask += task.workedTime;
+        }
+      }
+      const progress = workedTimeTask / workloadTask * 100;
+      const backlog = new Backlog(story.id, story.name, 'Story', story.description, story.priority, progress);
       this.backlogItems.push(backlog);
     }
     /* backup
@@ -78,9 +88,26 @@ export class BacklogPageComponent implements OnInit {
      */
   }
 
-  epicToBacklog(epics: Epic[]) {
-    for (const epic of epics) {
-      const backlog = new Backlog(epic.id, epic.name, 'Epic', epic.description, epic.priority, 0, 0);
+  epicToBacklog() {
+    for (const epic of this.epics) {
+      let workloadStory = 0;
+      let workedTimeStory = 0;
+      for (const story of this.stories) {
+        if (story.epicId === epic.id) {
+          let workloadTask = 0;
+          let workedTimeTask = 0;
+          for (const task of this.tasks) {
+            if (task.storyId === story.id) {
+              workloadTask += task.workload;
+              workedTimeTask += task.workedTime;
+            }
+          }
+          workloadStory += workloadTask;
+          workedTimeStory += workedTimeTask;
+        }
+      }
+      const progress = workedTimeStory / workloadStory * 100;
+      const backlog = new Backlog(epic.id, epic.name, 'Epic', epic.description, epic.priority, progress);
       this.backlogItems.push(backlog);
     }
     /* backup
