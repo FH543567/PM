@@ -5,7 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
   MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule ,
-  MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule} from '@angular/material';
+  MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule,
+  MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -69,7 +70,7 @@ import { UserService } from './services/user.service';
     [MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule,
       MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule, MatOptionModule,
       MatTableModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule,
-      MatSidenavModule, MatListModule]
+      MatSidenavModule, MatListModule, MatDatepickerModule, MatNativeDateModule]
   ],
   providers: [
     UserService,

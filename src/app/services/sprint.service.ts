@@ -22,10 +22,16 @@ export class SprintService {
     return null;
   }
 
-  create(epic: Sprint) {
+  create(sprint: Sprint) {
+    console.log('Create Sprint');
+    console.log('Name: ' + sprint.name);
+    console.log('Description: ' + sprint.description);
+    console.log('Available time: ' + sprint.availableTime);
+    console.log('Start date: ' + sprint.startDate);
+    console.log('End date: ' + sprint.endDate);
   }
 
-  update(epic: Sprint) {
+  update(sprint: Sprint) {
   }
 
   delete(id: number) {
