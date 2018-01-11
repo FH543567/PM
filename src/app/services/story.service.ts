@@ -33,12 +33,22 @@ export class StoryService {
     return of(this.tasks);
   }
 
-  create(story: Story) {
+  create(story: Story): boolean {
+    console.log('created');
+    console.log('Name: ' + story.name);
+    console.log('Description: ' + story.description);
+    console.log('Priority: ' + story.priority);
+    console.log('EpicID: ' + story.epicId);
+    return true;
   }
 
-  update(story: Story) {
+  update(story: Story): boolean {
+    console.log('updated');
+    return true;
   }
 
-  delete(id: number) {
+  delete(id: number): boolean {
+    console.log('deleted');
+    return true;
   }
 }

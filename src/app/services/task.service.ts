@@ -22,12 +22,24 @@ export class TaskService {
     return null;
   }
 
-  create(task: Task) {
+  create(task: Task): boolean {
+    console.log('created');
+    console.log('Name: ' + task.name);
+    console.log('Description: ' + task.description);
+    console.log('Workload: ' + task.workload);
+    console.log('StoryID: ' + task.storyId);
+    console.log('Priority: ' + task.priority);
+    console.log('UserID: ' + task.userId);
+    return true;
   }
 
-  update(task: Task) {
+  update(task: Task): boolean {
+    console.log('update');
+    return true;
   }
 
-  delete(id: number) {
+  delete(id: number): boolean {
+    console.log('delete');
+    return true;
   }
 }

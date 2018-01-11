@@ -22,13 +22,22 @@ export class EpicService {
     return null;
   }
 
-  create(epic: Epic) {
+  create(epic: Epic): boolean {
+    console.log('created');
+    console.log('Name: ' + epic.name);
+    console.log('Description: ' + epic.description);
+    console.log('Priority: ' + epic.priority);
+    return true;
   }
 
-  update(epic: Epic) {
+  update(epic: Epic): boolean {
+    console.log('updated');
+    return true;
   }
 
-  delete(id: number) {
+  delete(id: number): boolean {
+    console.log('deleted');
+    return true;
   }
 
 }

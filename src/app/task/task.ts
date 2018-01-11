@@ -6,26 +6,29 @@ export class Task {
   name: string;
   description: string;
   priority: number;
-  estimatedTime: number;
+  workload: number;
   workedTime: number;
   storyId: number;
   sprintId: number;
+  userId: number;
 
   constructor(id: number,
               name: string,
               description: string,
               priority: number,
-              estimatedTime: number,
+              workload: number,
               workedTime: number,
               storyId?: number,
-              sprintId?: number) {
+              sprintId?: number,
+              userId?: number) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.priority = priority;
-    this.estimatedTime = estimatedTime;
+    this.workload = workload;
     this.workedTime = workedTime;
     this.storyId = storyId;
     this.sprintId = sprintId;
+    this.userId = userId;
   }
 }

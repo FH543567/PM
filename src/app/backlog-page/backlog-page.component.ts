@@ -54,7 +54,7 @@ export class BacklogPageComponent implements OnInit {
 
   taskToBacklog(tasks: Task[]) {
     for (const task of tasks) {
-      const backlog = new Backlog(task.id, task.name, 'Task', task.description, task.priority, task.estimatedTime, task.workedTime);
+      const backlog = new Backlog(task.id, task.name, 'Task', task.description, task.priority, task.workload, task.workedTime);
       this.backlogItems.push(backlog);
     }
   }

@@ -17,11 +17,13 @@
       <mat-cell *matCellDef="let task"> {{task.priority}} </mat-cell>
     </ng-container>
 
+    <!-- TODO: Add progress instead of Estimated -->
     <ng-container matColumnDef="Estimated">
       <mat-header-cell *matHeaderCellDef> Estimation </mat-header-cell>
       <mat-cell *matCellDef="let task"> {{task.estimatedTime}} </mat-cell>
     </ng-container>
 
+    <!-- TODO: Delete worked when above TODO is done -->
     <ng-container matColumnDef="Worked">
       <mat-header-cell *matHeaderCellDef> Worked </mat-header-cell>
       <mat-cell *matCellDef="let task"> {{task.workedTime}} </mat-cell>
