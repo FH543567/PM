@@ -1,16 +1,17 @@
-<table class="besides" *ngFor="let epic of epics">
+<table class="besides" *ngFor="let sprint of sprints">
   <thead>
-    <button mat-raised-button color="primary">{{epic.name}}</button>
+    <button mat-raised-button color="primary">{{sprint.name}}</button>
   </thead>
   <tbody>
-    <tr>
-      <td *ngFor="let story of stories"><button mat-raised-button color="warn">{{story.name}}</button></td>
-    </tr>
+    <tr>{{sprint.startDate.toLocaleDateString()}} -</tr>
+    <tr>{{sprint.endDate.toLocaleDateString()}}</tr>
+    <!-- TODO Platzhalter. Progress muss später über alle zugewiesenen Tasks berechnet werden -->
+    <tr>Progress</tr>
   </tbody>
 </table>
 
 
-
+<!--
 <div class="example-container mat-elevation-z8">
   <mat-table #table [dataSource]="dataSource">
 
@@ -45,3 +46,4 @@
 </div>
 <br>
 <button mat-raised-button color="primary" routerLink="/backlog/create">New Item</button>
+-->
