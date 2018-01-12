@@ -38,6 +38,8 @@ import { StoryService } from './services/story.service';
 import { EpicService } from './services/epic.service';
 import { UserService } from './services/user.service';
 import { TaskDetailsComponent } from './task-details/task-details.component';
+import { StoryDetailsComponent } from './story-details/story-details.component';
+import { EpicDetailsComponent } from './epic-details/epic-details.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,8 @@ import { TaskDetailsComponent } from './task-details/task-details.component';
     HeaderComponent,
     SprintDetailsComponent,
     TaskDetailsComponent,
+    StoryDetailsComponent,
+    EpicDetailsComponent,
   ],
   imports: [
     ReactiveFormsModule,

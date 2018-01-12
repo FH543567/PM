@@ -15,7 +15,7 @@ export class UserService {
 
   getUser(id: number): Observable<User> {
     for (let i = 0; i < USERS.length; i++) {
-      if (USERS[i].id = id) {
+      if (USERS[i].id === id) {
         return of(USERS[i]);
       }
     }

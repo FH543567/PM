@@ -15,7 +15,7 @@ export class EpicService {
 
   getEpic(id: number): Observable<Epic> {
     for (let i = 0; i < EPICS.length; i++) {
-      if (EPICS[i].id = id) {
+      if (EPICS[i].id === id) {
         return of(EPICS[i]);
       }
     }

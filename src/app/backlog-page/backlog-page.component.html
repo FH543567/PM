@@ -8,7 +8,11 @@
 
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let backlog" [routerLink]="['details', backlog.id]"><button mat-raised-button color="warn">{{backlog.name}}</button></mat-cell>
+      <mat-cell *matCellDef="let backlog">
+        <button mat-raised-button color="warn" *ngIf="backlog.type === 'Task'" [routerLink]="['../tasks/details', backlog.id]">{{backlog.name}}</button>
+        <button mat-raised-button color="warn" *ngIf="backlog.type === 'Story'" [routerLink]="['../stories/details', backlog.id]">{{backlog.name}}</button>
+        <button mat-raised-button color="warn" *ngIf="backlog.type === 'Epic'" [routerLink]="['../epics/details', backlog.id]">{{backlog.name}}</button>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="Priority">

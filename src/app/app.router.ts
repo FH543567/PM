@@ -15,6 +15,8 @@ import { BacklogComponent } from './backlog/backlog.component';
 import { SprintComponent } from './sprint/sprint.component';
 import { SprintDetailsComponent } from './sprint-details/sprint-details.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
+import { StoryDetailsComponent } from './story-details/story-details.component';
+import { EpicDetailsComponent } from './epic-details/epic-details.component';
 
 export const routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -23,7 +25,9 @@ export const routes = [
     { path: 'register', component: RegisterComponent, canActivate: [LoggedOutGuard]},
     { path: 'backlog', component: BacklogPageComponent, canActivate: [AuthGuard]},
     { path: 'backlog/create', component: BacklogComponent, canActivate: [AuthGuard]},
-    { path: 'backlog/details/:id', component: TaskDetailsComponent, canActivate: [AuthGuard]},
+    { path: 'tasks/details/:id', component: TaskDetailsComponent, canActivate: [AuthGuard]},
+    { path: 'stories/details/:id', component: StoryDetailsComponent, canActivate: [AuthGuard]},
+    { path: 'epics/details/:id', component: EpicDetailsComponent, canActivate: [AuthGuard]},
     { path: 'sprint', component: SprintPageComponent, canActivate: [AuthGuard]},
     { path: 'sprint/create', component: SprintComponent, canActivate: [AuthGuard]},
     { path: 'sprint/details', component: SprintDetailsComponent, canActivate: [AuthGuard]},

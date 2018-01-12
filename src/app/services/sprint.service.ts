@@ -15,7 +15,7 @@ export class SprintService {
 
   getSprint(id: number): Observable<Sprint> {
     for (let i = 0; i < SPRINTS.length; i++) {
-      if (SPRINTS[i].id = id) {
+      if (SPRINTS[i].id === id) {
         return of(SPRINTS[i]);
       }
     }

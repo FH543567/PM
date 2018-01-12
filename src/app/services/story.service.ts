@@ -17,7 +17,7 @@ export class StoryService {
 
   getStory(id: number): Observable<Story> {
     for (let i = 0; i < STORIES.length; i++) {
-      if (STORIES[i].id = id) {
+      if (STORIES[i].id === id) {
         return of(STORIES[i]);
       }
     }
