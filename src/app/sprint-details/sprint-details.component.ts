@@ -18,6 +18,7 @@ export class SprintDetailsComponent implements OnInit {
   sprints: Sprint[];
   sprint: Sprint;
   tasks: Task[];
+  assignedTasks: Task[] = [];
   displayedColumns = ['Id', 'Name', 'EstTime'];
   dataSource: any;
   constructor(private route: ActivatedRoute, private sprintService: SprintService, private taskService: TaskService) { }
@@ -28,6 +29,7 @@ export class SprintDetailsComponent implements OnInit {
     });
     this.getSprints();
     this.getTasks();
+    this.getAssignedTasks();
     for (let i = 0; i < this.sprints.length; i++) {
       if (this.id = this.sprints[i].id) {
         this.sprint = this.sprints[i];
@@ -48,5 +50,13 @@ export class SprintDetailsComponent implements OnInit {
   getTasks()  {
     this.taskService.getTasks()
       .subscribe(tasks => this.tasks = tasks);
+  }
+
+  getAssignedTasks() {
+    for (const task of this.tasks) {
+      if (task.sprintId === this.id) {
+        this.assignedTasks.push(task);
+      }
+    }
   }
 }

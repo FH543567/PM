@@ -9,7 +9,7 @@
 
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let backlog"> {{backlog.name}} </mat-cell>
+      <mat-cell *matCellDef="let backlog"><button mat-raised-button color="warn">{{backlog.name}}</button></mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="Priority">

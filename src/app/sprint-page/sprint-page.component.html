@@ -7,7 +7,7 @@
 
   <ng-container matColumnDef="Name">
     <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-    <mat-cell *matCellDef="let sprint" [routerLink]="['details', sprint.id]"> {{sprint.name}} </mat-cell>
+    <mat-cell *matCellDef="let sprint" [routerLink]="['details', sprint.id]"><button mat-raised-button color="warn">{{sprint.name}}</button></mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Start">
