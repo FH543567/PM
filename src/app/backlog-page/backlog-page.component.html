@@ -1,5 +1,4 @@
-
-<div class="example-container mat-elevation-z8">
+<div id="table" class="example-container mat-elevation-z8">
   <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="Id">
@@ -9,7 +8,7 @@
 
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let backlog"><button mat-raised-button color="warn">{{backlog.name}}</button></mat-cell>
+      <mat-cell *matCellDef="let backlog" [routerLink]="['details', backlog.id]"><button mat-raised-button color="warn">{{backlog.name}}</button></mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="Priority">
@@ -28,7 +27,7 @@
   </mat-table>
 </div>
 <br>
-<button mat-raised-button color="primary" routerLink="/backlog/create">New Item</button>
+<button id="create" mat-raised-button color="primary" routerLink="/backlog/create">New Item</button>
 
 <!--<p *ngFor="let backlog of backlogItems">{{backlog.id}} {{backlog.name}} {{backlog.priority}} {{backlog.estimatedTime}} {{backlog.workedTime}}</p>-->
 

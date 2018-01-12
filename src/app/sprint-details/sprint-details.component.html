@@ -1,4 +1,36 @@
 <div class="left-side">
+  <table>
+    <tbody>
+      <tr>
+        <td style="font-weight: bold">Name: </td>
+        <td>{{sprint.name}}</td>
+      </tr>
+    <tr>
+      <td style="font-weight: bold">ID: </td>
+      <td>{{sprint.id}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold">Description: </td>
+      <td>{{sprint.description}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold">Start date: </td>
+      <td>{{sprint.startDate.toLocaleDateString()}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold">End date: </td>
+      <td>{{sprint.endDate.toLocaleDateString()}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold">Available time: </td>
+      <td>{{sprint.availableTime}}</td>
+    </tr>
+    <tr><td style="font-weight: bold">Tasks: </td></tr>
+    <tr *ngFor="let task of assignedTasks"><button mat-raised-button color="warn">{{task.name}}</button></tr>
+    </tbody>
+  </table>
+</div>
+  <!--
   <mat-list role="list">
     <mat-list-item role="listitem">Name: {{sprint.name}}</mat-list-item>
     <mat-list-item role="listitem">Sprint-id: {{sprint.id}}</mat-list-item>
@@ -8,7 +40,7 @@
     <mat-list-item role="listitem">Verfügbare Zeit: {{sprint.availableTime}}</mat-list-item>
     <mat-list-item role="listitem" *ngFor="let task of sprint.tasks">{{task.name}}</mat-list-item>
   </mat-list>
-</div>
+  -->
 
 <div class="right-side">
   <div class="sprint-table mat-elevation-z8">

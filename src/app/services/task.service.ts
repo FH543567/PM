@@ -15,7 +15,7 @@ export class TaskService {
 
   getTask(id: number): Observable<Task> {
     for (let i = 0; i < TASKS.length; i++) {
-      if (TASKS[i].id = id) {
+      if (TASKS[i].id === id) {
         return of(TASKS[i]);
       }
     }

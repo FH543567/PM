@@ -37,6 +37,7 @@ import { TaskService } from './services/task.service';
 import { StoryService } from './services/story.service';
 import { EpicService } from './services/epic.service';
 import { UserService } from './services/user.service';
+import { TaskDetailsComponent } from './task-details/task-details.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { UserService } from './services/user.service';
     EpicComponent,
     HeaderComponent,
     SprintDetailsComponent,
+    TaskDetailsComponent,
   ],
   imports: [
     ReactiveFormsModule,
