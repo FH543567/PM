@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
   MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule ,
-  MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule} from '@angular/material';
+  MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule, MatButtonToggleModule } from '@angular/material';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -36,6 +36,8 @@ import { TaskService } from './services/task.service';
 import { StoryService } from './services/story.service';
 import { EpicService } from './services/epic.service';
 import { UserService } from './services/user.service';
+import { ChartsModule } from 'ng2-charts';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -66,10 +68,12 @@ import { UserService } from './services/user.service';
     DragulaModule,
     RouterModule.forRoot(routes),
     FormsModule,
+    ChartsModule,
+    ScrollDispatchModule,
     [MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule,
       MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule, MatOptionModule,
       MatTableModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule,
-      MatSidenavModule, MatListModule]
+      MatSidenavModule, MatListModule, MatButtonToggleModule]
   ],
   providers: [
     UserService,

@@ -18,6 +18,22 @@ export class AuthService {
    // return this.loggedIn.asObservable();
   }
 
+  get isScrumMaster(): boolean {
+    if (localStorage.getItem('role') === 'ScrumMaster') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  get isProductOwner(): boolean {
+    if (localStorage.getItem('role') === 'ProductOwner') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   constructor(
     private router: Router
   ) {}
@@ -26,6 +42,7 @@ export class AuthService {
     if (user.username !== '' && user.password !== '') {
       this.loggedIn.next(true);                     // muss um weitere login logic erweitert werden
       localStorage.setItem('username', user.username);
+      localStorage.setItem('role',  'ScrumMaster');
       this.router.navigate(['/home']);
     }
   }

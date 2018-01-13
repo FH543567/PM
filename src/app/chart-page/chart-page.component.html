@@ -1,3 +1,14 @@
-<p>
-  chart-page works!
-</p>
+<div style="width: 40%;" class="chart-content">
+ <mat-card>
+  <canvas
+    baseChart
+    [chartType]="'line'"
+    [datasets]="chartData"
+    [labels]="chartLabels"
+    [options]="chartOptions"
+    [legend]="false"
+    (chartClick)="onChartClick($event)">
+  </canvas>
+ </mat-card>
+</div>
+
