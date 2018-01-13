@@ -27,15 +27,15 @@
     </tr>
     <tr>
       <td style="font-weight: bold">Assigned story: </td>
-      <td>{{task.storyId}}</td>
+      <td><button mat-raised-button color="warn" [routerLink]="['../../../stories/details', story.id]">{{story.name}}</button></td>
     </tr>
     <tr>
       <td style="font-weight: bold">Assigned sprint: </td>
-      <td>{{task.sprintId}}</td>
+      <td><button mat-raised-button color="warn" [routerLink]="['../../../sprint/details', sprint.id]">{{sprint.name}}</button></td>
     </tr>
     <tr>
       <td style="font-weight: bold">Person in charge: </td>
-      <td>{{task.userId}}</td>
+      <td>{{user.firstname}} {{user.lastname}}</td>
     </tr>
   </table>
 </div>
