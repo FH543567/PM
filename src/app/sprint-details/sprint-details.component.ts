@@ -18,8 +18,9 @@ export class SprintDetailsComponent implements OnInit {
   sprints: Sprint[];
   sprint: Sprint;
   tasks: Task[];
+  checkedTasks: Task[] = [];
   assignedTasks: Task[] = [];
-  displayedColumns = ['Id', 'Name', 'EstTime'];
+  displayedColumns = ['Id', 'Name', 'EstTime', 'Add'];
   dataSource: any;
   constructor(private route: ActivatedRoute, private sprintService: SprintService, private taskService: TaskService) { }
 
@@ -58,5 +59,18 @@ export class SprintDetailsComponent implements OnInit {
         this.assignedTasks.push(task);
       }
     }
+  }
+
+  check(task: Task) {
+    let included = this.checkedTasks.includes(task);
+    console.log('Included before: ' + included);
+    if (included === true) {
+      this.checkedTasks.splice(this.checkedTasks.indexOf(task), 1);
+    }
+    if (included === false) {
+      this.checkedTasks.push(task);
+    }
+    included = this.checkedTasks.includes(task);
+    console.log('Included after: ' + included);
   }
 }

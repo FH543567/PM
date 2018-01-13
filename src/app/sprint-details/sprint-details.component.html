@@ -26,7 +26,9 @@
       <td>{{sprint.availableTime}}</td>
     </tr>
     <tr><td style="font-weight: bold">Tasks: </td></tr>
-    <tr *ngFor="let task of assignedTasks"><button mat-raised-button color="warn">{{task.name}}</button></tr>
+    <tr *ngFor="let task of assignedTasks">
+      <td><button mat-raised-button color="warn">{{task.name}}</button></td>
+    </tr>
     </tbody>
   </table>
 </div>
@@ -58,6 +60,11 @@
       <ng-container matColumnDef="EstTime">
         <mat-header-cell *matHeaderCellDef> Workload </mat-header-cell>
         <mat-cell *matCellDef="let task"> {{task.workload}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Add">
+        <mat-header-cell *matHeaderCellDef> Add</mat-header-cell>
+        <mat-cell *matCellDef="let task"><mat-checkbox color="warn" (click)="check()">Add</mat-checkbox></mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
