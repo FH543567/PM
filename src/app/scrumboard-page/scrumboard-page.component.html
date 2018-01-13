@@ -1,3 +1,118 @@
-<p>
-  scrumboard-page works!
-</p>
+<div>
+  <div class="first-column">
+    <table>
+      <thead>
+        <tr>
+          <td><button mat-raised-button color="primary">User Story</button></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let story of stories">
+          <td>{{story.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="first-column">
+    <table>
+      <thead>
+      <tr>
+        <td><button mat-raised-button color="primary">ToDo</button></td>
+        <td><button mat-raised-button color="primary">In Progress</button></td>
+        <td><button mat-raised-button color="primary">Done</button></td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let story of stories" [dragula]='"first-bag"'>
+        <td *ngFor="let task of tasks">{{task.name}}</td>
+      </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+  <!--
+  <div class="second-column">
+    <table>
+      <thead>
+        <button mat-raised-button color="primary">ToDo</button>
+      </thead>
+      <tbody [dragula]='"first-bag"'>
+      <tr>
+        <td>You can move these elements between these two containers</td>
+      </tr>
+      <tr>
+        <td>Moving them anywhere else isn't quite possible</td>
+      </tr>
+      <tr>
+        <td>There's also the possibility of moving elements around in the same container, changing their position</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="third-column">
+    <table>
+      <thead>
+        <button mat-raised-button color="primary">In Progress</button>
+      </thead>
+      <tbody [dragula]='"first-bag"'>
+      <tr>
+        <td>You can move these elements between these two containers</td>
+      </tr>
+      <tr>
+        <td>Moving them anywhere else isn't quite possible</td>
+      </tr>
+      <tr>
+        <td>There's also the possibility of moving elements around in the same container, changing their position</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fourth-column">
+    <table>
+      <thead>
+        <button mat-raised-button color="primary">Done</button>
+      </thead>
+      <tbody [dragula]='"first-bag"'>
+      <tr>
+        <td>This is the default use case. You only need to specify the containers you want to use</td>
+      </tr>
+      <tr>
+        <td>More interactive use cases lie ahead</td>
+      </tr>
+      <tr>
+        <td>Make sure to check out the documentation on GitHub!</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+
+  <div class="first-column">
+    <table>
+      <thead>
+        <tr>
+          <td><button mat-raised-button color="primary">User Story</button></td>
+          <td><button mat-raised-button color="primary">ToDo</button></td>
+          <td><button mat-raised-button color="primary">In Progress</button></td>
+          <td><button mat-raised-button color="primary">Done</button></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let story of stories" [dragula]='"first-bag"'>
+          <td>{{story.name}}</td>
+          <td *ngFor="let task of story.tasks">{{task.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  -->
+</div>

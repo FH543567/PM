@@ -1,3 +1,31 @@
-<p>
-  sprint works!
-</p>
+<!--id: number;
+  name: string;
+  description: string;
+  availableTime: number;
+  startDate: Date;
+  endDate: Date;
+  tasks: Task[]; -->
+
+<div class="example-container">
+  <mat-form-field>
+    <input matInput placeholder="Name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput #input type="number" placeholder="Workload in h">
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Assigned Epic">
+      <mat-option value="option">Epic 1</mat-option>
+      <mat-option value="option">Epic 2</mat-option>
+      <mat-option value="option">Epic 3</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<button mat-raised-button color="primary" (click)="createBacklog()" routerLink="/backlog">Submit</button>
+<p *ngFor="let backlog of backlogs">{{backlog.name}}</p>

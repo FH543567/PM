@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { EPICS, TASKS, STORIES } from './mockdata';
+import { EPICS, TASKS, STORIES, SPRINTS } from './mockdata';
 import { Task } from '../task/task';
 import { Story } from '../story/story';
 import { Epic } from '../epic/epic';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { User } from '../user/user';
+import { Sprint } from '../sprint/sprint';
+import { Backlog } from '../backlog/backlog';
 
 @Injectable()
 export class DataService {
@@ -22,15 +24,32 @@ export class DataService {
     return true;
   }
 
+  createBacklog(backlog: Backlog): boolean {
+    console.log('id', backlog.id);
+    console.log('name', backlog.name);
+    console.log('description', backlog.description);
+    console.log('priority', backlog.priority);
+    console.log('type', backlog.type);
+    console.log('workload', backlog.workload);
+    console.log('estimation', backlog.estimation);
+    return true;
+  }
+
+  /*
   getTasks(): Observable<Task[]> {
     return of(TASKS);
   }
 
-    getStories(): Observable<Story[]> {
+  getStories(): Observable<Story[]> {
     return of(STORIES);
   }
 
   getEpics(): Observable<Epic[]> {
     return of(EPICS);
   }
+
+  getSprints(): Observable<Sprint[]> {
+    return of(SPRINTS);
+  }
+  */
 }
