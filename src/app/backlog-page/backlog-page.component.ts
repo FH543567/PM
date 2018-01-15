@@ -7,8 +7,6 @@ import { MatTableDataSource } from '@angular/material';
 import { TaskService } from '../services/task.service';
 import { StoryService } from '../services/story.service';
 import { EpicService } from '../services/epic.service';
-import { Observable } from 'rxjs/Observable';
-
 
 @Component({
   selector: 'app-backlog-page',

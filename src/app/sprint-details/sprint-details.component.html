@@ -1,13 +1,13 @@
 <div class="left-side">
   <table>
     <tbody>
-      <tr>
-        <td style="font-weight: bold">Name: </td>
-        <td>{{sprint.name}}</td>
-      </tr>
     <tr>
       <td style="font-weight: bold">ID: </td>
       <td>{{sprint.id}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold">Name: </td>
+      <td>{{sprint.name}}</td>
     </tr>
     <tr>
       <td style="font-weight: bold">Description: </td>
@@ -27,7 +27,7 @@
     </tr>
     <tr><td style="font-weight: bold">Tasks: </td></tr>
     <tr *ngFor="let task of assignedTasks">
-      <td><button mat-raised-button color="warn">{{task.name}}</button></td>
+      <td><button mat-raised-button color="warn" [routerLink]="['../../../tasks/details', task.id]">{{task.name}}</button></td>
     </tr>
     </tbody>
   </table>

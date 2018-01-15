@@ -19,11 +19,15 @@
     </tr>
     <tr>
       <td style="font-weight: bold">Worked: </td>
-      <td>{{task.workedTime}} <mat-slider min="0" max="100" step="1" value=progress></mat-slider> <button mat-raised-button color="primary" (click)="save(value)">Save</button></td>
+      <td>{{task.workedTime}} <mat-slider min="0" max="task.workload" step="1" [(ngModel)]="value"></mat-slider> <button mat-raised-button color="primary" (click)="save(value)">Save</button></td>
     </tr>
     <tr>
       <td style="font-weight: bold">Workload: </td>
       <td>{{task.workload}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold">Progress: </td>
+      <td>{{progress | number:0}}%</td>
     </tr>
     <tr>
       <td style="font-weight: bold">Assigned story: </td>

@@ -1,3 +1,4 @@
+<!--
 <table class="besides" *ngFor="let sprint of sprints">
   <thead>
     <button mat-raised-button color="primary">{{sprint.name}}</button>
@@ -5,11 +6,27 @@
   <tbody>
     <tr>{{sprint.startDate.toLocaleDateString()}} -</tr>
     <tr>{{sprint.endDate.toLocaleDateString()}}</tr>
-    <!-- TODO Platzhalter. Progress muss später über alle zugewiesenen Tasks berechnet werden -->
+    <!-- TODO Platzhalter. Progress muss später über alle zugewiesenen Tasks berechnet werden
     <tr>Progress</tr>
   </tbody>
 </table>
+-->
 
+<mat-horizontal-stepper>
+  <mat-step *ngFor="let sprint of sprints" label="">
+    {{sprint.name}}
+    <br>
+    {{sprint.startDate.toLocaleDateString()}} - {{sprint.endDate.toLocaleDateString()}}
+  </mat-step>
+</mat-horizontal-stepper>
+
+<mat-chip-list>
+  <mat-chip color="accent" selected="true" *ngFor="let sprint of sprints">
+    {{sprint.name}}
+    <br>
+    {{sprint.startDate.toLocaleDateString()}} - {{sprint.endDate.toLocaleDateString()}}
+  </mat-chip>
+</mat-chip-list>
 
 <!--
 <div class="example-container mat-elevation-z8">

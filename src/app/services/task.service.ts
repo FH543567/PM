@@ -13,13 +13,23 @@ export class TaskService {
     return of(TASKS);
   }
 
-  getTask(id: number): Observable<Task> {
+  getTask(taskId: number): Observable<Task> {
     for (let i = 0; i < TASKS.length; i++) {
-      if (TASKS[i].id === id) {
+      if (TASKS[i].id === taskId) {
         return of(TASKS[i]);
       }
     }
     return null;
+  }
+
+  getAssignedTasks(storyId: number): Observable<Task[]> {
+    const assignedTasks: Task[] = [];
+    for (const task of TASKS) {
+      if (task.storyId === storyId) {
+        assignedTasks.push(task);
+      }
+    }
+    return of(assignedTasks);
   }
 
   create(task: Task): boolean {

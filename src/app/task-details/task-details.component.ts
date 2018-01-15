@@ -63,7 +63,8 @@ export class TaskDetailsComponent implements OnInit {
   save(value: number) {
     console.log('Save');
     console.log('Value: ' + value)
-    this.progress = value;
+    this.task.workedTime = value;
+    this.updateProgress();
   }
 
 }

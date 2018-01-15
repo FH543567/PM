@@ -3,10 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
-  MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule ,
-  MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule,
-  MatDatepickerModule, MatNativeDateModule, MatSliderModule} from '@angular/material';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -40,6 +36,10 @@ import { UserService } from './services/user.service';
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { StoryDetailsComponent } from './story-details/story-details.component';
 import { EpicDetailsComponent } from './epic-details/epic-details.component';
+import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
+  MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule ,
+  MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule,
+  MatDatepickerModule, MatNativeDateModule, MatSliderModule, MatStepperModule, MatChipsModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -76,7 +76,8 @@ import { EpicDetailsComponent } from './epic-details/epic-details.component';
     [MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule,
       MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule, MatOptionModule,
       MatTableModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule,
-      MatSidenavModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatSliderModule]
+      MatSidenavModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatSliderModule,
+      MatStepperModule, MatChipsModule]
   ],
   providers: [
     UserService,

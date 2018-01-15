@@ -24,6 +24,16 @@ export class StoryService {
     return null;
   }
 
+  getAssignedStories(epicId: number): Observable<Story[]> {
+    const assignedStories: Story[] = [];
+    for (const story of STORIES) {
+      if (story.epicId === epicId) {
+        assignedStories.push(story);
+      }
+    }
+    return of(assignedStories);
+  }
+
   getTasks(id: number): Observable<Task[]> {
     for (let i = 0; i < TASKS.length; i++) {
       if (TASKS[i].storyId = id) {

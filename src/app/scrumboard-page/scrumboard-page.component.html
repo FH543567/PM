@@ -14,30 +14,27 @@
           <td><button mat-raised-button color="primary">{{story.name}}</button></td>
           <td>
             <table>
-              <tr *ngFor="let task of tasks" [dragula]="toDo">
-                <!-- TODO: Weitere Bedingung -> Bearbeitung = 0%; -->
+              <tr *ngFor="let task of tasksTodo" [dragula]="toDo">
                 <td *ngIf="task.storyId === story.id">
-                  <button mat-raised-button color="warn">{{task.name}}</button>
+                  <button mat-raised-button color="warn" [routerLink]="['../tasks/details', task.id]">{{task.name}}</button>
                 </td>
               </tr>
             </table>
           </td>
           <td>
             <table>
-              <tr *ngFor="let task of tasks" [dragula]="inProgress">
-                <!-- TODO: Weitere Bedingung -> Bearbeitung = 1-99%; -->
+              <tr *ngFor="let task of tasksInprogress" [dragula]="inProgress">
                 <td *ngIf="task.storyId === story.id">
-                  <button mat-raised-button color="warn">{{task.name}}</button>
+                  <button mat-raised-button color="warn" [routerLink]="['../tasks/details', task.id]">{{task.name}}</button>
                 </td>
               </tr>
             </table>
           </td>
           <td>
             <table>
-              <tr *ngFor="let task of tasks" [dragula]="done">
-                <!--TODO: Weitere Bedingung -> Bearbeitung = 0%; -->
+              <tr *ngFor="let task of tasksDone" [dragula]="done">
                 <td *ngIf="task.storyId === story.id">
-                  <button mat-raised-button color="warn">{{task.name}}</button>
+                  <button mat-raised-button color="warn" [routerLink]="['../tasks/details', task.id]">{{task.name}}</button>
                 </td>
               </tr>
             </table>
