@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from '../services/data.service';
 import { Sprint } from '../sprint/sprint';
 import { Task } from '../task/task';
 import { MatTableDataSource } from '@angular/material';
@@ -15,7 +14,7 @@ import { TaskService } from '../services/task.service';
 export class SprintDetailsComponent implements OnInit {
   id: number;
   private sub: any;
-  sprints: Sprint[];
+  // sprints: Sprint[];
   sprint: Sprint;
   tasks: Task[];
   checkedTasks: Task[] = [];
@@ -28,14 +27,15 @@ export class SprintDetailsComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
     });
-    this.getSprints();
+    this.getSprint();
     this.getTasks();
     this.getAssignedTasks();
+    /*
     for (let i = 0; i < this.sprints.length; i++) {
       if (this.id = this.sprints[i].id) {
         this.sprint = this.sprints[i];
       }
-    }
+    }*/
     this.dataSource = new MatTableDataSource<Task>(this.tasks);
   }
 
@@ -43,9 +43,10 @@ export class SprintDetailsComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
-  getSprints()  {
-    this.sprintService.getSprints()
-      .subscribe(sprints => this.sprints = sprints);
+  getSprint()  {
+    this.sprintService.getSprint(this.id)
+      .subscribe(sprint => this.sprint = sprint);
+    console.log('Name:' + this.sprint.name);
   }
 
   getTasks()  {
@@ -55,7 +56,7 @@ export class SprintDetailsComponent implements OnInit {
 
   getAssignedTasks() {
     for (const task of this.tasks) {
-      if (task.sprintId === this.id) {
+      if (task.sprintId === this.sprint.id) {
         this.assignedTasks.push(task);
       }
     }
@@ -72,5 +73,13 @@ export class SprintDetailsComponent implements OnInit {
     }
     included = this.checkedTasks.includes(task);
     console.log('Included after: ' + included);
+  }
+
+  // TODO: muss noch über den Service auf der DB geändert werden
+  addTasks() {
+    console.log('addTasks')
+    for (const task of this.checkedTasks) {
+      task.sprintId = this.sprint.id;
+    }
   }
 }

@@ -19,6 +19,7 @@ export class TaskDetailsComponent implements OnInit {
   story: Story;
   sprint: Sprint;
   user: User;
+  progress: number;
   private sub: any;
   constructor(private route: ActivatedRoute, private taskService: TaskService, private storyService: StoryService,
               private sprintService: SprintService, private userService: UserService) { }
@@ -32,6 +33,7 @@ export class TaskDetailsComponent implements OnInit {
     this.getStory(this.task.storyId);
     this.getSprint(this.task.sprintId);
     this.getUser(this.task.userId);
+    this.updateProgress();
   }
 
   getTask(id: number) {
@@ -52,6 +54,16 @@ export class TaskDetailsComponent implements OnInit {
   getUser(id: number) {
     this.userService.getUser(id)
       .subscribe( user => this.user = user);
+  }
+
+  updateProgress() {
+    this.progress = this.task.workedTime / this.task.workload * 100;
+  }
+
+  save(value: number) {
+    console.log('Save');
+    console.log('Value: ' + value)
+    this.progress = value;
   }
 
 }

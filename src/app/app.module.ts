@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
   MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule ,
   MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule,
-  MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+  MatDatepickerModule, MatNativeDateModule, MatSliderModule} from '@angular/material';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -76,7 +76,7 @@ import { EpicDetailsComponent } from './epic-details/epic-details.component';
     [MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule,
       MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule, MatOptionModule,
       MatTableModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule,
-      MatSidenavModule, MatListModule, MatDatepickerModule, MatNativeDateModule]
+      MatSidenavModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatSliderModule]
   ],
   providers: [
     UserService,
