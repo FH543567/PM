@@ -9,23 +9,31 @@ export class SprintService {
 
   constructor() { }
 
+  // TODO: umbenennen getAll()
   getSprints(): Observable<Sprint[]> {
     return of(SPRINTS);
   }
 
+  // TODO: umbenennen getById()
   getSprint(id: number): Observable<Sprint> {
     for (let i = 0; i < SPRINTS.length; i++) {
-      if (SPRINTS[i].id = id) {
+      if (SPRINTS[i].id === id) {
         return of(SPRINTS[i]);
       }
     }
     return null;
   }
 
-  create(epic: Sprint) {
+  create(sprint: Sprint) {
+    console.log('Create Sprint');
+    console.log('Name: ' + sprint.name);
+    console.log('Description: ' + sprint.description);
+    console.log('Available time: ' + sprint.availableTime);
+    console.log('Start date: ' + sprint.startDate);
+    console.log('End date: ' + sprint.endDate);
   }
 
-  update(epic: Sprint) {
+  update(sprint: Sprint) {
   }
 
   delete(id: number) {

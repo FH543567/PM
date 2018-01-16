@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EpicService } from '../services/epic.service';
 import { Epic } from '../epic/epic';
 import { DataService } from '../services/data.service';
+import { TaskService } from '../services/task.service';
 
 @Component({
   selector: 'app-backlog',
@@ -17,6 +18,7 @@ import { DataService } from '../services/data.service';
 export class BacklogComponent implements OnInit {
   private formSubmitAttempt: boolean;
   form: FormGroup;
+  formTask: FormGroup;
   id = 6;
   name: string;
   type: string;
@@ -34,17 +36,28 @@ export class BacklogComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private storyService: StoryService, private userService: UserService,
-              private epicService: EpicService, private dataService: DataService) { }
+              private epicService: EpicService, private dataService: DataService, private taskService: TaskService) { }
   ngOnInit() {
     this.getStories();
     this.getUsers();
     this.getEpics();
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      workload: ['', Validators.required],
-      description: ['', Validators.required],
+      type: ['', Validators.required],
+      name: ['', Validators.minLength(2)],
+      description: ['', ],
       priority: ['', Validators.required],
-      type: ['', Validators.required]
+      userId: ['', ],
+      storyId: ['', ],
+      epicId: ['', ],
+      workload: ['', ]
+    });
+    this.formTask = this.fb.group({
+      // name: ['', Validators.required],
+      workload: ['', Validators.required]// ,
+      // description: ['', Validators.required],
+      // priority: ['', Validators.required],
+      // type: ['', Validators.required],
+      // userId: ['', Validators.required]
     });
   }
 
@@ -93,13 +106,6 @@ export class BacklogComponent implements OnInit {
     console.log('Name: ' + name);
   }
 
-  createBacklog() {
-    const backlog = new Backlog(this.id, this.name, this.type, this.description, this.priority, this.estimatedTime, 0);
-    this.id = this.id + 1;
-    this.backlogs.push(backlog);
-    console.log('createBacklog');
-  }
-
   isFieldInvalid(field: string) {
     return (
       (!this.form.get(field).valid && this.form.get(field).touched) ||
@@ -108,10 +114,20 @@ export class BacklogComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('onSubmit');
+    console.log('Type: ' + this.type);
     console.log('Valid: ' + this.form.valid);
-    console.log('FormValue: ' + this.form.value);
-    if (this.form.valid) {
-      this.dataService.createBacklog(this.form.value);
+    if (this.form.valid && this.type === 'Task') {
+      this.taskService.create(this.form.value);
+    }
+    if (this.form.valid && this.type === 'Story') {
+      this.storyService.create(this.form.value);
+    }
+    if (this.form.valid && this.type === 'Epic') {
+      this.epicService.create(this.form.value);
+    }
+    if (!this.form.valid) {
+      console.log('Form not valid');
     }
     this.formSubmitAttempt = true;
   }

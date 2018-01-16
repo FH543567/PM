@@ -7,17 +7,17 @@
 
   <ng-container matColumnDef="Name">
     <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-    <mat-cell *matCellDef="let sprint" [routerLink]="['details', sprint.id]"> {{sprint.name}} </mat-cell>
+    <mat-cell *matCellDef="let sprint" [routerLink]="['details', sprint.id]"><button mat-raised-button color="warn">{{sprint.name}}</button></mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Start">
     <mat-header-cell *matHeaderCellDef> StartDate </mat-header-cell>
-    <mat-cell *matCellDef="let sprint" [routerLink]="['details', sprint.id]"> {{sprint.startDate}} </mat-cell>
+    <mat-cell *matCellDef="let sprint" [routerLink]="['details', sprint.id]">{{sprint.startDate.toLocaleDateString()}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="End">
     <mat-header-cell *matHeaderCellDef> EndDate </mat-header-cell>
-    <mat-cell *matCellDef="let sprint" [routerLink]="['details', sprint.id]"> {{sprint.endDate}} </mat-cell>
+    <mat-cell *matCellDef="let sprint" [routerLink]="['details', sprint.id]">{{sprint.endDate.toLocaleDateString()}}</mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -25,7 +25,7 @@
 </mat-table>
 </div>
 <br>
-<button mat-raised-button color="primary" routerLink="/sprint/create">New Sprint</button>
+<button id="create" mat-raised-button color="primary" routerLink="/sprint/create">New Sprint</button>
 
 
 

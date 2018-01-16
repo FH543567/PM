@@ -1,0 +1,55 @@
+<div class="left-side">
+  <table>
+    <tbody>
+    <tr>
+      <td style="font-weight: bold">ID: </td>
+      <td>{{epic.id}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold">Name: </td>
+      <td>{{epic.name}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold">Description: </td>
+      <td>{{epic.description}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold">Priority: </td>
+      <td>{{epic.priority}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold">Tasks: </td>
+      <td><button *ngFor="let story of assignedStories" mat-raised-button color="warn" [routerLink]="['../../../stories/details', story.id]">{{story.name}}</button></td>
+    </tr>
+  </table>
+</div>
+
+<div class="right-side">
+  <div class="sprint-table mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="Id">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let story"> {{story.id}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let story"> {{story.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="EstTime">
+        <mat-header-cell *matHeaderCellDef> Workload </mat-header-cell>
+        <mat-cell *matCellDef="let story"> {{story.workload}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Add">
+        <mat-header-cell *matHeaderCellDef> Add</mat-header-cell>
+        <mat-cell *matCellDef="let story"><mat-checkbox color="warn" (click)="check()">Add</mat-checkbox></mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <button mat-raised-button color="primary" (click)="addTasks()">Add to Sprint</button>
+  </div>
+</div>

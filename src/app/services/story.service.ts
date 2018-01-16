@@ -3,31 +3,70 @@ import { STORIES } from './mockdata';
 import { Story } from '../story/story';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { TASKS } from './mockdata';
+import { Task } from '../task/task';
 
 @Injectable()
 export class StoryService {
-
+  tasks: Task[];
   constructor() { }
 
+  /**
+   * Alle Storys abfragen
+   * @returns {Observable<Story[]>}
+   */
+  // TODO: umbenennen getAll()
   getStories(): Observable<Story[]> {
     return of(STORIES);
   }
 
+  /**
+   * Eine Story anhand der ID abfragen
+   * @param {number} id
+   * @returns {Observable<Story>}
+   */
+  // TODO: umbenennen getById()
   getStory(id: number): Observable<Story> {
     for (let i = 0; i < STORIES.length; i++) {
-      if (STORIES[i].id = id) {
+      if (STORIES[i].id === id) {
         return of(STORIES[i]);
       }
     }
     return null;
   }
 
-  create(story: Story) {
+  /**
+   * Alle Storys anhand der Epic ID abfragen
+   * @param {number} epicId
+   * @returns {Observable<Story[]>}
+   */
+  // TODO: umbenennen getByEpicId
+  getAssignedStories(epicId: number): Observable<Story[]> {
+    const assignedStories: Story[] = [];
+    for (const story of STORIES) {
+      if (story.epicId === epicId) {
+        assignedStories.push(story);
+      }
+    }
+    return of(assignedStories);
   }
 
-  update(story: Story) {
+  create(story: Story): boolean {
+    console.log('created');
+    console.log('Name: ' + story.name);
+    console.log('Description: ' + story.description);
+    console.log('Priority: ' + story.priority);
+    console.log('EpicID: ' + story.epicId);
+    return true;
   }
 
-  delete(id: number) {
+  update(story: Story): boolean {
+    console.log('updated');
+    return true;
+  }
+
+  delete(id: number): boolean {
+    console.log('deleted');
+    return true;
   }
 }

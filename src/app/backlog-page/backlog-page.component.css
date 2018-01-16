@@ -9,3 +9,11 @@
   overflow: auto;
   max-height: 500px;
 }
+
+#table {
+  margin: 1%;
+}
+
+#create {
+  margin-left: 1%
+}
