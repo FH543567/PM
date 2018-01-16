@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>New Planning-Poker</h1>
+<mat-dialog-content>
+  <p>Whats the Title of the Task the Planning-Poker is about?</p>
+    <mat-form-field class="full-width-input">
+      <input matInput [(ngModel)]="data.label" placeholder="Task Name">
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <textarea matInput [(ngModel)]="data.description" placeholder="Description"></textarea>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Start new Round</button>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
+</mat-dialog-actions>

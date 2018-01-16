@@ -39,7 +39,10 @@ import { EpicDetailsComponent } from './epic-details/epic-details.component';
 import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
   MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule ,
   MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule,
-  MatDatepickerModule, MatNativeDateModule, MatSliderModule, MatStepperModule, MatChipsModule} from '@angular/material';
+  MatDatepickerModule, MatNativeDateModule, MatSliderModule, MatStepperModule, MatChipsModule, MatButtonToggleModule, MatDialogModule} from '@angular/material';
+import { ChartsModule } from 'ng2-charts';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { PlanningpokerComponent } from './planningpoker/planningpoker.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +64,7 @@ import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
     EpicComponent,
     HeaderComponent,
     SprintDetailsComponent,
+    PlanningpokerComponent,
     TaskDetailsComponent,
     StoryDetailsComponent,
     EpicDetailsComponent,
@@ -73,11 +77,13 @@ import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
     DragulaModule,
     RouterModule.forRoot(routes),
     FormsModule,
+    ChartsModule,
+    ScrollDispatchModule,
     [MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule,
       MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule, MatOptionModule,
       MatTableModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule,
       MatSidenavModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatSliderModule,
-      MatStepperModule, MatChipsModule]
+      MatStepperModule, MatChipsModule, MatButtonToggleModule, MatDialogModule]
   ],
   providers: [
     UserService,
@@ -88,8 +94,9 @@ import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
     DataService,
     AuthService,
     AuthGuard,
-    LoggedOutGuard
+    LoggedOutGuard,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [PlanningpokerComponent]
 })
 export class AppModule { }
