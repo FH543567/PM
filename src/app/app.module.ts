@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
-  MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule ,
-  MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule, MatButtonToggleModule } from '@angular/material';
+import {
+  MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
+  MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule,
+  MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule, MatButtonToggleModule, MatDialogModule
+} from '@angular/material';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -38,6 +40,7 @@ import { EpicService } from './services/epic.service';
 import { UserService } from './services/user.service';
 import { ChartsModule } from 'ng2-charts';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { PlanningpokerComponent } from './planningpoker/planningpoker.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +62,7 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
     EpicComponent,
     HeaderComponent,
     SprintDetailsComponent,
+    PlanningpokerComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -73,7 +77,7 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
     [MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule, MatIconModule,
       MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule, MatOptionModule,
       MatTableModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule,
-      MatSidenavModule, MatListModule, MatButtonToggleModule]
+      MatSidenavModule, MatListModule, MatButtonToggleModule, MatDialogModule]
   ],
   providers: [
     UserService,
@@ -84,8 +88,9 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
     DataService,
     AuthService,
     AuthGuard,
-    LoggedOutGuard
+    LoggedOutGuard,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [PlanningpokerComponent]
 })
 export class AppModule { }
