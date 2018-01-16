@@ -1,48 +1,42 @@
 <div class="left-side">
-  <table>
-    <tbody>
-    <tr>
-      <td style="font-weight: bold">ID: </td>
-      <td>{{sprint.id}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Name: </td>
-      <td>{{sprint.name}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Description: </td>
-      <td>{{sprint.description}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Start date: </td>
-      <td>{{sprint.startDate.toLocaleDateString()}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">End date: </td>
-      <td>{{sprint.endDate.toLocaleDateString()}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Available time: </td>
-      <td>{{sprint.availableTime}}</td>
-    </tr>
-    <tr><td style="font-weight: bold">Tasks: </td></tr>
-    <tr *ngFor="let task of assignedTasks">
-      <td><button mat-raised-button color="warn" [routerLink]="['../../../tasks/details', task.id]">{{task.name}}</button></td>
-    </tr>
-    </tbody>
-  </table>
+  <mat-card>
+    <table>
+      <tbody>
+      <tr>
+        <td style="font-weight: bold">ID: </td>
+        <td>{{sprint.id}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold">Name: </td>
+        <td>{{sprint.name}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold">Description: </td>
+        <td>{{sprint.description}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold">Start date: </td>
+        <td>{{sprint.startDate.toLocaleDateString()}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold">End date: </td>
+        <td>{{sprint.endDate.toLocaleDateString()}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold">Available time: </td>
+        <td>{{sprint.availableTime}}</td>
+      </tr>
+      <tr><td style="font-weight: bold">Tasks: </td></tr>
+      <tr *ngFor="let task of assignedTasks">
+        <td><button mat-raised-button color="accent" [routerLink]="['../../../tasks/details', task.id]">{{task.name}}</button></td>
+      </tr>
+      <br>
+      <br>
+      <tr><td><button mat-raised-button color="warn" (click)="delete()">Delete</button></td></tr>
+      </tbody>
+    </table>
+  </mat-card>
 </div>
-  <!--
-  <mat-list role="list">
-    <mat-list-item role="listitem">Name: {{sprint.name}}</mat-list-item>
-    <mat-list-item role="listitem">Sprint-id: {{sprint.id}}</mat-list-item>
-    <mat-list-item role="listitem">Beschreibung: {{sprint.description}}</mat-list-item>
-    <mat-list-item role="listitem">Startdatum: {{sprint.startDate}}</mat-list-item>
-    <mat-list-item role="listitem">Enddatum: {{sprint.endDate}}</mat-list-item>
-    <mat-list-item role="listitem">Verfügbare Zeit: {{sprint.availableTime}}</mat-list-item>
-    <mat-list-item role="listitem" *ngFor="let task of sprint.tasks">{{task.name}}</mat-list-item>
-  </mat-list>
-  -->
 
 <div class="right-side">
   <div class="sprint-table mat-elevation-z8">
@@ -64,7 +58,7 @@
 
       <ng-container matColumnDef="Add">
         <mat-header-cell *matHeaderCellDef> Add</mat-header-cell>
-        <mat-cell *matCellDef="let task"><mat-checkbox color="warn" (click)="check()">Add</mat-checkbox></mat-cell>
+        <mat-cell *matCellDef="let task"><mat-checkbox color="accent" (click)="check()">Add</mat-checkbox></mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

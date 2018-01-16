@@ -1,31 +1,36 @@
 <div class="left-side">
-  <table>
-    <tbody>
-    <tr>
-      <td style="font-weight: bold">ID: </td>
-      <td>{{story.id}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Name: </td>
-      <td>{{story.name}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Description: </td>
-      <td>{{story.description}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Priority: </td>
-      <td>{{story.priority}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Assigned epic: </td>
-      <td><button mat-raised-button color="warn" [routerLink]="['../../../epics/details', epic.id]">{{epic.name}}</button></td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Tasks: </td>
-      <td><button *ngFor="let task of assignedTasks" mat-raised-button color="warn" [routerLink]="['../../../tasks/details', task.id]">{{task.name}}</button></td>
-    </tr>
-  </table>
+  <mat-card>
+    <table>
+      <tbody>
+      <tr>
+        <td style="font-weight: bold">ID: </td>
+        <td>{{story.id}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold">Name: </td>
+        <td>{{story.name}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold">Description: </td>
+        <td>{{story.description}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold">Priority: </td>
+        <td>{{story.priority}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold">Assigned epic: </td>
+        <td><button mat-raised-button color="accent" [routerLink]="['../../../epics/details', epic.id]">{{epic.name}}</button></td>
+      </tr>
+      <tr><td style="font-weight: bold">Tasks: </td></tr>
+      <tr *ngFor="let task of assignedTasks">
+        <td  ><button  mat-raised-button color="accent" [routerLink]="['../../../tasks/details', task.id]">{{task.name}}</button></td>
+      </tr>
+      <br>
+      <br>
+      <tr><td><button mat-raised-button color="warn" (click)="delete()">Delete</button></td></tr>
+    </table>
+  </mat-card>
 </div>
 
 

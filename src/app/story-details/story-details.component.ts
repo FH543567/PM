@@ -79,4 +79,7 @@ export class StoryDetailsComponent implements OnInit {
     }
   }
 
+  delete() {
+    this.storyService.delete(this.story.id);
+  }
 }

@@ -20,6 +20,7 @@ export class TaskDetailsComponent implements OnInit {
   sprint: Sprint;
   user: User;
   progress: number;
+  tempWorkedTime: number;
   private sub: any;
   constructor(private route: ActivatedRoute, private taskService: TaskService, private storyService: StoryService,
               private sprintService: SprintService, private userService: UserService) { }
@@ -34,6 +35,7 @@ export class TaskDetailsComponent implements OnInit {
     this.getSprint(this.task.sprintId);
     this.getUser(this.task.userId);
     this.updateProgress();
+    this.tempWorkedTime = this.task.workedTime;
   }
 
   getTask(id: number) {
@@ -62,9 +64,11 @@ export class TaskDetailsComponent implements OnInit {
 
   save(value: number) {
     console.log('Save');
-    console.log('Value: ' + value);
-    this.task.workedTime = value;
+    this.task.workedTime = this.tempWorkedTime;
     this.updateProgress();
   }
 
+  delete() {
+    this.storyService.delete(this.story.id);
+  }
 }

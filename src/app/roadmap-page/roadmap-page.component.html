@@ -1,5 +1,5 @@
 <mat-chip-list class="chiplist">
-  <mat-chip color="warn" selected="true" *ngFor="let sprint of sprints">
+  <mat-chip color="accent" selected="true" *ngFor="let sprint of sprints" [routerLink]="['../sprint/details', sprint.id]">
     {{sprint.name}}
     <br>
     {{sprint.startDate.toLocaleDateString()}} - {{sprint.endDate.toLocaleDateString()}}

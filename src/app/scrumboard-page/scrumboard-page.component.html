@@ -17,7 +17,7 @@
             <table>
               <tr *ngFor="let task of tasksTodo" [dragula]="toDo">
                 <td *ngIf="task.storyId === story.id">
-                  <button mat-raised-button color="warn" [routerLink]="['../tasks/details', task.id]">{{task.name}}</button>
+                  <button mat-raised-button color="accent" [routerLink]="['../tasks/details', task.id]">{{task.name}}</button>
                 </td>
               </tr>
             </table>
@@ -26,7 +26,7 @@
             <table>
               <tr *ngFor="let task of tasksInprogress" [dragula]="inProgress">
                 <td *ngIf="task.storyId === story.id">
-                  <button mat-raised-button color="warn" [routerLink]="['../tasks/details', task.id]">{{task.name}}</button>
+                  <button mat-raised-button color="accent" [routerLink]="['../tasks/details', task.id]">{{task.name}}</button>
                 </td>
               </tr>
             </table>
@@ -35,7 +35,7 @@
             <table>
               <tr *ngFor="let task of tasksDone" [dragula]="done">
                 <td *ngIf="task.storyId === story.id">
-                  <button mat-raised-button color="warn" [routerLink]="['../tasks/details', task.id]">{{task.name}}</button>
+                  <button mat-raised-button color="accent" [routerLink]="['../tasks/details', task.id]">{{task.name}}</button>
                 </td>
               </tr>
             </table>

@@ -1,27 +1,32 @@
 <div class="left-side">
-  <table>
-    <tbody>
-    <tr>
-      <td style="font-weight: bold">ID: </td>
-      <td>{{epic.id}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Name: </td>
-      <td>{{epic.name}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Description: </td>
-      <td>{{epic.description}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Priority: </td>
-      <td>{{epic.priority}}</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold">Tasks: </td>
-      <td><button *ngFor="let story of assignedStories" mat-raised-button color="warn" [routerLink]="['../../../stories/details', story.id]">{{story.name}}</button></td>
-    </tr>
-  </table>
+  <mat-card>
+    <table>
+      <tbody>
+      <tr>
+        <td style="font-weight: bold">ID: </td>
+        <td>{{epic.id}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold">Name: </td>
+        <td>{{epic.name}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold">Description: </td>
+        <td>{{epic.description}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold">Priority: </td>
+        <td>{{epic.priority}}</td>
+      </tr>
+      <tr><td style="font-weight: bold">Stories: </td></tr>
+      <tr *ngFor="let story of assignedStories">
+        <td><button  mat-raised-button color="accent" [routerLink]="['../../../stories/details', story.id]">{{story.name}}</button></td>
+      </tr>
+      <br>
+      <br>
+      <tr><td><button mat-raised-button color="warn" (click)="delete()">Delete</button></td></tr>
+    </table>
+  </mat-card>
 </div>
 
 <div class="right-side">

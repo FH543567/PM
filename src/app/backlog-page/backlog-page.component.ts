@@ -18,7 +18,7 @@ export class BacklogPageComponent implements OnInit {
   stories: Story[];
   epics: Epic[];
   backlogItems: Backlog[];
-  displayedColumns = ['Id', 'Name', 'Priority', 'Progress'];
+  displayedColumns = ['Id', 'Name', 'Type', 'Priority', 'Progress'];
   dataSource: any;
   // dataSource = new BacklogDataSource(this.dataService);
 

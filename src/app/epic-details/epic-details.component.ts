@@ -71,4 +71,8 @@ export class EpicDetailsComponent implements OnInit {
       task.epicId = this.epic.id;
     }
   }
+  
+  delete() {
+    this.epicService.delete(this.epic.id);
+  }
 }

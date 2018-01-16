@@ -78,4 +78,8 @@ export class SprintDetailsComponent implements OnInit {
       task.sprintId = this.sprint.id;
     }
   }
+
+  delete() {
+    this.sprintService.delete(this.sprint.id);
+  }
 }
