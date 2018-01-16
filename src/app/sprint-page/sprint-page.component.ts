@@ -23,7 +23,7 @@ export class SprintPageComponent implements OnInit {
 
 
   getSprints() {
-    this.sprintService.getSprints()
+    this.sprintService.getAll()
       .subscribe(sprints => this.sprints = sprints);
   }
 }

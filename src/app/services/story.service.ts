@@ -15,8 +15,7 @@ export class StoryService {
    * Alle Storys abfragen
    * @returns {Observable<Story[]>}
    */
-  // TODO: umbenennen getAll()
-  getStories(): Observable<Story[]> {
+  getAll(): Observable<Story[]> {
     return of(STORIES);
   }
 
@@ -25,8 +24,7 @@ export class StoryService {
    * @param {number} id
    * @returns {Observable<Story>}
    */
-  // TODO: umbenennen getById()
-  getStory(id: number): Observable<Story> {
+  getById(id: number): Observable<Story> {
     for (let i = 0; i < STORIES.length; i++) {
       if (STORIES[i].id === id) {
         return of(STORIES[i]);
@@ -40,8 +38,7 @@ export class StoryService {
    * @param {number} epicId
    * @returns {Observable<Story[]>}
    */
-  // TODO: umbenennen getByEpicId
-  getAssignedStories(epicId: number): Observable<Story[]> {
+  getByEpicId(epicId: number): Observable<Story[]> {
     const assignedStories: Story[] = [];
     for (const story of STORIES) {
       if (story.epicId === epicId) {

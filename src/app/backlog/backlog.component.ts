@@ -62,17 +62,17 @@ export class BacklogComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.getUsers()
+    this.userService.getAll()
       .subscribe(users => this.users = users);
   }
 
   getStories() {
-    this.storyService.getStories()
+    this.storyService.getAll()
       .subscribe(stories => this.stories = stories);
   }
 
   getEpics() {
-    this.epicService.getEpics()
+    this.epicService.getAll()
       .subscribe( epics => this.epics = epics);
   }
 

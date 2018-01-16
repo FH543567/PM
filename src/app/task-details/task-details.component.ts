@@ -37,22 +37,22 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   getTask(id: number) {
-    this.taskService.getTask(id)
+    this.taskService.getById(id)
       .subscribe( task => this.task = task);
   }
 
   getStory(id: number) {
-    this.storyService.getStory(id)
+    this.storyService.getById(id)
       .subscribe( story => this.story = story);
   }
 
   getSprint(id: number) {
-    this.sprintService.getSprint(id)
+    this.sprintService.getById(id)
       .subscribe( sprint => this.sprint = sprint);
   }
 
   getUser(id: number) {
-    this.userService.getUser(id)
+    this.userService.getById(id)
       .subscribe( user => this.user = user);
   }
 
@@ -62,7 +62,7 @@ export class TaskDetailsComponent implements OnInit {
 
   save(value: number) {
     console.log('Save');
-    console.log('Value: ' + value)
+    console.log('Value: ' + value);
     this.task.workedTime = value;
     this.updateProgress();
   }

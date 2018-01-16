@@ -36,17 +36,17 @@ export class BacklogPageComponent implements OnInit {
   }
 
   getTasks() {
-    this.taskService.getTasks()
+    this.taskService.getAll()
       .subscribe(tasks => this.tasks = tasks);
   }
 
   getStories() {
-    this.storyService.getStories()
+    this.storyService.getAll()
       .subscribe(stories => this.stories = stories);
   }
 
   getEpics() {
-    this.epicService.getEpics()
+    this.epicService.getAll()
       .subscribe(epics => this.epics = epics);
   }
 

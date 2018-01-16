@@ -13,8 +13,7 @@ export class TaskService {
    * Alle Tasks der DB abfragen
    * @returns {Observable<Task[]>}
    */
-  // TODO: umbenennen in getAll()
-  getTasks(): Observable<Task[]> {
+  getAll(): Observable<Task[]> {
     return of(TASKS);
   }
 
@@ -23,8 +22,7 @@ export class TaskService {
    * @param {number} taskId
    * @returns {Observable<Task>}
    */
-  // TODO: umbenennen in getById()
-  getTask(taskId: number): Observable<Task> {
+  getById(taskId: number): Observable<Task> {
     for (let i = 0; i < TASKS.length; i++) {
       if (TASKS[i].id === taskId) {
         return of(TASKS[i]);
@@ -38,8 +36,7 @@ export class TaskService {
    * @param {number} storyId
    * @returns {Observable<Task[]>}
    */
-  // TODO: umbenenen in getByStoryId()
-  getAssignedTasks(storyId: number): Observable<Task[]> {
+  getByStoryId(storyId: number): Observable<Task[]> {
     const assignedTasks: Task[] = [];
     for (const task of TASKS) {
       if (task.storyId === storyId) {

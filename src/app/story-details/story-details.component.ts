@@ -38,22 +38,22 @@ export class StoryDetailsComponent implements OnInit {
   }
 
   getStory(id: number) {
-    this.storyService.getStory(id)
+    this.storyService.getById(id)
       .subscribe( story => this.story = story);
   }
 
   getEpic(id: number) {
-    this.epicService.getEpic(id)
+    this.epicService.getById(id)
       .subscribe( epic => this.epic = epic);
   }
 
   getAssignedTasks(storyId: number) {
-    this.taskService.getAssignedTasks(storyId)
+    this.taskService.getByStoryId(storyId)
       .subscribe( tasks => this.assignedTasks = tasks);
   }
 
   getTasks() {
-    this.taskService.getTasks()
+    this.taskService.getAll()
       .subscribe( tasks => this.tasks = tasks);
   }
 

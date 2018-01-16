@@ -26,17 +26,17 @@ export class RoadmapPageComponent implements OnInit {
   }
 
   getEpics() {
-    this.epicService.getEpics()
+    this.epicService.getAll()
       .subscribe(epics => this.epics = epics);
   }
 
   getSprints() {
-    this.sprintService.getSprints()
+    this.sprintService.getAll()
       .subscribe(sprints => this.sprints = sprints);
   }
 
   getStories() {
-    this.storyService.getStories()
+    this.storyService.getAll()
       .subscribe(stories => this.stories = stories);
   }
 }

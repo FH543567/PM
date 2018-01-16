@@ -39,18 +39,14 @@ export class SprintDetailsComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Task>(this.tasks);
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-
   getSprint()  {
-    this.sprintService.getSprint(this.id)
+    this.sprintService.getById(this.id)
       .subscribe(sprint => this.sprint = sprint);
     console.log('Name:' + this.sprint.name);
   }
 
   getTasks()  {
-    this.taskService.getTasks()
+    this.taskService.getAll()
       .subscribe(tasks => this.tasks = tasks);
   }
 
@@ -77,7 +73,7 @@ export class SprintDetailsComponent implements OnInit {
 
   // TODO: muss noch über den Service auf der DB geändert werden
   addTasks() {
-    console.log('addTasks')
+    console.log('addTasks');
     for (const task of this.checkedTasks) {
       task.sprintId = this.sprint.id;
     }

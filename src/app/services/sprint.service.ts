@@ -9,18 +9,20 @@ export class SprintService {
 
   constructor() { }
 
-  // TODO: umbenennen getAll()
-  getSprints(): Observable<Sprint[]> {
+  getAll(): Observable<Sprint[]> {
     return of(SPRINTS);
   }
 
-  // TODO: umbenennen getById()
-  getSprint(id: number): Observable<Sprint> {
+  getById(id: number): Observable<Sprint> {
     for (let i = 0; i < SPRINTS.length; i++) {
       if (SPRINTS[i].id === id) {
         return of(SPRINTS[i]);
       }
     }
+    return null;
+  }
+
+  getAllSorted(): Observable<Sprint[]> {
     return null;
   }
 

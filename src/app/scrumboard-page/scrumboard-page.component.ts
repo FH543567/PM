@@ -24,12 +24,12 @@ export class ScrumboardPageComponent implements OnInit {
   }
 
   getStories() {
-    this.storyService.getStories()
+    this.storyService.getAll()
       .subscribe(stories => this.stories = stories);
   }
 
   getTasks() {
-      this.taskService.getTasks()
+      this.taskService.getAll()
         .subscribe(tasks => this.tasks = tasks);
   }
 

@@ -35,19 +35,19 @@ export class EpicDetailsComponent implements OnInit {
   getEpic(id: number) {
     console.log('getEpic');
     console.log('ID: ' + id);
-    this.epicService.getEpic(id)
+    this.epicService.getById(id)
       .subscribe( epic => this.epic = epic);
     console.log('Name: ' + this.epic.name);
   }
 
   getStories() {
-    this.storyService.getStories()
+    this.storyService.getAll()
       .subscribe( stories => this.stories = stories);
   }
 
   getAssignedStories(epicId: number) {
-    this.storyService.getAssignedStories(epicId)
-      .subscribe( stories => this.assignedStories = stories)
+    this.storyService.getByEpicId(epicId)
+      .subscribe( stories => this.assignedStories = stories);
   }
 
   check(story: Story) {

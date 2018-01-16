@@ -1,3 +1,10 @@
+<mat-chip-list class="chiplist">
+  <mat-chip color="warn" selected="true" *ngFor="let sprint of sprints">
+    {{sprint.name}}
+    <br>
+    {{sprint.startDate.toLocaleDateString()}} - {{sprint.endDate.toLocaleDateString()}}
+  </mat-chip>
+</mat-chip-list>
 <!--
 <table class="besides" *ngFor="let sprint of sprints">
   <thead>
@@ -10,7 +17,7 @@
     <tr>Progress</tr>
   </tbody>
 </table>
--->
+
 
 <mat-horizontal-stepper>
   <mat-step *ngFor="let sprint of sprints" label="">
@@ -19,14 +26,9 @@
     {{sprint.startDate.toLocaleDateString()}} - {{sprint.endDate.toLocaleDateString()}}
   </mat-step>
 </mat-horizontal-stepper>
+-->
 
-<mat-chip-list>
-  <mat-chip color="accent" selected="true" *ngFor="let sprint of sprints">
-    {{sprint.name}}
-    <br>
-    {{sprint.startDate.toLocaleDateString()}} - {{sprint.endDate.toLocaleDateString()}}
-  </mat-chip>
-</mat-chip-list>
+
 
 <!--
 <div class="example-container mat-elevation-z8">

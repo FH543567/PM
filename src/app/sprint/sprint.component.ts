@@ -38,12 +38,12 @@ export class SprintComponent implements OnInit {
   }
 
   getSprints() {
-    this.sprintService.getSprints()
+    this.sprintService.getAll()
       .subscribe(sprints => this.sprints = sprints);
   }
 
   getTasks() {
-    this.taskService.getTasks()
+    this.taskService.getAll()
       .subscribe(tasks => this.tasks = tasks);
   }
 
