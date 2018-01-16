@@ -19,7 +19,8 @@
     </tr>
     <tr>
       <td style="font-weight: bold">Worked: </td>
-      <td>{{task.workedTime}} <mat-slider min="0" max="task.workload" step="1" [(ngModel)]="value"></mat-slider> <button mat-raised-button color="primary" (click)="save(value)">Save</button></td>
+      <!-- TODO: Startwert = task.workedTime | max = task.workload -->
+      <td>{{task.workedTime}} <mat-slider min="0" max="task.workload" step="1" [(ngModel)]="task.tempWorkedTime"></mat-slider> <button mat-raised-button color="primary" (click)="save(value)">Save</button></td>
     </tr>
     <tr>
       <td style="font-weight: bold">Workload: </td>
