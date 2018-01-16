@@ -22,6 +22,7 @@ export class DataService {
     console.log('password:', user.password);
     console.log('firstname:', user.firstname);
     console.log('lastname:', user.lastname);
+    // TODO: Rollenwert für eine Übergabe an die DB auslesen
     console.log('role:', user.role);
     return true;
   }
