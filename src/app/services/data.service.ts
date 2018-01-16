@@ -14,6 +14,8 @@ export class DataService {
 
   constructor() { }
 
+  // TODO: Service für Poker, Burndown, Chat
+
   // Methode für die Regestration eines neuen Users im Serve
   register(user: User): boolean {
     console.log('username:', user.username);

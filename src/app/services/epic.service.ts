@@ -9,10 +9,12 @@ export class EpicService {
 
   constructor() { }
 
+  // TODO: umbenennen getAll()
   getEpics(): Observable<Epic[]> {
     return of(EPICS);
   }
 
+  // TODO: umbenennen getById()
   getEpic(id: number): Observable<Epic> {
     for (let i = 0; i < EPICS.length; i++) {
       if (EPICS[i].id === id) {

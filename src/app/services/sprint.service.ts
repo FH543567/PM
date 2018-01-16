@@ -9,10 +9,12 @@ export class SprintService {
 
   constructor() { }
 
+  // TODO: umbenennen getAll()
   getSprints(): Observable<Sprint[]> {
     return of(SPRINTS);
   }
 
+  // TODO: umbenennen getById()
   getSprint(id: number): Observable<Sprint> {
     for (let i = 0; i < SPRINTS.length; i++) {
       if (SPRINTS[i].id === id) {

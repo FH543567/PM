@@ -11,10 +11,21 @@ export class StoryService {
   tasks: Task[];
   constructor() { }
 
+  /**
+   * Alle Storys abfragen
+   * @returns {Observable<Story[]>}
+   */
+  // TODO: umbenennen getAll()
   getStories(): Observable<Story[]> {
     return of(STORIES);
   }
 
+  /**
+   * Eine Story anhand der ID abfragen
+   * @param {number} id
+   * @returns {Observable<Story>}
+   */
+  // TODO: umbenennen getById()
   getStory(id: number): Observable<Story> {
     for (let i = 0; i < STORIES.length; i++) {
       if (STORIES[i].id === id) {
@@ -24,6 +35,12 @@ export class StoryService {
     return null;
   }
 
+  /**
+   * Alle Storys anhand der Epic ID abfragen
+   * @param {number} epicId
+   * @returns {Observable<Story[]>}
+   */
+  // TODO: umbenennen getByEpicId
   getAssignedStories(epicId: number): Observable<Story[]> {
     const assignedStories: Story[] = [];
     for (const story of STORIES) {
@@ -32,15 +49,6 @@ export class StoryService {
       }
     }
     return of(assignedStories);
-  }
-
-  getTasks(id: number): Observable<Task[]> {
-    for (let i = 0; i < TASKS.length; i++) {
-      if (TASKS[i].storyId = id) {
-        this.tasks.push(TASKS[i]);
-      }
-    }
-    return of(this.tasks);
   }
 
   create(story: Story): boolean {

@@ -9,10 +9,12 @@ export class UserService {
 
   constructor() { }
 
+  // TODO: umbenennen getAll()
   getUsers(): Observable<User[]> {
     return of(USERS);
   }
 
+  // TODO: umbenennen getById()
   getUser(id: number): Observable<User> {
     for (let i = 0; i < USERS.length; i++) {
       if (USERS[i].id === id) {
