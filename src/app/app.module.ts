@@ -17,6 +17,7 @@ import { ChartPageComponent } from './chart-page/chart-page.component';
 import { RoadmapPageComponent } from './roadmap-page/roadmap-page.component';
 import { routes } from './app.router';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
 import { TaskComponent } from './task/task.component';
 import { StoryComponent } from './story/story.component';
@@ -75,6 +76,7 @@ import { PlanningpokerComponent } from './planningpoker/planningpoker.component'
     BrowserModule,
     BrowserAnimationsModule,
     DragulaModule,
+    HttpClientModule,
     RouterModule.forRoot(routes),
     FormsModule,
     ChartsModule,

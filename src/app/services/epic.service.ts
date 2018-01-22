@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { EPICS } from './mockdata';
 import { Epic } from '../epic/epic';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { DataService } from './data.service';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class EpicService {
