@@ -90,10 +90,10 @@ export class DtoService {
       );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
+  protected handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       this.log("an Error occured:");
-      console.error(error); // log to console
+      console.error(error);
 
       this.log(`${operation} failed: ${error.message}`);
 
@@ -102,7 +102,7 @@ export class DtoService {
     };
   }
 
-  private log(message: string) {
+  protected log(message: string) {
     console.log(message);
   }
 }

@@ -1,85 +1,64 @@
 import { Injectable } from '@angular/core';
-import { TASKS } from './mockdata';
 import { Task } from '../task/task';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
+import { DtoService } from './dto.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class TaskService {
+export class TaskService extends DtoService {
+  
+  constructor(http: HttpClient) {
+    super('http://localhost:3000/api/taskss', http);
+  }
 
-  constructor() { }
-
-  /**
-   * Alle Tasks der DB abfragen
-   * @returns {Observable<Task[]>}
-   */
   getAll(): Observable<Task[]> {
-    return of(TASKS);
+    return super.getAll()
+      .map(taskList => taskList = taskList
+        .map(taskDB => taskDB = new Task(taskDB.TaskID, taskDB.Name, taskDB.Description, taskDB.Priority, taskDB.Workload, taskDB.WorkedTime, taskDB.StoryID, taskDB.SprintID, taskDB.UserID)));
   }
 
-  /**
-   * Einen Task anhand der ID abfragen
-   * @param {number} taskId
-   * @returns {Observable<Task>}
-   */
-  getById(taskId: number): Observable<Task> {
-    for (let i = 0; i < TASKS.length; i++) {
-      if (TASKS[i].id === taskId) {
-        return of(TASKS[i]);
-      }
-    }
-    return null;
+  getById(id: number): Observable<Task> {
+    return super.getById(id)
+      .map(taskDB => taskDB = new Task(taskDB.TaskID, taskDB.Name, taskDB.Description, taskDB.Priority, taskDB.Workload, taskDB.WorkedTime, taskDB.StoryID, taskDB.SprintID, taskDB.UserID))
   }
 
-  /**
-   * Alle Tasks anhand einer Story ID erhalten
-   * @param {number} storyId
-   * @returns {Observable<Task[]>}
-   */
-  getByStoryId(storyId: number): Observable<Task[]> {
-    const assignedTasks: Task[] = [];
-    for (const task of TASKS) {
-      if (task.storyId === storyId) {
-        assignedTasks.push(task);
-      }
-    }
-    return of(assignedTasks);
+  create(task): Observable<Task> {
+    var transferObject: any = {};
+    //ID wird nicht berücksichtigt, da auto-increment
+    //transferObject.TaskId = task.id;
+    transferObject.Name = task.name;
+    transferObject.Description = task.description;
+    transferObject.Priority = task.priority;
+    transferObject.Workload = task.workload;
+    transferObject.WorkedTime = task.workedTime;
+    transferObject.StoryID = task.storyId;
+    transferObject.SprintID = task.sprintId;
+    transferObject.UserID = task.userId;
+    console.log(JSON.stringify(transferObject));
+    return super.create(JSON.stringify(transferObject));;
   }
 
-  /**
-   * Task erstellen
-   * Objekt wird ohne ID an den Server geschickt
-   * @param {Task} task
-   * @returns {boolean}
-   */
-  create(task: Task): boolean {
-    console.log('created');
-    console.log('Name: ' + task.name);
-    console.log('Description: ' + task.description);
-    console.log('Workload: ' + task.workload);
-    console.log('StoryID: ' + task.storyId);
-    console.log('Priority: ' + task.priority);
-    console.log('UserID: ' + task.userId);
-    return true;
+  update(task): Observable<Task> {
+    var transferObject: any = {};
+    transferObject.TaskID = task.id;
+    transferObject.Name = task.name;
+    transferObject.Description = task.description;
+    transferObject.Priority = task.priority;
+    transferObject.Workload = task.workload;
+    transferObject.WorkedTime = task.workedTime;
+    transferObject.StoryID = task.storyId;
+    transferObject.SprintID = task.sprintId;
+    transferObject.UserID = task.userId;
+    console.log(JSON.stringify(transferObject));
+    return super.update(JSON.stringify(transferObject));;
   }
 
-  /**
-   * Task verändern
-   * @param {Task} task
-   * @returns {boolean}
-   */
-  update(task: Task): boolean {
-    console.log('update');
-    return true;
+  delete(id: number): Observable<number> {
+    return super.delete(id);
   }
 
-  /**
-   * Task löschen
-   * @param {number} id
-   * @returns {boolean}
-   */
-  delete(id: number): boolean {
-    console.log('delete');
-    return true;
-  }
 }
