@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class DtoService {
 
-  constructor(private url: string, private http: HttpClient) { }
+  constructor(protected url: string, protected http: HttpClient) { }
 
   /**
    * Alle Objekte auf der DB abfragen

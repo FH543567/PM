@@ -8,6 +8,10 @@ import 'rxjs/add/observable/throw';
 import { DtoService } from './dto.service';
 import { HttpClient } from '@angular/common/http';
 
+/**
+ * Mapped den Inhalt der HTTP-Requests
+ * Bei Änderungen von Variablen-Namen in der Datenbank oder in den DTO's muss das Mapping hier angepasst werden.
+ */
 @Injectable()
 export class EpicService extends DtoService {
 
