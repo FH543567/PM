@@ -29,25 +29,25 @@ export class BacklogPageComponent implements OnInit {
     this.getTasks();
     this.getStories();
     this.getEpics();
-    this.taskToBacklog();
-    this.storyToBacklog();
-    this.epicToBacklog();
-    this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems);
+    //this.taskToBacklog();
+    //this.storyToBacklog();
+    //this.epicToBacklog();
+    //this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems);
   }
 
   getTasks() {
     this.taskService.getAll()
-      .subscribe(tasks => this.tasks = tasks);
+      .subscribe(tasks => {this.tasks = tasks, this.taskToBacklog()});
   }
 
   getStories() {
     this.storyService.getAll()
-      .subscribe(stories => this.stories = stories);
+      .subscribe(stories => {this.stories = stories, this.storyToBacklog()});
   }
 
   getEpics() {
     this.epicService.getAll()
-      .subscribe(epics => this.epics = epics);
+      .subscribe(epics => {this.epics = epics, this.epicToBacklog(), this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems)});
   }
 
   taskToBacklog() {

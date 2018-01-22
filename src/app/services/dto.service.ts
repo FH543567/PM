@@ -24,7 +24,7 @@ export class DtoService {
   getAll(): Observable<any[]> {
     return this.http.get<any[]>(this.url)
       .pipe(
-      tap(heroes => this.log(`fetched heroes`)),
+      tap(objects => this.log(`fetched objects`)),
       catchError(this.handleError('getAll', []))
       );
   }
@@ -38,7 +38,7 @@ export class DtoService {
     const url = `${this.url}/${id}`;
     return this.http.get<any[]>(url)
       .pipe(
-        map(heroes => heroes[0]), // returns a {0|1} element array
+        map(objects => objects[0]), // returns a {0|1} element array
         tap(h => {
           const outcome = h ? `fetched` : `did not find`;
           this.log(`${outcome} Object id=${id}`);
