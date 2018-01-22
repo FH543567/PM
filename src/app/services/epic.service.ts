@@ -56,5 +56,4 @@ export class EpicService extends DtoService {
     return super.delete(id);
   }
 
-
 }

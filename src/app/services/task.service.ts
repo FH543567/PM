@@ -7,7 +7,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { DtoService } from './dto.service';
 import { HttpClient } from '@angular/common/http';
-
 //Für nicht-vererbte http-requests:
 import { catchError, map, tap } from 'rxjs/operators';
 

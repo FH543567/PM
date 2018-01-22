@@ -170,6 +170,25 @@ router.get('/stories/:id', (req, res) => {
 });
 
 //----------------------------------------------------------------------
+// GET /stories/byEpic/:id
+//----------------------------------------------------------------------
+router.get('/stories/byEpicy/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. Stories with EpicID = ', req.params.id + ' requested');
+	
+	connection.query('SELECT * FROM story WHERE EpicID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.send({ error: err, message: err.message });
+			//throw err;
+		} else {
+		res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
 // POST /stories
 //----------------------------------------------------------------------
 router.post('/stories', (req, res) => {
