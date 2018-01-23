@@ -12,6 +12,7 @@ export class User {
   firstname: string;
   @JsonProperty('lastname', String)
   lastname: string;
+  //ProductOwner=0, ScrumMaster=1, Developer=2
   @JsonProperty('role', Number)
   role: number;
 

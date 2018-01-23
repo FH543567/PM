@@ -3,10 +3,16 @@ import { User } from '../user/user';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {JsonConvert, JsonObject, JsonProperty} from 'json2typescript';
+import { UserService } from './user.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
+
+  constructor(
+    private router: Router, private userService: UserService
+  ) {}
 
   get isLoggedIn(): boolean {
     if (localStorage.getItem('username') != null) {
@@ -34,14 +40,19 @@ export class AuthService {
     }
   }
 
-  constructor(
-    private router: Router
-  ) {}
-
+  //Wenn User nicht in DB vorhanden, schmeißt der dto.service eine exception
   login(user: User) {
     if (user.username !== '' && user.password !== '') {
-      this.loggedIn.next(true);                     // muss um weitere login logic erweitert werden
-      localStorage.setItem('username', user.username);
+        this.userService.getByUsername(user.username).subscribe(loginResult => this.setLogin(loginResult))
+    }
+  }
+
+  setLogin(loginResult) {
+    if(loginResult === null) {
+      console.error("Login fehlgeschlagen");
+    } else {
+      this.loggedIn.next(true);
+      localStorage.setItem('username', loginResult.username);
       localStorage.setItem('role',  'ScrumMaster');
       this.router.navigate(['/home']);
     }

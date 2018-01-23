@@ -456,4 +456,124 @@ router.delete('/sprints/:id', (req, res) => {
 		}
 	});
 });
+
+
+
+
+
+
+
+
+///////////
+// USERS //
+///////////
+//----------------------------------------------------------------------
+// GET /users
+//----------------------------------------------------------------------
+router.get('/users', (req, res) => {
+	
+	console.log('Express: got HTTP-Get from client. All Objects requested');
+
+	connection.query('SELECT * FROM user', function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+		res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// GET /users/:id
+//----------------------------------------------------------------------
+router.get('/users/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. Object with id = ', req.params.id + ' requested');
+	
+	connection.query('SELECT * FROM user WHERE UserID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.send({ error: err, message: err.message });
+			//throw err;
+		} else {
+		res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// GET /users/username/:uname
+//----------------------------------------------------------------------
+router.get('/users/username/:uname', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. User with uname = ', req.params.uname + ' requested');
+	
+	connection.query('SELECT * FROM user WHERE Username = ?', req.params.uname, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.send({ error: err, message: err.message });
+			//throw err;
+		} else {
+		res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// POST /users
+//----------------------------------------------------------------------
+router.post('/users', (req, res) => {
+
+	console.log('Express: got HTTP-Post from client. ', req.body + ' gets created');
+	
+	connection.query('INSERT INTO user SET ?', req.body, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+		res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// PUT /users
+//----------------------------------------------------------------------
+router.put('/users', (req, res) => {
+
+	console.log('Express: got HTTP-Put from client. ', req + ' gets updated');
+	
+	connection.query('REPLACE INTO user SET ?', req.body, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+		res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// DELETE /users/:id
+//----------------------------------------------------------------------
+router.delete('/users/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
+	
+	connection.query('DELETE FROM user WHERE UserID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+		res.send(rows);
+		}
+	});
+});
 module.exports = router;
