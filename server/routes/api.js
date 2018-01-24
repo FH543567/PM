@@ -536,7 +536,16 @@ router.post('/users', (req, res) => {
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			connection.query('SELECT * FROM user WHERE Username = ? AND Password = ?', [req.body.Username, req.body.Password], function (err, rows, fields) {
+				if (err) {
+					console.error("Error occured on Express-Server: " + err.message)
+					res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+						.send({ error: err, message: err.message });
+					//throw err;
+				} else {
+				res.send(rows);
+				}
+			});
 		}
 	});
 });

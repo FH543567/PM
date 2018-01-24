@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EPICS, TASKS, STORIES, SPRINTS } from './mockdata';
+import { UserService } from './user.service';
 import { Task } from '../task/task';
 import { Story } from '../story/story';
 import { Epic } from '../epic/epic';
@@ -34,13 +35,12 @@ export class DataService {
 
   // TODO: Service für Poker, Burndown, Chat
 
-  // Methode für die Regestration eines neuen Users im Serve
+  // Methode für die Registrierung eines neuen Users im Server
   register(user: User): boolean {
     console.log('username:', user.username);
     console.log('password:', user.password);
     console.log('firstname:', user.firstname);
     console.log('lastname:', user.lastname);
-    // TODO: Rollenwert für eine Übergabe an die DB auslesen
     console.log('role:', user.role);
     return true;
   }
@@ -97,21 +97,4 @@ export class DataService {
   addMessage(text: string ) {
     this.chat.push(new Message(localStorage.getItem('username'), text));
   }
-  /*
-  getTasks(): Observable<Task[]> {
-    return of(TASKS);
-  }
-
-  getStories(): Observable<Story[]> {
-    return of(STORIES);
-  }
-
-  getEpics(): Observable<Epic[]> {
-    return of(EPICS);
-  }
-
-  getSprints(): Observable<Sprint[]> {
-    return of(SPRINTS);
-  }
-  */
 }

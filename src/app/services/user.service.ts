@@ -53,14 +53,15 @@ export class UserService extends DtoService {
     var transferObject: any = {};
     //ID wird nicht berücksichtigt, da auto-increment
     //transferObject.UserId = user.id;
-    transferObject.Name = user.name;
     transferObject.Username = user.username;
     transferObject.Password = user.password;
     transferObject.Firstname = user.firstname;
     transferObject.Lastname = user.lastname;
     transferObject.Role = user.role;
     console.log(JSON.stringify(transferObject));
-    return super.create(JSON.stringify(transferObject));;
+    return super.create(JSON.stringify(transferObject))
+      .map(objects => objects[0])
+      .map(userDB => userDB = userDB ? new User(userDB.UserID, userDB.Username, userDB.Password, userDB.Firstname, userDB.Lastname, userDB.Role) : undefined);
   }
 
   /**
@@ -91,7 +92,7 @@ export class UserService extends DtoService {
     return super.delete(id);
   }
 
-  
+
   /**
    * Ein User anhand der ID abfragen
    * @returns {Observable<User>} returnt 'undefined' wenn id nicht gefunden wurde
@@ -99,16 +100,16 @@ export class UserService extends DtoService {
    */
   getByUsername(username: String): Observable<User> {
     const url = `${this.url}/username/${username}`;
-    let result : Observable<any> = this.http.get<any[]>(url)
+    let result: Observable<any> = this.http.get<any[]>(url)
       .pipe(
-        map(objects => objects[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? `fetched` : `did not find`;
-          this.log(`${outcome} User username=${username}`);
-        }),
-        catchError(this.handleError<Object>(`getByUsername username=${username}`))
+      map(objects => objects[0]), // returns a {0|1} element array
+      tap(h => {
+        const outcome = h ? `fetched` : `did not find`;
+        this.log(`${outcome} User username=${username}`);
+      }),
+      catchError(this.handleError<Object>(`getByUsername username=${username}`))
       );
     return result
-      .map(userDB => userDB = userDB ? new User(userDB.UserID, userDB.Username, userDB.Password, userDB.Firstname, userDB.Lastname, userDB.Role) : undefined)
+      .map(userDB => userDB = userDB ? new User(userDB.UserID, userDB.Username, userDB.Password, userDB.Firstname, userDB.Lastname, userDB.Role) : undefined);
   }
 }

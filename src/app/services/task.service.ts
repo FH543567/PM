@@ -60,7 +60,7 @@ export class TaskService extends DtoService {
     transferObject.SprintID = task.sprintId;
     transferObject.UserID = task.userId;
     console.log(JSON.stringify(transferObject));
-    return super.create(JSON.stringify(transferObject));;
+    return super.create(JSON.stringify(transferObject));
   }
 
   /**

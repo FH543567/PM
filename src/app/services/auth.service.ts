@@ -40,21 +40,23 @@ export class AuthService {
     }
   }
 
-  //Wenn User nicht in DB vorhanden, schmeißt der dto.service eine exception
+  //Request an Server, ob userToVerify existiert
   login(userToVerify: User) {
     if (userToVerify.username !== '' && userToVerify.password !== '') {
         this.userService.getByUsername(userToVerify.username).subscribe(loginResult => this.setLogin(userToVerify, loginResult))
     }
   }
 
-  setLogin(userToVerify: User, loginResult) {
+  //Überprüft Login-Daten und wenn erfolgreich - setzt LocalStorage
+  //Bei mehreren Usern wird nur der oberste in der DB genommen => kann zu Fehlern (insb. in der PW-Überprüfung) führen
+  setLogin(userToVerify: User, loginResult: User) {
     if(!loginResult) {
       //result ist undefined
-      console.error("Username konnte nicht gefunden werden.");
+      console.error("Fehler beim Login: Username konnte nicht gefunden werden.");
     } else if(userToVerify.password != loginResult.password)
     {
       //Password stimmt nicht überein
-      console.error("Das angegebene Passwort ist falsch.");
+      console.error("Fehler beim Login: Das angegebene Passwort ist falsch.");
     } else {
       //überprüfung erfolgreich
       this.loggedIn.next(true);
