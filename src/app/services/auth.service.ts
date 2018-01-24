@@ -41,16 +41,22 @@ export class AuthService {
   }
 
   //Wenn User nicht in DB vorhanden, schmeißt der dto.service eine exception
-  login(user: User) {
-    if (user.username !== '' && user.password !== '') {
-        this.userService.getByUsername(user.username).subscribe(loginResult => this.setLogin(loginResult))
+  login(userToVerify: User) {
+    if (userToVerify.username !== '' && userToVerify.password !== '') {
+        this.userService.getByUsername(userToVerify.username).subscribe(loginResult => this.setLogin(userToVerify, loginResult))
     }
   }
 
-  setLogin(loginResult) {
-    if(loginResult === null) {
-      console.error("Login fehlgeschlagen");
+  setLogin(userToVerify: User, loginResult) {
+    if(!loginResult) {
+      //result ist undefined
+      console.error("Username konnte nicht gefunden werden.");
+    } else if(userToVerify.password != loginResult.password)
+    {
+      //Password stimmt nicht überein
+      console.error("Das angegebene Passwort ist falsch.");
     } else {
+      //überprüfung erfolgreich
       this.loggedIn.next(true);
       localStorage.setItem('username', loginResult.username);
       localStorage.setItem('role',  'ScrumMaster');

@@ -105,11 +105,10 @@ export class UserService extends DtoService {
         tap(h => {
           const outcome = h ? `fetched` : `did not find`;
           this.log(`${outcome} User username=${username}`);
-          if(!h) throw new Error("Error: Username " + username + " konnte nicht gefunden werden.");
         }),
         catchError(this.handleError<Object>(`getByUsername username=${username}`))
       );
     return result
-      .map(userDB => userDB = new User(userDB.UserID, userDB.Username, userDB.Password, userDB.Firstname, userDB.Lastname, userDB.Role))
+      .map(userDB => userDB = userDB ? new User(userDB.UserID, userDB.Username, userDB.Password, userDB.Firstname, userDB.Lastname, userDB.Role) : undefined)
   }
 }
