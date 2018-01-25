@@ -8,6 +8,8 @@ import { UserService } from '../services/user.service';
 import { User } from '../user/user';
 import { SprintService } from '../services/sprint.service';
 import { Sprint } from '../sprint/sprint';
+import {Observable} from 'rxjs/Observable';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
   selector: 'app-task-details',
@@ -28,34 +30,41 @@ export class TaskDetailsComponent implements OnInit {
   ngOnInit() {
     let id: number;
     this.sub = this.route.params.subscribe(params => {
-      id = +params['id']; // (+) converts string 'id' to a number
+      id = +params['id'], // (+) converts string 'id' to a number
+      this.getTask(id).subscribe(task => 
+        this.taskReceived(task)
+      );
     });
-    this.getTask(id);
-    this.getStory(this.task.storyId);
-    this.getSprint(this.task.sprintId);
-    this.getUser(this.task.userId);
+  }
+
+  /**
+   * Wird erst aufgerufen, wenn der Task vom Server Empfangen wurde
+   * @param task 
+   */
+  taskReceived(task : Task) {
+    this.task = task;
+    this.getStory(task.storyId).subscribe(story => this.story = story);
+    this.getSprint(task.sprintId).subscribe(sprint => this.sprint = sprint);
+    this.getUser(task.userId).subscribe(user => this.user = user);
     this.updateProgress();
     this.tempWorkedTime = this.task.workedTime;
   }
 
-  getTask(id: number) {
-    this.taskService.getById(id)
-      .subscribe( task => this.task = task);
+
+  getTask(id: number) : Observable<Task> {
+    return this.taskService.getById(id);
   }
 
-  getStory(id: number) {
-    this.storyService.getById(id)
-      .subscribe( story => this.story = story);
+  getStory(id: number) : Observable<Story> {
+    return this.storyService.getById(id);
   }
 
-  getSprint(id: number) {
-    this.sprintService.getById(id)
-      .subscribe( sprint => this.sprint = sprint);
+  getSprint(id: number) : Observable<Sprint> {
+    return this.sprintService.getById(id);
   }
 
-  getUser(id: number) {
-    this.userService.getById(id)
-      .subscribe( user => this.user = user);
+  getUser(id: number) : Observable<User> {
+    return this.userService.getById(id);
   }
 
   updateProgress() {
