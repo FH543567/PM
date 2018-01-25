@@ -23,7 +23,7 @@ export class SprintService extends DtoService {
   getAll(): Observable<Sprint[]> {
     return super.getAll()
       .map(sprintList => sprintList = sprintList
-        .map(sprintDB => sprintDB = new Sprint(sprintDB.SprintID, sprintDB.Name, sprintDB.Description, sprintDB.AvailableTime, sprintDB.StartDate, sprintDB.EndDate)));
+        .map(sprintDB => sprintDB = new Sprint(sprintDB.SprintID, sprintDB.Name, sprintDB.Description, sprintDB.AvailableTime, new Date(sprintDB.StartDate), new Date(sprintDB.EndDate))));
   }
 
   /**
@@ -33,8 +33,7 @@ export class SprintService extends DtoService {
    */
   getById(id: number): Observable<Sprint> {
     return super.getById(id)
-      .map(sprintDB => sprintDB = new Sprint(sprintDB.SprintID, sprintDB.Name, sprintDB.Description, sprintDB.AvailableTime, sprintDB.StartDate, sprintDB.EndDate))
-    //.catch(e => { console.log(e); return undefined; })
+      .map(sprintDB => sprintDB = new Sprint(sprintDB.SprintID, sprintDB.Name, sprintDB.Description, sprintDB.AvailableTime, new Date(sprintDB.StartDate), new Date(sprintDB.EndDate)));
   }
 
   /**

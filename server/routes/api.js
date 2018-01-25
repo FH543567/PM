@@ -229,7 +229,7 @@ router.put('/stories', (req, res) => {
 //----------------------------------------------------------------------
 router.delete('/stories/:id', (req, res) => {
 
-	console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
+	console.log('Express: got HTTP-Delete from client. story with id=', req.params.id + ' gets deleted');
 
 	connection.query('DELETE FROM story WHERE StoryID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
@@ -253,7 +253,7 @@ router.delete('/stories/:id', (req, res) => {
 //----------------------------------------------------------------------
 router.get('/tasks', (req, res) => {
 
-	console.log('Express: got HTTP-Get from client. All Objects requested');
+	console.log('Express: got HTTP-Get from client. All Tasks requested');
 
 	connection.query('SELECT * FROM task', function (err, rows, fields) {
 		if (err) {
@@ -271,7 +271,7 @@ router.get('/tasks', (req, res) => {
 //----------------------------------------------------------------------
 router.get('/tasks/:id', (req, res) => {
 
-	console.log('Express: got HTTP-Get from client. Object with id = ', req.params.id + ' requested');
+	console.log('Express: got HTTP-Get from client. Task with id = ', req.params.id + ' requested');
 
 	connection.query('SELECT * FROM task WHERE TaskID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
