@@ -89,7 +89,9 @@ export class ChartPageComponent implements OnInit {
       i++;
     }
     //-----LABEL-----
-    for (let label of this.historyLabels) chartLabelsClone.push(label);
+    for (let label of this.historyLabels) {
+      chartLabelsClone.push(label);
+    }
     //Hint anzeigen, wenn keine historischen Daten für Sprint vorliegen.
     if (chartLabelsClone.length == 0) {
       this.selectSprintMessage = "Für diesen Sprint liegen keine historischen Daten vor.";
@@ -108,8 +110,6 @@ export class ChartPageComponent implements OnInit {
   public chartHovered(e: any): void {
     console.log(e);
   }
-
-
 }
 
 
