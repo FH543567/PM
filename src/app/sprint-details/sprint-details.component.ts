@@ -85,7 +85,6 @@ export class SprintDetailsComponent implements OnInit {
     console.log('Included after: ' + included);
   }
 
-  // TODO: muss noch über den Service auf der DB geändert werden
   addTasks() {
     console.log('addTasks ' + JSON.stringify(this.checkedTasks));
     for (let task of this.checkedTasks) {
@@ -99,6 +98,7 @@ export class SprintDetailsComponent implements OnInit {
     }
   }
 
+  // TODO: muss noch über den Service auf der DB geändert werden
   delete() {
     this.sprintService.delete(this.sprint.id);
   }
