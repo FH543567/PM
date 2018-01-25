@@ -1,3 +1,14 @@
+<mat-form-field>
+  <mat-select placeholder="Pick a Sprint" [(ngModel)]="selectedSprint" name="sprint">
+    <mat-option *ngFor="let sprint of sprints" [value]="sprint.id" (click)="updateChart()">
+      {{sprint.name}}
+    </mat-option>
+  </mat-select>
+  <mat-hint>{{selectSprintMessage}}</mat-hint>
+</mat-form-field>
+
+
+
 <div style="width: 40%;" class="chart-content">
  <mat-card>
   <canvas

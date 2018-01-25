@@ -457,6 +457,26 @@ router.delete('/sprints/:id', (req, res) => {
 	});
 });
 
+////////////////////
+// Sprint-History //
+////////////////////
+//----------------------------------------------------------------------
+// GET /history
+//----------------------------------------------------------------------
+router.get('/history', (req, res) => {
+	
+	console.log('Express: got HTTP-Get from client. All Objects requested');
+
+	connection.query('SELECT * FROM history ORDER BY Date ASC', function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+		res.send(rows);
+		}
+	});
+});
 
 
 

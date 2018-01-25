@@ -19,12 +19,12 @@ export class DataService {
   // DEFAULT VALUES FOR TESTING
   // --------------- daten müssen später vom Server geholt werden ---------------
   poker: Poker = new Poker(1, 'exampleTask', 'this is an Example Task with a lot of text and bla and you have to see whats ' +
-  'going on and the bla bla bla is very important to blablablablabla', [
-    new Round(['Hans', 'Peter', 'Ute'], [3, 5, 6]),
-    new Round(['Hans', 'Peter', 'Ute'], [4, 5, 6]),
-    new Round(['Hans', 'Peter', 'Ute'], [4, 5, 5]),
-    new Round(['Hans', 'Peter', 'Ute'], [5, 5, 5])
-  ]);
+    'going on and the bla bla bla is very important to blablablablabla', [
+      new Round(['Hans', 'Peter', 'Ute'], [3, 5, 6]),
+      new Round(['Hans', 'Peter', 'Ute'], [4, 5, 6]),
+      new Round(['Hans', 'Peter', 'Ute'], [4, 5, 5]),
+      new Round(['Hans', 'Peter', 'Ute'], [5, 5, 5])
+    ]);
   chat: Message[] = [
     new Message('Peter', 'ich finde das doof diesen langen text der testen soll ob ein umbruch funktioniert'),
     new Message('Ute', 'beispieltext'),
@@ -36,6 +36,9 @@ export class DataService {
   // TODO: Service für Poker, Burndown, Chat
 
   // Methode für die Registrierung eines neuen Users im Server
+  /**
+  * @deprecated nicht mehr Benutzen, da keine Verbindung zur DB!
+  */
   register(user: User): boolean {
     console.log('username:', user.username);
     console.log('password:', user.password);
@@ -45,6 +48,7 @@ export class DataService {
     return true;
   }
 
+  //TODO: Wird das noch gebraucht?
   createBacklog(backlog: Backlog): boolean {
     console.log('id', backlog.id);
     console.log('name', backlog.name);
@@ -70,7 +74,7 @@ export class DataService {
    * @returns {Message[]}
    */
   getMessages(): Message[] {
-      return this.chat;
+    return this.chat;
   }
 
   /**
@@ -94,7 +98,7 @@ export class DataService {
    * sendet eine neue Nachticht in den Chat
    * @param {string} text
    */
-  addMessage(text: string ) {
+  addMessage(text: string) {
     this.chat.push(new Message(localStorage.getItem('username'), text));
   }
 }

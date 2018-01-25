@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Sprint } from '../sprint/sprint';
+import { HistoryEntry } from '../chart-page/historyEntry';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';
@@ -33,7 +34,7 @@ export class SprintService extends DtoService {
   getById(id: number): Observable<Sprint> {
     return super.getById(id)
       .map(sprintDB => sprintDB = new Sprint(sprintDB.SprintID, sprintDB.Name, sprintDB.Description, sprintDB.AvailableTime, sprintDB.StartDate, sprintDB.EndDate))
-        //.catch(e => { console.log(e); return undefined; })
+    //.catch(e => { console.log(e); return undefined; })
   }
 
   /**
@@ -83,4 +84,19 @@ export class SprintService extends DtoService {
     return super.delete(id);
   }
 
+  /**
+   * Alle Historyeinträge auf der DB abfragen
+   * Nach date aufsteigend sortiert
+   * @returns {Observable<HistoryEntry[]>} 
+   */
+  getFullHistory(): Observable<HistoryEntry[]> {
+    let tmpUrl: string = this.url;
+    this.url = "http://localhost:3000/api/history";
+    let result: Observable<HistoryEntry[]> = super.getAll()
+      .map(historyList => historyList = historyList
+        .map(historyDB => historyDB = new HistoryEntry(historyDB.Sprint, new Date(historyDB.Date), historyDB.WorkRemaining)));
+    //Reset URL
+    this.url = tmpUrl;
+    return result;
+  }
 }

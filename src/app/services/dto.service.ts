@@ -24,7 +24,7 @@ export class DtoService {
   getAll(): Observable<any[]> {
     return this.http.get<any[]>(this.url)
       .pipe(
-      tap(objects => this.log(`fetched objects`)),
+      tap(objects => this.log(`fetched objects: ` + objects.length)),
       catchError(this.handleError('getAll', []))
       );
   }
