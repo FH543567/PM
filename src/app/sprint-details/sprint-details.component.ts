@@ -5,7 +5,7 @@ import { Task } from '../task/task';
 import { MatTableDataSource } from '@angular/material';
 import { SprintService } from '../services/sprint.service';
 import { TaskService } from '../services/task.service';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/observable/zip';
 import { zip } from 'rxjs/operators';
@@ -38,23 +38,23 @@ export class SprintDetailsComponent implements OnInit {
       this.getSprint(),
       this.getTasks()
     )
-    .subscribe(res => {
-      console.log("forkjoin: " + JSON.stringify(res))
-      this.sprint = res[0],
-      this.tasks = res[1],
-      this.dataSource = new MatTableDataSource<Task>(res[1]),
-      this.getAssignedTasks()
-    });
+      .subscribe(res => {
+        console.log("forkjoin: " + JSON.stringify(res))
+        this.sprint = res[0],
+          this.tasks = res[1],
+          this.dataSource = new MatTableDataSource<Task>(res[1]),
+          this.getAssignedTasks()
+      });
 
-  
+
   }
 
-  getSprint() : Observable<Sprint> {
+  getSprint(): Observable<Sprint> {
     return this.sprintService.getById(this.id);
 
   }
 
-  getTasks() : Observable<Task[]> {
+  getTasks(): Observable<Task[]> {
     return this.taskService.getAll();
   }
 
@@ -66,24 +66,36 @@ export class SprintDetailsComponent implements OnInit {
     }
   }
 
-  check(task: Task) {
-    let included = this.checkedTasks.includes(task);
+  check(taskId) {
+    //suche nach Task in this.tasks
+    let checkedTask: Task;
+    for (let t of this.tasks)
+      if (t.id == taskId)
+        checkedTask = t;
+
+    let included = this.checkedTasks.includes(checkedTask);
     console.log('Included before: ' + included);
     if (included === true) {
-      this.checkedTasks.splice(this.checkedTasks.indexOf(task), 1);
+      this.checkedTasks.splice(this.checkedTasks.indexOf(checkedTask), 1);
     }
     if (included === false) {
-      this.checkedTasks.push(task);
+      this.checkedTasks.push(checkedTask);
     }
-    included = this.checkedTasks.includes(task);
+    included = this.checkedTasks.includes(checkedTask);
     console.log('Included after: ' + included);
   }
 
   // TODO: muss noch über den Service auf der DB geändert werden
   addTasks() {
-    console.log('addTasks');
-    for (const task of this.checkedTasks) {
+    console.log('addTasks ' + JSON.stringify(this.checkedTasks));
+    for (let task of this.checkedTasks) {
+      console.log("JSON.stringify(task): " + JSON.stringify(task));
+      //console.log("task.sprintId: " + task.sprintId);
       task.sprintId = this.sprint.id;
+      this.taskService.update(task).subscribe(task => {
+        if (!this.checkedTasks.includes(task))
+          this.assignedTasks.push(task)
+      });
     }
   }
 

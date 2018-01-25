@@ -45,7 +45,7 @@ export class TaskDetailsComponent implements OnInit {
     this.task = task;
     this.getStory(task.storyId).subscribe(story => this.story = story);
     this.getSprint(task.sprintId).subscribe(sprint => this.sprint = sprint);
-    this.getUser(task.userId).subscribe(user => this.user = user);
+    if (task.userId) this.getUser(task.userId).subscribe(user => this.user = user);
     this.updateProgress();
     this.tempWorkedTime = this.task.workedTime;
   }

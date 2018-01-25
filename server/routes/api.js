@@ -354,7 +354,16 @@ router.put('/tasks', (req, res) => {
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-			res.send(rows);
+			connection.query('SELECT * FROM task WHERE TaskID = ?', req.body.TaskID, function (err, rows, fields) {
+				if (err) {
+					console.error("Error occured on Express-Server: " + err.message)
+					res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+						.send({ error: err, message: err.message });
+					//throw err;
+				} else {
+					res.send(rows);
+				}
+			})
 		}
 	});
 });
