@@ -54,10 +54,8 @@ export class ChartPageComponent implements OnInit {
     this.historyLabels = [];
     for (let his of history) {
       if (his.sprintID == this.selectedSprint) {
-        console.log("lade history in historyWorkRemainings. SprintID: " + his.sprintID + " date: " + his.date.toDateString() + "." + his.date.getMonth() + " workr: " + his.workRemaining);
         this.historyWorkRemainings.push(his.workRemaining)
         let dateFormat: string = this.datePipe.transform(his.date, "dd.MM")
-        console.log("lade Label " + dateFormat);
         this.historyLabels.push(dateFormat);
       }
     }
@@ -80,10 +78,8 @@ export class ChartPageComponent implements OnInit {
     //-----OPTIMAL-----
     //Berechne optimale Daten und lade in chartData
     let diff: number = this.historyWorkRemainings[0] / (this.historyWorkRemainings.length - 1);
-    console.log("diff: " + diff);
     let i: number = 0;
     for (let optimal of this.historyWorkRemainings) {
-      console.log("chartDataClone: " + JSON.stringify(chartDataClone));
       let newValue = chartDataClone[0].data[0] - (diff * i);
       chartDataClone[1].data.push(newValue);
       i++;
@@ -99,12 +95,11 @@ export class ChartPageComponent implements OnInit {
     else this.selectSprintMessage = null;
 
     //REFRESH DATA
+    //label dürfen keine neue Referenz zum refreshen bekommen, der Dataset schon (Angular-Bug)
     this.chartLabels.length = 0;
-    for (let i = chartLabelsClone.length - 1; i >= 0; i--) {
+    for (let i =  0; i < chartLabelsClone.length; i++) {
       this.chartLabels.push(chartLabelsClone[i]);
     }
-    //this.chartLabels = chartLabelsClone;
-    console.log("chartLabels: " + JSON.stringify(this.chartLabels));
     //Klon einfügen. Chart wird hier erst neu gerendert.
     this.chartData = chartDataClone;
   }

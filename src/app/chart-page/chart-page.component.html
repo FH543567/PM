@@ -9,7 +9,7 @@
 
 
 
-<div style="width: 40%;" class="chart-content">
+<div style="width: 60%;" class="chart-content">
  <mat-card>
   <canvas
     baseChart
@@ -17,7 +17,7 @@
     [datasets]="chartData"
     [labels]="chartLabels"
     [options]="chartOptions"
-    [legend]="false"
+    [legend]="true"
     (chartClick)="onChartClick($event)">
   </canvas>
  </mat-card>
