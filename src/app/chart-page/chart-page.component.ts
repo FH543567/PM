@@ -49,14 +49,14 @@ export class ChartPageComponent implements OnInit {
       .subscribe(history => { this.history = history, this.updateData(history) });
   }
 
-  updateData(history : HistoryEntry[]) {
+  updateData(history: HistoryEntry[]) {
     this.historyWorkRemainings = [];
     this.historyLabels = [];
     for (let his of history) {
       if (his.sprintID == this.selectedSprint) {
         console.log("lade history in historyWorkRemainings. SprintID: " + his.sprintID + " date: " + his.date.toDateString() + "." + his.date.getMonth() + " workr: " + his.workRemaining);
         this.historyWorkRemainings.push(his.workRemaining)
-        let dateFormat : string = this.datePipe.transform(his.date, "dd.MM")
+        let dateFormat: string = this.datePipe.transform(his.date, "dd.MM")
         console.log("lade Label " + dateFormat);
         this.historyLabels.push(dateFormat);
       }
@@ -97,9 +97,15 @@ export class ChartPageComponent implements OnInit {
       this.selectSprintMessage = "Für diesen Sprint liegen keine historischen Daten vor.";
     }
     else this.selectSprintMessage = null;
-    //Klon einfügen. Chart wird hier erst neu gerendert.
-    this.chartLabels = chartLabelsClone;
+
+    //REFRESH DATA
+    this.chartLabels.length = 0;
+    for (let i = chartLabelsClone.length - 1; i >= 0; i--) {
+      this.chartLabels.push(chartLabelsClone[i]);
+    }
+    //this.chartLabels = chartLabelsClone;
     console.log("chartLabels: " + JSON.stringify(this.chartLabels));
+    //Klon einfügen. Chart wird hier erst neu gerendert.
     this.chartData = chartDataClone;
   }
 
