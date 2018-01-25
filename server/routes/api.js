@@ -37,7 +37,7 @@ let response = {
 // GET /epics
 //----------------------------------------------------------------------
 router.get('/epics', (req, res) => {
-	
+
 	console.log('Express: got HTTP-Get from client. All Objects requested');
 
 	connection.query('SELECT * FROM epic', function (err, rows, fields) {
@@ -46,7 +46,7 @@ router.get('/epics', (req, res) => {
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -57,7 +57,7 @@ router.get('/epics', (req, res) => {
 router.get('/epics/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Get from client. Object with id = ', req.params.id + ' requested');
-	
+
 	connection.query('SELECT * FROM epic WHERE EpicID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
@@ -65,7 +65,7 @@ router.get('/epics/:id', (req, res) => {
 				.send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -76,14 +76,14 @@ router.get('/epics/:id', (req, res) => {
 router.post('/epics', (req, res) => {
 
 	console.log('Express: got HTTP-Post from client. ', req.body + ' gets created');
-	
+
 	connection.query('INSERT INTO epic SET ?', req.body, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -94,14 +94,14 @@ router.post('/epics', (req, res) => {
 router.put('/epics', (req, res) => {
 
 	console.log('Express: got HTTP-Put from client. ', req + ' gets updated');
-	
+
 	connection.query('REPLACE INTO epic SET ?', req.body, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -112,14 +112,14 @@ router.put('/epics', (req, res) => {
 router.delete('/epics/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
-	
+
 	connection.query('DELETE FROM epic WHERE EpicID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -136,7 +136,7 @@ router.delete('/epics/:id', (req, res) => {
 // GET /stories
 //----------------------------------------------------------------------
 router.get('/stories', (req, res) => {
-	
+
 	console.log('Express: got HTTP-Get from client. All Objects requested');
 
 	connection.query('SELECT * FROM story', function (err, rows, fields) {
@@ -145,7 +145,7 @@ router.get('/stories', (req, res) => {
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -156,7 +156,7 @@ router.get('/stories', (req, res) => {
 router.get('/stories/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Get from client. Object with id = ', req.params.id + ' requested');
-	
+
 	connection.query('SELECT * FROM story WHERE StoryID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
@@ -164,7 +164,7 @@ router.get('/stories/:id', (req, res) => {
 				.send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -175,7 +175,7 @@ router.get('/stories/:id', (req, res) => {
 router.get('/stories/byEpicy/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Get from client. Stories with EpicID = ', req.params.id + ' requested');
-	
+
 	connection.query('SELECT * FROM story WHERE EpicID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
@@ -183,7 +183,7 @@ router.get('/stories/byEpicy/:id', (req, res) => {
 				.send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -194,14 +194,14 @@ router.get('/stories/byEpicy/:id', (req, res) => {
 router.post('/stories', (req, res) => {
 
 	console.log('Express: got HTTP-Post from client. ', req.body + ' gets created');
-	
+
 	connection.query('INSERT INTO story SET ?', req.body, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -212,14 +212,14 @@ router.post('/stories', (req, res) => {
 router.put('/stories', (req, res) => {
 
 	console.log('Express: got HTTP-Put from client. ', req + ' gets updated');
-	
+
 	connection.query('REPLACE INTO story SET ?', req.body, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -230,14 +230,14 @@ router.put('/stories', (req, res) => {
 router.delete('/stories/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
-	
+
 	connection.query('DELETE FROM story WHERE StoryID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -252,7 +252,7 @@ router.delete('/stories/:id', (req, res) => {
 // GET /tasks
 //----------------------------------------------------------------------
 router.get('/tasks', (req, res) => {
-	
+
 	console.log('Express: got HTTP-Get from client. All Objects requested');
 
 	connection.query('SELECT * FROM task', function (err, rows, fields) {
@@ -261,7 +261,7 @@ router.get('/tasks', (req, res) => {
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -272,7 +272,7 @@ router.get('/tasks', (req, res) => {
 router.get('/tasks/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Get from client. Object with id = ', req.params.id + ' requested');
-	
+
 	connection.query('SELECT * FROM task WHERE TaskID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
@@ -280,7 +280,7 @@ router.get('/tasks/:id', (req, res) => {
 				.send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -291,7 +291,7 @@ router.get('/tasks/:id', (req, res) => {
 router.get('/tasks/byStory/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Get from client. Tasks with StoryID = ', req.params.id + ' requested');
-	
+
 	connection.query('SELECT * FROM task WHERE StoryID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
@@ -299,7 +299,26 @@ router.get('/tasks/byStory/:id', (req, res) => {
 				.send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// GET /tasks/bySprint/:id
+//----------------------------------------------------------------------
+router.get('/tasks/bySprint/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. Tasks with SprintID = ', req.params.id + ' requested');
+
+	connection.query('SELECT * FROM task WHERE SprintID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.send({ error: err, message: err.message });
+			//throw err;
+		} else {
+			res.send(rows);
 		}
 	});
 });
@@ -310,14 +329,14 @@ router.get('/tasks/byStory/:id', (req, res) => {
 router.post('/tasks', (req, res) => {
 
 	console.log('Express: got HTTP-Post from client. ', req.body + ' gets created');
-	
+
 	connection.query('INSERT INTO task SET ?', req.body, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -328,14 +347,14 @@ router.post('/tasks', (req, res) => {
 router.put('/tasks', (req, res) => {
 
 	console.log('Express: got HTTP-Put from client. ', req + ' gets updated');
-	
+
 	connection.query('REPLACE INTO task SET ?', req.body, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -346,14 +365,14 @@ router.put('/tasks', (req, res) => {
 router.delete('/tasks/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
-	
+
 	connection.query('DELETE FROM task WHERE TaskID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -370,7 +389,7 @@ router.delete('/tasks/:id', (req, res) => {
 // GET /sprints
 //----------------------------------------------------------------------
 router.get('/sprints', (req, res) => {
-	
+
 	console.log('Express: got HTTP-Get from client. All Objects requested');
 
 	connection.query('SELECT * FROM sprint', function (err, rows, fields) {
@@ -379,7 +398,7 @@ router.get('/sprints', (req, res) => {
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -390,7 +409,7 @@ router.get('/sprints', (req, res) => {
 router.get('/sprints/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Get from client. Object with id = ', req.params.id + ' requested');
-	
+
 	connection.query('SELECT * FROM sprint WHERE SprintID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
@@ -398,7 +417,7 @@ router.get('/sprints/:id', (req, res) => {
 				.send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -409,14 +428,14 @@ router.get('/sprints/:id', (req, res) => {
 router.post('/sprints', (req, res) => {
 
 	console.log('Express: got HTTP-Post from client. ', req.body + ' gets created');
-	
+
 	connection.query('INSERT INTO sprint SET ?', req.body, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -427,14 +446,14 @@ router.post('/sprints', (req, res) => {
 router.put('/sprints', (req, res) => {
 
 	console.log('Express: got HTTP-Put from client. ', req + ' gets updated');
-	
+
 	connection.query('REPLACE INTO sprint SET ?', req.body, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -445,14 +464,14 @@ router.put('/sprints', (req, res) => {
 router.delete('/sprints/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
-	
+
 	connection.query('DELETE FROM sprint WHERE SprintID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -464,7 +483,7 @@ router.delete('/sprints/:id', (req, res) => {
 // GET /history
 //----------------------------------------------------------------------
 router.get('/history', (req, res) => {
-	
+
 	console.log('Express: got HTTP-Get from client. All Objects requested');
 
 	connection.query('SELECT * FROM history ORDER BY Date ASC', function (err, rows, fields) {
@@ -473,7 +492,7 @@ router.get('/history', (req, res) => {
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -491,7 +510,7 @@ router.get('/history', (req, res) => {
 // GET /users
 //----------------------------------------------------------------------
 router.get('/users', (req, res) => {
-	
+
 	console.log('Express: got HTTP-Get from client. All Objects requested');
 
 	connection.query('SELECT * FROM user', function (err, rows, fields) {
@@ -500,7 +519,7 @@ router.get('/users', (req, res) => {
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -511,7 +530,7 @@ router.get('/users', (req, res) => {
 router.get('/users/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Get from client. Object with id = ', req.params.id + ' requested');
-	
+
 	connection.query('SELECT * FROM user WHERE UserID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
@@ -519,7 +538,7 @@ router.get('/users/:id', (req, res) => {
 				.send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -530,7 +549,7 @@ router.get('/users/:id', (req, res) => {
 router.get('/users/username/:uname', (req, res) => {
 
 	console.log('Express: got HTTP-Get from client. User with uname = ', req.params.uname + ' requested');
-	
+
 	connection.query('SELECT * FROM user WHERE Username = ?', req.params.uname, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
@@ -538,7 +557,7 @@ router.get('/users/username/:uname', (req, res) => {
 				.send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -549,7 +568,7 @@ router.get('/users/username/:uname', (req, res) => {
 router.post('/users', (req, res) => {
 
 	console.log('Express: got HTTP-Post from client. ', req.body + ' gets created');
-	
+
 	connection.query('INSERT INTO user SET ?', req.body, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
@@ -563,7 +582,7 @@ router.post('/users', (req, res) => {
 						.send({ error: err, message: err.message });
 					//throw err;
 				} else {
-				res.send(rows);
+					res.send(rows);
 				}
 			});
 		}
@@ -576,14 +595,14 @@ router.post('/users', (req, res) => {
 router.put('/users', (req, res) => {
 
 	console.log('Express: got HTTP-Put from client. ', req + ' gets updated');
-	
+
 	connection.query('REPLACE INTO user SET ?', req.body, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
@@ -594,14 +613,14 @@ router.put('/users', (req, res) => {
 router.delete('/users/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
-	
+
 	connection.query('DELETE FROM user WHERE UserID = ?', req.params.id, function (err, rows, fields) {
 		if (err) {
 			console.error("Error occured on Express-Server: " + err.message)
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 			//throw err;
 		} else {
-		res.send(rows);
+			res.send(rows);
 		}
 	});
 });
