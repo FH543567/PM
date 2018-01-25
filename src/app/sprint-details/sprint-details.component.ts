@@ -5,6 +5,11 @@ import { Task } from '../task/task';
 import { MatTableDataSource } from '@angular/material';
 import { SprintService } from '../services/sprint.service';
 import { TaskService } from '../services/task.service';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/observable/zip';
+import { zip } from 'rxjs/operators';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
   selector: 'app-sprint-details',
@@ -27,27 +32,30 @@ export class SprintDetailsComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
     });
-    this.getSprint();
-    this.getTasks();
-    this.getAssignedTasks();
-    /*
-    for (let i = 0; i < this.sprints.length; i++) {
-      if (this.id = this.sprints[i].id) {
-        this.sprint = this.sprints[i];
-      }
-    }*/
-    this.dataSource = new MatTableDataSource<Task>(this.tasks);
+
+    //Wartet, bis der Sprint und alle Tasks angekommen und füre dann die Befehle in subscribe aus.
+    forkJoin(
+      this.getSprint(),
+      this.getTasks()
+    )
+    .subscribe(res => {
+      console.log("forkjoin: " + JSON.stringify(res))
+      this.sprint = res[0],
+      this.tasks = res[1],
+      this.dataSource = new MatTableDataSource<Task>(res[1]),
+      this.getAssignedTasks()
+    });
+
+  
   }
 
-  getSprint()  {
-    this.sprintService.getById(this.id)
-      .subscribe(sprint => this.sprint = sprint);
-    console.log('Name:' + this.sprint.name);
+  getSprint() : Observable<Sprint> {
+    return this.sprintService.getById(this.id);
+
   }
 
-  getTasks()  {
-    this.taskService.getAll()
-      .subscribe(tasks => this.tasks = tasks);
+  getTasks() : Observable<Task[]> {
+    return this.taskService.getAll();
   }
 
   getAssignedTasks() {

@@ -47,7 +47,11 @@ export class BacklogPageComponent implements OnInit {
 
   getEpics() {
     this.epicService.getAll()
-      .subscribe(epics => {this.epics = epics, this.epicToBacklog(), this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems)});
+      .subscribe(epics => {
+        this.epics = epics, 
+        this.epicToBacklog(), 
+        this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems)
+      });
   }
 
   taskToBacklog() {

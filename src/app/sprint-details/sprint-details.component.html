@@ -4,27 +4,27 @@
       <tbody>
       <tr>
         <td style="font-weight: bold">ID: </td>
-        <td>{{sprint.id}}</td>
+        <td>{{sprint?.id}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold">Name: </td>
-        <td>{{sprint.name}}</td>
+        <td>{{sprint?.name}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold">Description: </td>
-        <td>{{sprint.description}}</td>
+        <td>{{sprint?.description}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold">Start date: </td>
-        <td>{{sprint.startDate.toLocaleDateString()}}</td>
+        <td>{{sprint?.startDate.toLocaleDateString()}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold">End date: </td>
-        <td>{{sprint.endDate.toLocaleDateString()}}</td>
+        <td>{{sprint?.endDate.toLocaleDateString()}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold">Available time: </td>
-        <td>{{sprint.availableTime}}</td>
+        <td>{{sprint?.availableTime}}</td>
       </tr>
       <tr><td style="font-weight: bold">Tasks: </td></tr>
       <tr *ngFor="let task of assignedTasks">
