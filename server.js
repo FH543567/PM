@@ -3,12 +3,13 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
+require('dotenv').config()
 const app = express();
 
 // API file for interacting with MongoDB
 const api = require('./server/routes/api');
 
-// Cors
+//Cors
 app.use(cors());
 
 // Parsers

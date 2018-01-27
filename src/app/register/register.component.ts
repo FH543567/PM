@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { User } from '../user/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../services/data.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -13,14 +16,15 @@ export class RegisterComponent implements OnInit {
   private formSubmitAttempt: boolean;
 
   roles = [
-    {value: 0, viewValue: 'Developer'},
-    {value: 1, viewValue: 'Scrum Master'},
-    {value: 2, viewValue: 'Admin'}
+    { value: 0, viewValue: 'Developer' },
+    { value: 1, viewValue: 'Scrum Master' },
+    { value: 2, viewValue: 'Admin' }
   ];
 
   constructor(
     private fb: FormBuilder,
-    private dataService: DataService
+    private userService: UserService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -55,8 +59,41 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     console.log(this.form.valid);
     if (this.form.valid) {
-      this.dataService.register(this.form.value);
+      //TODO: habe register() umgeschrieben in userService. evtl. noch zu überprüfen. (von Malte)
+      //this.dataService.register(this.form.value); 
+      let user: User = new User();
+      if (this.form.value.username) user.username = this.form.value.username;
+      if (this.form.value.password) user.password = this.form.value.password;
+      if (this.form.value.firstname) user.firstname = this.form.value.firstname;
+      if (this.form.value.lastname) user.lastname = this.form.value.lastname;
+      console.log("role: " + this.form.value.role.value);
+      if (this.form.value.role) user.role = this.form.value.role.value;
+      /*
+      switch (this.form.value.role) {
+        case "ProductOwner":
+          user.role = 0;
+          break;
+        case "ScrumMaster":
+          user.role = 1;
+          break;
+        case "Developer":
+          user.role = 2;
+          break;
+        default:
+          break;
+      }
+      */
+      this.userService.create(user).subscribe(registerResult => this.afterRegister(registerResult))
     }
     this.formSubmitAttempt = true;
+  }
+
+  //Bei erfolgreicher Registrierung, sende loginRequest
+  afterRegister(user: User) {
+    console.log("login mit user null: " + (user === null));
+    if (user)
+      this.authService.login(user);
+    else
+      console.error("Registrierung fehlgeschlagen");
   }
 }

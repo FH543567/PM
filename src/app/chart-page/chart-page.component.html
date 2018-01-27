@@ -1,4 +1,15 @@
-<div style="width: 40%;" class="chart-content">
+<mat-form-field>
+  <mat-select placeholder="Pick a Sprint" [(ngModel)]="selectedSprint" name="sprint">
+    <mat-option *ngFor="let sprint of sprints" [value]="sprint.id" (click)="updateChart()">
+      {{sprint.name}}
+    </mat-option>
+  </mat-select>
+  <mat-hint>{{selectSprintMessage}}</mat-hint>
+</mat-form-field>
+
+
+
+<div style="width: 60%;" class="chart-content">
  <mat-card>
   <canvas
     baseChart
@@ -6,8 +17,8 @@
     [datasets]="chartData"
     [labels]="chartLabels"
     [options]="chartOptions"
-    [legend]="false"
-    (chartClick)="onChartClick($event)">
+    [legend]="true"
+    (chartClick)="chartClicked($event)">
   </canvas>
  </mat-card>
 </div>

@@ -3,10 +3,16 @@ import { User } from '../user/user';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {JsonConvert, JsonObject, JsonProperty} from 'json2typescript';
+import { UserService } from './user.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
+
+  constructor(
+    private router: Router, private userService: UserService
+  ) {}
 
   get isLoggedIn(): boolean {
     if (localStorage.getItem('username') != null) {
@@ -34,14 +40,27 @@ export class AuthService {
     }
   }
 
-  constructor(
-    private router: Router
-  ) {}
+  //Request an Server, ob userToVerify existiert
+  login(userToVerify: User) {
+    if (userToVerify.username !== '' && userToVerify.password !== '') {
+        this.userService.getByUsername(userToVerify.username).subscribe(loginResult => this.setLogin(userToVerify, loginResult))
+    }
+  }
 
-  login(user: User) {
-    if (user.username !== '' && user.password !== '') {
-      this.loggedIn.next(true);                     // muss um weitere login logic erweitert werden
-      localStorage.setItem('username', user.username);
+  //Überprüft Login-Daten und wenn erfolgreich - setzt LocalStorage
+  //Bei mehreren Usern wird nur der oberste in der DB genommen => kann zu Fehlern (insb. in der PW-Überprüfung) führen
+  setLogin(userToVerify: User, loginResult: User) {
+    if(!loginResult) {
+      //result ist undefined
+      console.error("Fehler beim Login: Username konnte nicht gefunden werden.");
+    } else if(userToVerify.password != loginResult.password)
+    {
+      //Password stimmt nicht überein
+      console.error("Fehler beim Login: Das angegebene Passwort ist falsch.");
+    } else {
+      //überprüfung erfolgreich
+      this.loggedIn.next(true);
+      localStorage.setItem('username', loginResult.username);
       localStorage.setItem('role',  'ScrumMaster');
       this.router.navigate(['/home']);
     }

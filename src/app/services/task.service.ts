@@ -60,7 +60,7 @@ export class TaskService extends DtoService {
     transferObject.SprintID = task.sprintId;
     transferObject.UserID = task.userId;
     console.log(JSON.stringify(transferObject));
-    return super.create(JSON.stringify(transferObject));;
+    return super.create(JSON.stringify(transferObject));
   }
 
   /**
@@ -101,6 +101,26 @@ export class TaskService extends DtoService {
    */
   getByStoryId(id: number): Observable<Task[]> {
     const url = `${this.url}/byStory/${id}`;
+
+    let result: Observable<any[]> = this.http.get<Task[]>(url)
+      .pipe(
+      tap(h => {
+        const outcome = h ? `fetched` : `did not find`;
+        this.log(`${outcome} Object id=${id}`);
+      }),
+      catchError(this.handleError('getAll', []))
+      );
+    return result.map(taskList => taskList = taskList
+      .map(taskDB => taskDB = new Task(taskDB.TaskID, taskDB.Name, taskDB.Description, taskDB.Priority, taskDB.Workload, taskDB.WorkedTime, taskDB.StoryID, taskDB.SprintID, taskDB.UserID)));
+  }
+
+  /**
+   * Tasks anhand der SprintID abfragen
+   * @returns {Observable<Task[]>} returnt 'undefined' wenn id nicht gefunden wurde
+   * @param id ID des zugehörigen Sprints
+   */
+  getBySprintId(id: number): Observable<Task[]> {
+    const url = `${this.url}/bySprint/${id}`;
 
     let result: Observable<any[]> = this.http.get<Task[]>(url)
       .pipe(

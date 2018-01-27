@@ -38,7 +38,7 @@ export class StoryService extends DtoService {
    */
   getById(id: number): Observable<Story> {
     return super.getById(id)
-      .map(storyDB => storyDB = new Story(storyDB.StoryID, storyDB.Name, storyDB.Description, storyDB.Priority, storyDB.EpicID));
+      .map(storyDB => storyDB = new Story(storyDB.StoryID, storyDB.Name, storyDB.Description, storyDB.Priority, storyDB.EpicID))
         //.catch(e => { console.log(e); return undefined; })
   }
 
@@ -55,7 +55,7 @@ export class StoryService extends DtoService {
     transferObject.Name = story.name;
     transferObject.Description = story.description;
     transferObject.Priority = story.priority;
-    transferObject.EpicId = story.epicId;
+    transferObject.EpicID = story.epicId;
     console.log(JSON.stringify(transferObject));
     return super.create(JSON.stringify(transferObject));;
   }
@@ -73,7 +73,7 @@ export class StoryService extends DtoService {
     transferObject.Name = story.name;
     transferObject.Description = story.description;
     transferObject.Priority = story.priority;
-    transferObject.EpicId = story.epicId;
+    transferObject.EpicID = story.epicId;
     console.log(JSON.stringify(transferObject));
     return super.update(JSON.stringify(transferObject));;
   }
