@@ -18,7 +18,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class MessageService extends DtoService {
 
   constructor(http: HttpClient) {
-    super('http://localhost:3000/api/messages', http);
+    super('/api/messages', http);
   }
 
   /**

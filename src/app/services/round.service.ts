@@ -18,7 +18,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class RoundService extends DtoService {
 
   constructor(http: HttpClient) {
-    super('http://localhost:3000/api/rounds', http);
+    super('/api/rounds', http);
   }
 
   /**

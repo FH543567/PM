@@ -18,7 +18,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class PokerService extends DtoService {
 
   constructor(http: HttpClient) {
-    super('http://localhost:3000/api/pokers', http);
+    super('/api/pokers', http);
   }
 
   /**

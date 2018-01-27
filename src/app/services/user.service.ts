@@ -18,7 +18,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class UserService extends DtoService {
 
   constructor(http: HttpClient) {
-    super('http://localhost:3000/api/users', http);
+    super('/api/users', http);
   }
 
   /**
