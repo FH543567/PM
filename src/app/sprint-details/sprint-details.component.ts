@@ -46,7 +46,7 @@ export class SprintDetailsComponent implements OnInit {
           .subscribe(tasks => this.tasks = tasks,
             error => console.log('Error: ', error),
             () => this.taskService.getBySprintId(this.sprint.id)
-              .subscribe(assignedTasks => this.assignedTasks = this.assignedTasks,
+              .subscribe(assignedTasks => this.assignedTasks = assignedTasks,
                 error => console.log('Error: ', error),
                 () => this.dataSource = new MatTableDataSource<Task>(this.tasks)
               )

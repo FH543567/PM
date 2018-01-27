@@ -18,11 +18,11 @@ export class SprintPageComponent implements OnInit {
 
   ngOnInit() {
     this.getSprints();
-
   }
 
 
   getSprints() {
+    console.log('getSprints');
     this.sprintService.getAll()
       .subscribe(sprints => this.sprints = sprints,
         error => console.log('Error: ', error),

@@ -5,6 +5,8 @@ import { Epic } from '../epic/epic';
 import { TaskService } from '../services/task.service';
 import { StoryService } from '../services/story.service';
 import { EpicService } from '../services/epic.service';
+import { SprintService } from '../services/sprint.service';
+import {Sprint} from '../sprint/sprint';
 
 @Component({
   selector: 'app-home-page',
@@ -18,16 +20,21 @@ export class HomePageComponent implements OnInit {
   stories: Story[];
   tasks: Task[];
   epics: Epic[];
+  sprints: Sprint[];
   storyById: Story;
   taskById: Task;
   epicById: Epic;
   storyByEpicId: Story[];
-  constructor(private taskService: TaskService, private storyService: StoryService, private epicService: EpicService) { }
+  constructor(private taskService: TaskService,
+              private storyService: StoryService,
+              private epicService: EpicService,
+              private sprintService: SprintService) { }
 
   ngOnInit() {
     this.getTasks();
     this.getStories();
     this.getEpics();
+    this.getSprints();
     this.getTaskById();
     this.getStoryById();
     this.getEpicById();
@@ -57,6 +64,15 @@ export class HomePageComponent implements OnInit {
         error => console.log('Error: ', error),
         () => console.log('Epics loaded')
       );
+  }
+
+  getSprints() {
+    this.sprintService.getAll()
+      .subscribe(sprints => this.sprints = sprints,
+        error => console.log('Error: ', error),
+        () => console.log('Sprints loaded')
+      );
+
   }
 
   getTaskById() {
