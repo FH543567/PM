@@ -34,6 +34,9 @@ import { TaskService } from './services/task.service';
 import { StoryService } from './services/story.service';
 import { EpicService } from './services/epic.service';
 import { UserService } from './services/user.service';
+import { PokerService } from './services/poker.service';
+import { RoundService } from './services/round.service';
+import { MessageService } from './services/message.service';
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { StoryDetailsComponent } from './story-details/story-details.component';
 import { EpicDetailsComponent } from './epic-details/epic-details.component';
@@ -95,6 +98,9 @@ import { PlanningpokerComponent } from './planningpoker/planningpoker.component'
     TaskService,
     DataService,
     AuthService,
+    PokerService,
+    MessageService,
+    RoundService,
     AuthGuard,
     LoggedOutGuard,
     DatePipe

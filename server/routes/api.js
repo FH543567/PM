@@ -884,6 +884,114 @@ router.delete('/messages/:id', (req, res) => {
 		}
 	});
 });
+
+
+
+
+
+
+//////////////
+// Rounds //
+//////////////
+//----------------------------------------------------------------------
+// GET /rounds
+//----------------------------------------------------------------------
+router.get('/rounds', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. All Rounds requested');
+
+	connection.query('SELECT * FROM round', function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.round)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, round: err.round });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// GET /rounds/:id
+//----------------------------------------------------------------------
+router.get('/rounds/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. Round with id = ', req.params.id + ' requested');
+
+	connection.query('SELECT * FROM round WHERE RoundID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.round)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.send({ error: err, round: err.round });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// POST /rounds
+//----------------------------------------------------------------------
+router.post('/rounds', (req, res) => {
+
+	console.log('Express: got HTTP-Post from client. ', req.body + ' gets created');
+
+	connection.query('INSERT INTO round SET ?', req.body, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.round)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, round: err.round });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// PUT /rounds
+//----------------------------------------------------------------------
+router.put('/rounds', (req, res) => {
+
+	console.log('Express: got HTTP-Put from client. ', req + ' gets updated');
+
+	connection.query('REPLACE INTO round SET ?', req.body, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.round)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, round: err.round });
+			//throw err;
+		} else {
+			connection.query('SELECT * FROM round WHERE RoundID = ?', req.body.RoundID, function (err, rows, fields) {
+				if (err) {
+					console.error("Error occured on Express-Server: " + err.round)
+					res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+						.send({ error: err, round: err.round });
+					//throw err;
+				} else {
+					res.send(rows);
+				}
+			})
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// DELETE /rounds/:id
+//----------------------------------------------------------------------
+router.delete('/rounds/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
+
+	connection.query('DELETE FROM round WHERE RoundID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.round)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, round: err.round });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
 module.exports = router;
 
 
