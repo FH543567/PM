@@ -71,7 +71,7 @@ export class TaskDetailsComponent implements OnInit {
     this.progress = this.task.workedTime / this.task.workload * 100;
   }
 
-  save(value: number) {
+  save() {
     if (this.task) {
       console.log('Save');
       this.task.workedTime = this.tempWorkedTime;
