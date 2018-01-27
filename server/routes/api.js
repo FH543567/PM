@@ -2,12 +2,22 @@ const express = require('express');
 const router = express.Router();
 var mysql = require('mysql');
 const HttpStatus = require('http-status-codes');
+require('dotenv').config()
 
 var connection = mysql.createConnection({
+	
 	host: 'localhost',
 	user: 'root',
 	password: 'mfj123',
 	database: 'pm'
+	
+	/*
+	host: process.env.DB_HOST,
+	username: process.env.DB_USER,
+	password: process.env.DB_PASS,
+	database: process.env.DB_DATA
+	*/
+
 });
 
 //connection.connect();
@@ -172,7 +182,7 @@ router.get('/stories/:id', (req, res) => {
 //----------------------------------------------------------------------
 // GET /stories/byEpic/:id
 //----------------------------------------------------------------------
-router.get('/stories/byEpicy/:id', (req, res) => {
+router.get('/stories/byEpic/:id', (req, res) => {
 
 	console.log('Express: got HTTP-Get from client. Stories with EpicID = ', req.params.id + ' requested');
 

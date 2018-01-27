@@ -8,7 +8,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../user/user';
 import { SprintService } from '../services/sprint.service';
 import { Sprint } from '../sprint/sprint';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
@@ -25,15 +25,15 @@ export class TaskDetailsComponent implements OnInit {
   tempWorkedTime: number;
   private sub: any;
   constructor(private route: ActivatedRoute, private taskService: TaskService, private storyService: StoryService,
-              private sprintService: SprintService, private userService: UserService) { }
+    private sprintService: SprintService, private userService: UserService) { }
 
   ngOnInit() {
     let id: number;
     this.sub = this.route.params.subscribe(params => {
       id = +params['id'], // (+) converts string 'id' to a number
-      this.getTask(id).subscribe(task => 
-        this.taskReceived(task)
-      );
+        this.getTask(id).subscribe(task =>
+          this.taskReceived(task)
+        );
     });
   }
 
@@ -41,7 +41,7 @@ export class TaskDetailsComponent implements OnInit {
    * Wird erst aufgerufen, wenn der Task vom Server Empfangen wurde
    * @param task 
    */
-  taskReceived(task : Task) {
+  taskReceived(task: Task) {
     this.task = task;
     this.getStory(task.storyId).subscribe(story => this.story = story);
     this.getSprint(task.sprintId).subscribe(sprint => this.sprint = sprint);
@@ -51,19 +51,19 @@ export class TaskDetailsComponent implements OnInit {
   }
 
 
-  getTask(id: number) : Observable<Task> {
+  getTask(id: number): Observable<Task> {
     return this.taskService.getById(id);
   }
 
-  getStory(id: number) : Observable<Story> {
+  getStory(id: number): Observable<Story> {
     return this.storyService.getById(id);
   }
 
-  getSprint(id: number) : Observable<Sprint> {
+  getSprint(id: number): Observable<Sprint> {
     return this.sprintService.getById(id);
   }
 
-  getUser(id: number) : Observable<User> {
+  getUser(id: number): Observable<User> {
     return this.userService.getById(id);
   }
 
@@ -72,12 +72,18 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   save(value: number) {
-    console.log('Save');
-    this.task.workedTime = this.tempWorkedTime;
-    this.updateProgress();
+    if (this.task) {
+      console.log('Save');
+      this.task.workedTime = this.tempWorkedTime;
+      this.updateProgress();
+      this.taskService.update(this.task).subscribe(task => console.log("update Task: " + JSON.stringify(task)));
+    }
   }
 
   delete() {
-    this.storyService.delete(this.story.id);
+    this.taskService.delete(this.task.id).subscribe(task => {
+      console.log("Task wurde gelöscht")
+      //TODO: routing zu Backlog-Page
+    });
   }
 }

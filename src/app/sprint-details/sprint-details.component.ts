@@ -98,7 +98,7 @@ export class SprintDetailsComponent implements OnInit {
     }
   }
 
-  // TODO: muss noch über den Service auf der DB geändert werden
+  // TODO: routing zur sprint-page nach löschen
   delete() {
     this.sprintService.delete(this.sprint.id);
   }
