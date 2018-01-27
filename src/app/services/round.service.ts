@@ -28,7 +28,9 @@ export class RoundService extends DtoService {
   getAll(): Observable<Round[]> {
     return super.getAll()
       .map(roundList => roundList = roundList
-        .map(roundDB => roundDB = new Round(roundDB.RoundID, roundDB.PokerID, this.parseJsonArr(roundDB.Users), this.parseJsonArr(roundDB.Hours))));
+        .map(roundDB => 
+          roundDB = new Round(roundDB.RoundID, roundDB.PokerID, this.parseJsonArr(roundDB.Users), this.parseJsonArr(roundDB.Hours)))
+        );
   }
 
   /**
@@ -38,7 +40,9 @@ export class RoundService extends DtoService {
    */
   getById(id: number): Observable<Round> {
     return super.getById(id)
-      .map(roundDB => roundDB = new Round(roundDB.RoundID, roundDB.PokerID, this.parseJsonArr(roundDB.Users), this.parseJsonArr(roundDB.Hours)));
+      .map(roundDB => 
+        roundDB = new Round(roundDB.RoundID, roundDB.PokerID, this.parseJsonArr(roundDB.Users), this.parseJsonArr(roundDB.Hours))
+      );
     //.catch(e => { console.log(e); return undefined; })
   }
 
@@ -65,8 +69,10 @@ export class RoundService extends DtoService {
     transferObject.Hours = JSON.stringify(round.hours);
     console.log("CREATE: " + JSON.stringify(transferObject));
     return super.create(JSON.stringify(transferObject))
-      .map(objects => objects[0])
-      .map(roundDB => roundDB = roundDB ? new Round(roundDB.RoundID, roundDB.PokerID, this.parseJsonArr(roundDB.Users), this.parseJsonArr(roundDB.Hours)) : undefined);
+      .map(objects => objects = objects ? objects[0] : undefined)
+      .map(roundDB => 
+        roundDB = roundDB ? new Round(roundDB.RoundID, roundDB.PokerID, this.parseJsonArr(roundDB.Users), this.parseJsonArr(roundDB.Hours)) : undefined
+      );
   }
 
   /**

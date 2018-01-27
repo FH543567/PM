@@ -23,7 +23,7 @@ export class PlanningpokerPageComponent implements OnInit {
   messages: Message[];
   newMessage: string;
   estimate: number;
-  
+
   usersTest: string[];
   hoursTest: number[];
 
@@ -33,17 +33,21 @@ export class PlanningpokerPageComponent implements OnInit {
     private pokerService: PokerService,
     private roundService: RoundService,
     private messageService: MessageService,
-    private dialog: MatDialog) {}
+    private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.roundService.create(new Round(1, 1, ['Albert', 'Benni', 'Consti'], [3, 5, 6])).subscribe(bla => {
-      this.roundService.getAll().subscribe(res => {
-        //do something
-        //this.rounds = res;
-      })
+    this.roundService.getAll().subscribe(res => {
+      this.pokerService.getAll().subscribe(pokers => {
+        this.poker = pokers ? pokers[0] : undefined;
+        //Prämisse: alle rounds gehören zum ersten Poker
+        this.poker.roundData = res;
+        console.log(JSON.stringify(this.poker));
+      });
     });
-    this.poker = this.dataService.getPoker();
-    this.messages = this.dataService.getMessages();
+    //this.poker = this.dataService.getPoker();
+    //this.messages = this.dataService.getMessages();
+    //Achtung: es wird nur der erst Poker in der DB verwendet
+    this.messageService.getAll().subscribe(messages => this.messages = messages);
   }
 
   /**
@@ -93,7 +97,7 @@ export class PlanningpokerPageComponent implements OnInit {
       hasBackdrop: true,
       width: '500',
       height: '500',
-      data: {label: this.newPoker.label, description: this.newPoker.description}
+      data: { label: this.newPoker.label, description: this.newPoker.description }
     });
 
     this.newPokerDialogRef.afterClosed().subscribe(result => {

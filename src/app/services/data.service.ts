@@ -63,6 +63,7 @@ export class DataService {
    * Stellt das Poker objekt zur verfügung
    * TODO: Serververbidnung
    * @returns {Poker}
+   * @deprecated nicht mehr Benutzen, da keine Verbindung zur DB! poker.service benutzen
    */
   getPoker(): Poker {
     return this.poker;
@@ -73,6 +74,7 @@ export class DataService {
    * stellt das Chat objekt zur verfügung
    * TODO: Serververbindung
    * @returns {Message[]}
+   * @deprecated nicht mehr Benutzen, da keine Verbindung zur DB! message.service benutzen
    */
   getMessages(): Message[] {
     return this.chat;
