@@ -4,8 +4,10 @@ var mysql = require('mysql');
 const HttpStatus = require('http-status-codes');
 require('dotenv').config()
 
-var connection = mysql.createConnection({
+const DBHost = process.env.DATABASE_URL || 'localhost';
 
+var connection = mysql.createConnection({
+//'mysql://bd10f96685d9c8:8203766d@eu-cdbr-west-02.cleardb.net/heroku_57b74cfd3c406d8'
 	host: 'localhost',
 	user: 'root',
 	password: 'mfj123',

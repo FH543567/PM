@@ -18,8 +18,7 @@ const httpOptions = {
 export class DtoService {
 
   constructor(protected url: string, protected http: HttpClient) {
-    
-    this.url = environment.production ? environment.SERVER_URL + url : "http://localhost:3000" + url;
+    //this.url = environment.production ? environment.SERVER_URL + url : "http://localhost:3000" + url;
     console.log("this.url " + this.url);
    }
 
