@@ -23,6 +23,9 @@ export class PlanningpokerPageComponent implements OnInit {
   messages: Message[];
   newMessage: string;
   estimate: number;
+  
+  usersTest: string[];
+  hoursTest: number[];
 
   constructor(
     private authService: AuthService,
@@ -33,7 +36,12 @@ export class PlanningpokerPageComponent implements OnInit {
     private dialog: MatDialog) {}
 
   ngOnInit() {
-    this.roundService.create(new Round(1, ['Albert', 'Benni', 'Consti'], [3, 5, 6])).subscribe();
+    this.roundService.create(new Round(1, 1, ['Albert', 'Benni', 'Consti'], [3, 5, 6])).subscribe(bla => {
+      this.roundService.getAll().subscribe(res => {
+        //do something
+        //this.rounds = res;
+      })
+    });
     this.poker = this.dataService.getPoker();
     this.messages = this.dataService.getMessages();
   }
@@ -94,7 +102,7 @@ export class PlanningpokerPageComponent implements OnInit {
         if (typeof result.label !== 'undefined' && typeof result.description !== 'undefined') {
           this.poker = result;
           this.poker.roundData = new Array<Round>();
-          this.poker.roundData.push(new Round(0, new Array<string>(), new Array<number>()));
+          this.poker.roundData.push(new Round(0, 1, new Array<string>(), new Array<number>()));
           this.messages = new Array<Message>();
           this.dataService.poker = this.poker;
           this.dataService.chat = this.messages;

@@ -6,7 +6,7 @@ export class Round {
   users: string[];
   hours: number[];
 
-  constructor(id?: number, users?: string[], hours?: number[], pokerId?: number) {
+  constructor(id?: number, pokerId?: number, users?: string[], hours?: number[]) {
     this.id = id;
     this.pokerId = pokerId;
     this.users = users;

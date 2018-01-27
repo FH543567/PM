@@ -21,10 +21,10 @@ export class DataService {
   // --------------- daten müssen später vom Server geholt werden ---------------
   poker: Poker = new Poker(1, 'exampleTask', 'this is an Example Task with a lot of text and bla and you have to see whats ' +
     'going on and the bla bla bla is very important to blablablablabla', [
-      new Round(1, ['Hans', 'Peter', 'Ute'], [3, 5, 6]),
-      new Round(2, ['Hans', 'Peter', 'Ute'], [4, 5, 6]),
-      new Round(3, ['Hans', 'Peter', 'Ute'], [4, 5, 5]),
-      new Round(4, ['Hans', 'Peter', 'Ute'], [5, 5, 5])
+      new Round(1, 1, ['Hans', 'Peter', 'Ute'], [3, 5, 6]),
+      new Round(2, 1, ['Hans', 'Peter', 'Ute'], [4, 5, 6]),
+      new Round(3, 1, ['Hans', 'Peter', 'Ute'], [4, 5, 5]),
+      new Round(4, 1, ['Hans', 'Peter', 'Ute'], [5, 5, 5])
     ]);
   chat: Message[] = [
     new Message(1, 'Peter', 'ich finde das doof diesen langen text der testen soll ob ein umbruch funktioniert'),
@@ -133,7 +133,7 @@ export class DataService {
     // wenn noch keine eingabe gemacht wird soll keine neue runde starten
     if (this.poker.roundData[this.poker.roundData.length - 1].users !== undefined) {
       if (this.poker.roundData[this.poker.roundData.length - 1].users.length >= 1) {
-        this.poker.roundData.push(new Round(0, new Array<string>(), new Array<number>()));
+        this.poker.roundData.push(new Round(0, 1, new Array<string>(), new Array<number>()));
       }
     }
   }
