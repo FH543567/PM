@@ -18,7 +18,7 @@ export class SprintService extends DtoService {
 
   /**
    * Alle Sprints auf der DB abfragen
-   * @returns {Observable<Sprint[]>} 
+   * @returns {Observable<Sprint[]>}
    */
   getAll(): Observable<Sprint[]> {
     return super.getAll()
@@ -76,7 +76,7 @@ export class SprintService extends DtoService {
 
   /**
    * Ein Sprint anhand der ID löschen
-   * @returns {Observable<number>} 
+   * @returns {Observable<number>}
    * @param id ID des zu löschenden Sprints
    */
   delete(id: number): Observable<number> {
@@ -86,7 +86,7 @@ export class SprintService extends DtoService {
   /**
    * Alle Historyeinträge auf der DB abfragen
    * Nach date aufsteigend sortiert
-   * @returns {Observable<HistoryEntry[]>} 
+   * @returns {Observable<HistoryEntry[]>}
    */
   getFullHistory(): Observable<HistoryEntry[]> {
     let tmpUrl: string = this.url;

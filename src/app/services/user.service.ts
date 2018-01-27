@@ -23,7 +23,7 @@ export class UserService extends DtoService {
 
   /**
    * Alle Users auf der DB abfragen
-   * @returns {Observable<User[]>} 
+   * @returns {Observable<User[]>}
    */
   getAll(): Observable<User[]> {
     return super.getAll()
@@ -85,7 +85,7 @@ export class UserService extends DtoService {
 
   /**
    * Ein User anhand der ID löschen
-   * @returns {Observable<number>} 
+   * @returns {Observable<number>}
    * @param id ID des zu löschenden Users
    */
   delete(id: number): Observable<number> {

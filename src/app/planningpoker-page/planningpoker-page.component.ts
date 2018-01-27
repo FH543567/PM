@@ -13,8 +13,6 @@ import { Round } from './round';
   styleUrls: ['./planningpoker-page.component.css']
 })
 
-// TODO: nur der ScrumMaster kann Planningpoker anlegen und runden beenden.
-// TODO: Beendet ist das Planningpoker wenn alle die gleiche zeit eingegeben haben
 export class PlanningpokerPageComponent implements OnInit {
   newPokerDialogRef: MatDialogRef<PlanningpokerComponent>;
   poker: Poker;
@@ -33,10 +31,14 @@ export class PlanningpokerPageComponent implements OnInit {
     this.messages = this.dataService.getMessages();
   }
 
-  // TODO: noch endbedingung prüfen
+  /**
+   * wenn letzte runde alle estimates gleich sind dann ist poker beendet
+   * @returns {boolean}
+   */
   get hasPokerEnded(): boolean {
-      return false;
+    return this.dataService.hasPokerEnded();
   }
+
 
   // TODO: Prüfen ob Daten in der Datenbank liegen
   get isPPokerRunning(): boolean {
@@ -47,16 +49,24 @@ export class PlanningpokerPageComponent implements OnInit {
     }
   }
 
-  // TODO: Programmieren was passiert wenn der "end Round" knopf gedückt wird
+  /**
+   * beendet eine Pokerrunde
+   */
   endRound(): void {
-    this.dataService.poker.roundData.push(new Round());
+    this.dataService.newRound();
   }
 
+  /**
+   * gibt ein Estimate ab
+   */
   onEstimateSubmit() {
     this.dataService.enterEstimate(this.estimate);
     this.estimate = undefined;
   }
 
+  /**
+   * sendet eine Chatnachricht
+   */
   onChatSubmit() {
     this.dataService.addMessage(this.newMessage);
     this.newMessage = '';
@@ -73,13 +83,18 @@ export class PlanningpokerPageComponent implements OnInit {
 
     this.newPokerDialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // TODO: Prüfen ob daten vorhanden sind und dann neues PlanningPoker
-
-      if (typeof result.label !== 'undefined' && typeof result.description !== 'undefined') {
-        this.poker = result;
-        //this.messages = [];
-        //this.dataService.chat = [];
-        console.log('new Planning-Poker Started!');
+      if (typeof result !== 'undefined') {
+        if (typeof result.label !== 'undefined' && typeof result.description !== 'undefined') {
+          this.poker = result;
+          this.poker.roundData = new Array<Round>();
+          this.poker.roundData.push(new Round(new Array<string>(), new Array<number>()));
+          this.messages = new Array<Message>();
+          this.dataService.poker = this.poker;
+          this.dataService.chat = this.messages;
+          // this.messages = [];
+          // this.dataService.chat = [];
+          console.log('new Planning-Poker Started!');
+        }
       }
     });
   }

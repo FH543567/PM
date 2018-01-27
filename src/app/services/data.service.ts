@@ -12,6 +12,7 @@ import { Backlog } from '../backlog/backlog';
 import { Poker } from '../planningpoker-page/poker';
 import { Message } from '../planningpoker-page/message';
 import { Round } from '../planningpoker-page/round';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Injectable()
 export class DataService {
@@ -79,26 +80,71 @@ export class DataService {
 
   /**
    * fügt der aktuellen runde eine neue schätzung durch einen User hinzu
+   * wenn bereits eine schätzung von diesem user existiert passiert nichts
+   *
    * @param {number} estimate
    */
   enterEstimate(estimate: number): void {
-    this.poker.roundData[this.poker.roundData.length - 1].users.push(localStorage.getItem('username'));
-    this.poker.roundData[this.poker.roundData.length - 1].hours.push(estimate);
+    console.log(this.poker);
+    if ( estimate !== undefined && !this.hasPokerEnded() ) {
+      // Erste Eingabe einer runde:
+      // TODO: Länge bei leerem array ist 0 also auf 0 prüfen und abfangen
+      if (this.poker.roundData[this.poker.roundData.length - 1].users === undefined) {
+        this.poker.roundData[this.poker.roundData.length - 1].users.push(localStorage.getItem('username'));
+        this.poker.roundData[this.poker.roundData.length - 1].hours.push(estimate);
+        // TODO: Daten zum Server schicken
+      }else {
+        // Wenn schon eine eingabe diese runde gemacht wurde keine akzeptieren
+        let temp = false;
+        for ( const username of this.poker.roundData[this.poker.roundData.length - 1].users) {
+          if (username === localStorage.getItem('username')) {
+            temp = true;
+          }
+        }
+        if (!temp) {
+          this.poker.roundData[this.poker.roundData.length - 1].users.push(localStorage.getItem('username'));
+          this.poker.roundData[this.poker.roundData.length - 1].hours.push(estimate);
+          // TODO: Daten zum Server schicken
+        }
+      }
+    }
+  }
+
+  hasPokerEnded(): boolean {
+    if (this.poker.roundData.length >= 2) {
+      // prüfen ob sich eine von einer anderen zahl unterscheidet
+      const est = this.poker.roundData[this.poker.roundData.length - 2].hours[0];
+      for ( const estimate of this.poker.roundData[this.poker.roundData.length - 2].hours) {
+        // console.log('Round ' + (this.poker.roundData.length - 1) + ' ' + estimate + ' !== ' + est);
+        if (estimate !== est) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
   }
 
   /**
    * startet eine neue Runde
    * @param {Round} round
    */
-  newRound(round: Round): void {
-    this.poker.roundData.push(new Round());
+  newRound(): void {
+    // wenn noch keine eingabe gemacht wird soll keine neue runde starten
+    if (this.poker.roundData[this.poker.roundData.length - 1].users !== undefined) {
+      if (this.poker.roundData[this.poker.roundData.length - 1].users.length >= 1) {
+        this.poker.roundData.push(new Round(new Array<string>(), new Array<number>()));
+      }
+    }
   }
 
   /**
    * sendet eine neue Nachticht in den Chat
    * @param {string} text
    */
-  addMessage(text: string) {
-    this.chat.push(new Message(localStorage.getItem('username'), text));
+  addMessage(text: string ) {
+    if (text !== '') {
+      this.chat.push(new Message(localStorage.getItem('username'), text));
+    }
   }
 }

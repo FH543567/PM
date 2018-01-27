@@ -13,8 +13,8 @@
 <!-- Wird angezeigt wenn Gerade eine runde Planningpoker läuft-->
 <div class="poker-content" *ngIf="this.isPPokerRunning">
   <mat-card>
-    <h1 mat-card-title>{{this.poker.label}}</h1>
-    <p mat-card-subtitle>{{this.poker.description}}</p>
+    <h1 mat-card-title>{{this.poker?.label}}</h1>
+    <p mat-card-subtitle>{{this.poker?.description}}</p>
   </mat-card>
 <mat-grid-list cols="3"  rowHeight="88%">
   <mat-grid-tile [colspan]="2" [rowspan]="1">
@@ -54,7 +54,7 @@
         </mat-list>
       </mat-card-content>
       <mat-card-actions>
-        <!-- TODO: Textfeld und Senden button für chat-->
+        <!-- Textfeld und Senden button für chat-->
         <mat-form-field>
           <textarea type="text" matInput placeholder="Message" [(ngModel)]="this.newMessage"></textarea>
         </mat-form-field>
