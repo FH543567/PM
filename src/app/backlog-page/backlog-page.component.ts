@@ -17,7 +17,7 @@ export class BacklogPageComponent implements OnInit {
   tasks: Task[];
   stories: Story[];
   epics: Epic[];
-  backlogItems: Backlog[];
+  backlogItems: Backlog[] = [];
   displayedColumns = ['Id', 'Name', 'Type', 'Priority', 'Progress'];
   dataSource: any;
   // dataSource = new BacklogDataSource(this.dataService);
@@ -25,14 +25,26 @@ export class BacklogPageComponent implements OnInit {
   constructor(private taskService: TaskService, private storyService: StoryService, private epicService: EpicService) { }
 
   ngOnInit() {
-    this.backlogItems = [];
-    this.getTasks();
-    this.getStories();
-    this.getEpics();
-    //this.taskToBacklog();
-    //this.storyToBacklog();
-    //this.epicToBacklog();
-    //this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems);
+    this.getData();
+    // this.getTasks();
+    // this.getStories();
+    // this.getEpics();
+  }
+
+  getData() {
+    this.taskService.getAll()
+      .subscribe(tasks => this.tasks = tasks,
+        error => console.log('Error: ', error),
+        () => this.storyService.getAll()
+          .subscribe(stories => this.stories = stories,
+            error => console.log('Error: ', error),
+            () => this.epicService.getAll()
+              .subscribe(epics => this.epics = epics,
+                error => console.log('Error: ', error),
+                () => this.taskToBacklog()
+              )
+          )
+      );
   }
 
   getTasks() {
@@ -42,7 +54,10 @@ export class BacklogPageComponent implements OnInit {
 
   getStories() {
     this.storyService.getAll()
-      .subscribe(stories => {this.stories = stories, this.storyToBacklog()});
+      .subscribe(stories => this.stories = stories,
+        error => console.log('Error: ', error),
+        () => this.storyToBacklog()
+      );
   }
 
   getEpics() {
@@ -56,6 +71,7 @@ export class BacklogPageComponent implements OnInit {
       const backlog = new Backlog(task.id, task.name, 'Task', task.description, task.priority, progress);
       this.backlogItems.push(backlog);
     }
+    this.storyToBacklog();
   }
 
   storyToBacklog() {
@@ -72,18 +88,7 @@ export class BacklogPageComponent implements OnInit {
       const backlog = new Backlog(story.id, story.name, 'Story', story.description, story.priority, progress);
       this.backlogItems.push(backlog);
     }
-    /* backup
-    for (const story of stories) {
-      let estimateSum = 0;
-      let workedSum = 0;
-      for (const task of story.tasks) {
-        estimateSum += task.estimatedTime;
-        workedSum += task.workedTime;
-      }
-      const backlog = new Backlog(story.id, story.name, 'Story', story.description, story.priority, estimateSum, workedSum);
-      this.backlogItems.push(backlog);
-    }
-     */
+    this.epicToBacklog();
   }
 
   epicToBacklog() {
@@ -108,35 +113,6 @@ export class BacklogPageComponent implements OnInit {
       const backlog = new Backlog(epic.id, epic.name, 'Epic', epic.description, epic.priority, progress);
       this.backlogItems.push(backlog);
     }
-    /* backup
-    for (const epic of epics) {
-      let estimateSum = 0;
-      let workedSum = 0;
-      for (const story of epic.stories) {
-        let estimateSumTemp = 0;
-        let workedSumTemp = 0;
-        for (const task of story.tasks) {
-          estimateSumTemp += task.estimatedTime;
-          workedSumTemp += task.workedTime;
-        }
-        estimateSum += estimateSumTemp;
-        workedSum += workedSumTemp;
-      }
-      const backlog = new Backlog(epic.id, epic.name, 'Epic', epic.description, epic.priority, estimateSum, workedSum);
-      this.backlogItems.push(backlog);
-    }
-     */
+    this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems);
   }
 }
-/*
-// Alternative Herangehensweise um Daten für eine Tabelle zu ziehen
-export class BacklogDataSource extends DataSource<any> {
-  constructor(private dataService: DataService) {
-    super();
-  }
-  connect(): Observable<Task[]> {
-    return this.dataService.getTasks();
-  }
-  disconnect() {}
-}
-*/

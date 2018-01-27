@@ -4,27 +4,27 @@
       <tbody>
       <tr>
         <td style="font-weight: bold">ID: </td>
-        <td>{{story.id}}</td>
+        <td>{{story?.id}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold">Name: </td>
-        <td>{{story.name}}</td>
+        <td>{{story?.name}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold">Description: </td>
-        <td>{{story.description}}</td>
+        <td>{{story?.description}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold">Priority: </td>
-        <td>{{story.priority}}</td>
+        <td>{{story?.priority}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold">Assigned epic: </td>
-        <td><button mat-raised-button color="accent" [routerLink]="['../../../epics/details', epic.id]">{{epic.name}}</button></td>
+        <td><button mat-raised-button color="accent" [routerLink]="['../../../epics/details', epic?.id]">{{epic?.name}}</button></td>
       </tr>
       <tr><td style="font-weight: bold">Tasks: </td></tr>
       <tr *ngFor="let task of assignedTasks">
-        <td  ><button  mat-raised-button color="accent" [routerLink]="['../../../tasks/details', task.id]">{{task.name}}</button></td>
+        <td  ><button  mat-raised-button color="accent" [routerLink]="['../../../tasks/details', task?.id]">{{task?.name}}</button></td>
       </tr>
       <br>
       <br>
@@ -39,17 +39,17 @@
     <mat-table #table [dataSource]="dataSource">
       <ng-container matColumnDef="Id">
         <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-        <mat-cell *matCellDef="let task"> {{task.id}} </mat-cell>
+        <mat-cell *matCellDef="let task"> {{task?.id}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="Name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let task"> {{task.name}} </mat-cell>
+        <mat-cell *matCellDef="let task"> {{task?.name}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="EstTime">
         <mat-header-cell *matHeaderCellDef> Workload </mat-header-cell>
-        <mat-cell *matCellDef="let task"> {{task.workload}} </mat-cell>
+        <mat-cell *matCellDef="let task"> {{task?.workload}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="Add">

@@ -63,17 +63,23 @@ export class BacklogComponent implements OnInit {
 
   getUsers() {
     this.userService.getAll()
-      .subscribe(users => this.users = users);
+      .subscribe(users => this.users = users,
+        error => console.log('Error: ', error)
+      );
   }
 
   getStories() {
     this.storyService.getAll()
-      .subscribe(stories => this.stories = stories);
+      .subscribe(stories => this.stories = stories,
+        error => console.log('Error: ', error)
+      );
   }
 
   getEpics() {
     this.epicService.getAll()
-      .subscribe( epics => this.epics = epics);
+      .subscribe( epics => this.epics = epics,
+        error => console.log('Error: ', error)
+      );
   }
 
   setType(type: string) {

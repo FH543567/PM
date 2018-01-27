@@ -26,28 +26,43 @@ export class EpicDetailsComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
     });
-    this.getEpic(this.id);
-    this.getStories();
-    this.getAssignedStories(this.epic.id);
-    this.dataSource = new MatTableDataSource<Story>(this.stories);
+    this.getData();
+    // this.getEpic(this.id);
+    // this.getStories();
+  }
+
+  getData() {
+    this.epicService.getById(this.id)
+      .subscribe( epic => this.epic = epic,
+        error => console.log('Error: ' + error),
+        () => this.storyService.getByEpicId(this.epic.id)
+          .subscribe( stories => this.stories = stories ,
+            error => console.log('Error: ', error),
+            () => this.dataSource = new MatTableDataSource<Story>(this.stories)
+            )
+    );
   }
 
   getEpic(id: number) {
-    console.log('getEpic');
-    console.log('ID: ' + id);
     this.epicService.getById(id)
-      .subscribe( epic => this.epic = epic);
-    console.log('Name: ' + this.epic.name);
+      .subscribe( epic => {this.epic = epic,
+        this.getAssignedStories(this.epic.id)
+      });
   }
 
   getStories() {
     this.storyService.getAll()
-      .subscribe( stories => this.stories = stories);
+      .subscribe( stories => this.stories = stories,
+        error => console.log('Error: ', error),
+        () => this.dataSource = new MatTableDataSource<Story>(this.stories)
+      );
   }
 
   getAssignedStories(epicId: number) {
     this.storyService.getByEpicId(epicId)
-      .subscribe( stories => this.assignedStories = stories);
+      .subscribe( stories => this.assignedStories = stories,
+        error => console.log('Error: ', error)
+      );
   }
 
   check(story: Story) {
@@ -71,7 +86,7 @@ export class EpicDetailsComponent implements OnInit {
       task.epicId = this.epic.id;
     }
   }
-  
+
   delete() {
     this.epicService.delete(this.epic.id);
   }

@@ -23,7 +23,7 @@ export class TaskService extends DtoService {
 
 /**
    * Alle Tasks auf der DB abfragen
-   * @returns {Observable<Task[]>} 
+   * @returns {Observable<Task[]>}
    */
   getAll(): Observable<Task[]> {
     return super.getAll()
@@ -87,7 +87,7 @@ export class TaskService extends DtoService {
 
   /**
    * Ein Task anhand der ID löschen
-   * @returns {Observable<number>} 
+   * @returns {Observable<number>}
    * @param id ID des zu löschenden Tasks
    */
   delete(id: number): Observable<number> {
@@ -112,5 +112,10 @@ export class TaskService extends DtoService {
       );
     return result.map(taskList => taskList = taskList
       .map(taskDB => taskDB = new Task(taskDB.TaskID, taskDB.Name, taskDB.Description, taskDB.Priority, taskDB.Workload, taskDB.WorkedTime, taskDB.StoryID, taskDB.SprintID, taskDB.UserID)));
+  }
+
+  getBySprintId(id: number): Observable<Task[]> {
+    console.log('getBySprintId');
+    return null;
   }
 }

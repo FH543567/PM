@@ -16,19 +16,19 @@ import { catchError, map, tap } from 'rxjs/operators';
  */
 @Injectable()
 export class StoryService extends DtoService {
-  
+
   constructor(http: HttpClient) {
     super('http://localhost:3000/api/stories', http);
   }
 
   /**
    * Alle Stories auf der DB abfragen
-   * @returns {Observable<Story[]>} 
+   * @returns {Observable<Story[]>}
    */
   getAll(): Observable<Story[]> {
     return super.getAll()
       .map(storyList => storyList = storyList
-        .map(storyDB => storyDB = new Story(storyDB.StoryID, storyDB.Name, storyDB.Description, storyDB.Priority, storyDB.EpicId)));
+        .map(storyDB => storyDB = new Story(storyDB.StoryID, storyDB.Name, storyDB.Description, storyDB.Priority, storyDB.EpicID)));
   }
 
   /**
@@ -38,7 +38,7 @@ export class StoryService extends DtoService {
    */
   getById(id: number): Observable<Story> {
     return super.getById(id)
-      .map(storyDB => storyDB = new Story(storyDB.StoryID, storyDB.Name, storyDB.Description, storyDB.Priority, storyDB.EpicId))
+      .map(storyDB => storyDB = new Story(storyDB.StoryID, storyDB.Name, storyDB.Description, storyDB.Priority, storyDB.EpicID));
         //.catch(e => { console.log(e); return undefined; })
   }
 
@@ -80,7 +80,7 @@ export class StoryService extends DtoService {
 
   /**
    * Ein Story anhand der ID löschen
-   * @returns {Observable<number>} 
+   * @returns {Observable<number>}
    * @param id ID des zu löschenden Stories
    */
   delete(id: number): Observable<number> {
@@ -104,6 +104,6 @@ export class StoryService extends DtoService {
       catchError(this.handleError('getAll', []))
       );
     return result.map(storyList => storyList = storyList
-      .map(storyDB => storyDB = new Story(storyDB.StoryID, storyDB.Name, storyDB.Description, storyDB.Priority, storyDB.EpicId)));
+      .map(storyDB => storyDB = new Story(storyDB.StoryID, storyDB.Name, storyDB.Description, storyDB.Priority, storyDB.EpicID)));
   }
 }
