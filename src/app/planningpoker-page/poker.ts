@@ -4,7 +4,7 @@ export class Poker {
   id: number;
   label: string;
   description: string;
-  roundData: Round[];
+  roundData: Round[]; // Sortiert nach Erstellungsreinfolge
 
   constructor(id?: number, label?: string, description?: string, roundData?: Round[]) {
     this.id = id;

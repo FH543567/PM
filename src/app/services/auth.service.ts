@@ -40,25 +40,32 @@ export class AuthService {
     }
   }
 
-  //Request an Server, ob userToVerify existiert
+  /**
+   * Request an Server, ob userToVerify existiert
+   * @param {User} userToVerify
+   */
   login(userToVerify: User) {
     if (userToVerify.username !== '' && userToVerify.password !== '') {
-        this.userService.getByUsername(userToVerify.username).subscribe(loginResult => this.setLogin(userToVerify, loginResult))
+        this.userService.getByUsername(userToVerify.username).subscribe(loginResult => this.setLogin(userToVerify, loginResult));
     }
   }
 
-  //Überprüft Login-Daten und wenn erfolgreich - setzt LocalStorage
-  //Bei mehreren Usern wird nur der oberste in der DB genommen => kann zu Fehlern (insb. in der PW-Überprüfung) führen
+  /**
+   * Überprüft Login-Daten und wenn erfolgreich - setzt LocalStorage
+   * Bei mehreren Usern wird nur der oberste in der DB genommen => kann zu Fehlern (insb. in der PW-Überprüfung) führen
+   *
+   * @param {User} userToVerify
+   * @param {User} loginResult
+   */
   setLogin(userToVerify: User, loginResult: User) {
-    if(!loginResult) {
-      //result ist undefined
-      console.error("Fehler beim Login: Username konnte nicht gefunden werden.");
-    } else if(userToVerify.password != loginResult.password)
-    {
-      //Password stimmt nicht überein
-      console.error("Fehler beim Login: Das angegebene Passwort ist falsch.");
+    if (!loginResult) {
+      // result ist undefined
+      console.error('Fehler beim Login: Username konnte nicht gefunden werden.');
+    } else if (userToVerify.password !== loginResult.password) {
+      // Password stimmt nicht überein
+      console.error('Fehler beim Login: Das angegebene Passwort ist falsch.');
     } else {
-      //überprüfung erfolgreich
+      // überprüfung erfolgreich
       this.loggedIn.next(true);
       localStorage.setItem('username', loginResult.username);
       localStorage.setItem('role',  'ScrumMaster');
@@ -69,6 +76,7 @@ export class AuthService {
   logout() {
     this.loggedIn.next(false);
     localStorage.removeItem('username');
+    localStorage.removeItem(('role'));
     console.log(this.loggedIn.getValue());
     this.router.navigate(['/login']);
   }

@@ -19,7 +19,7 @@ export class DtoService {
 
   /**
    * Alle Objekte auf der DB abfragen
-   * @returns {Observable<any[]>} 
+   * @returns {Observable<any[]>}
    */
   getAll(): Observable<any[]> {
     return this.http.get<any[]>(this.url)
@@ -75,10 +75,10 @@ export class DtoService {
       catchError(this.handleError<Object>('update'))
       );
   }
-  
+
   /**
    * Ein Objekt anhand der ID löschen
-   * @returns {Observable<any>} 
+   * @returns {Observable<any>}
    * @param id ID des zu löschenden Objekts
    */
   delete(id: number): Observable<any> {
