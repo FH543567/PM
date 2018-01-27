@@ -102,7 +102,7 @@ export class TaskService extends DtoService {
   getByStoryId(id: number): Observable<Task[]> {
     const url = `${this.url}/byStory/${id}`;
 
-    let result: Observable<any[]> = this.http.get<Task[]>(url)
+    const result: Observable<any[]> = this.http.get<Task[]>(url)
       .pipe(
       tap(h => {
         const outcome = h ? `fetched` : `did not find`;
@@ -111,7 +111,8 @@ export class TaskService extends DtoService {
       catchError(this.handleError('getAll', []))
       );
     return result.map(taskList => taskList = taskList
-      .map(taskDB => taskDB = new Task(taskDB.TaskID, taskDB.Name, taskDB.Description, taskDB.Priority, taskDB.Workload, taskDB.WorkedTime, taskDB.StoryID, taskDB.SprintID, taskDB.UserID)));
+      .map(taskDB => taskDB = new Task(taskDB.TaskID, taskDB.Name, taskDB.Description, taskDB.Priority,
+        taskDB.Workload, taskDB.WorkedTime, taskDB.StoryID, taskDB.SprintID, taskDB.UserID)));
   }
 
   /**
@@ -122,7 +123,7 @@ export class TaskService extends DtoService {
   getBySprintId(id: number): Observable<Task[]> {
     const url = `${this.url}/bySprint/${id}`;
 
-    let result: Observable<any[]> = this.http.get<Task[]>(url)
+    const result: Observable<any[]> = this.http.get<Task[]>(url)
       .pipe(
       tap(h => {
         const outcome = h ? `fetched` : `did not find`;
@@ -131,11 +132,7 @@ export class TaskService extends DtoService {
       catchError(this.handleError('getAll', []))
       );
     return result.map(taskList => taskList = taskList
-      .map(taskDB => taskDB = new Task(taskDB.TaskID, taskDB.Name, taskDB.Description, taskDB.Priority, taskDB.Workload, taskDB.WorkedTime, taskDB.StoryID, taskDB.SprintID, taskDB.UserID)));
-  }
-
-  getBySprintId(id: number): Observable<Task[]> {
-    console.log('getBySprintId');
-    return null;
+      .map(taskDB => taskDB = new Task(taskDB.TaskID, taskDB.Name, taskDB.Description, taskDB.Priority,
+        taskDB.Workload, taskDB.WorkedTime, taskDB.StoryID, taskDB.SprintID, taskDB.UserID)));
   }
 }
