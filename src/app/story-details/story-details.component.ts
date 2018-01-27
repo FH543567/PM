@@ -41,12 +41,16 @@ export class StoryDetailsComponent implements OnInit {
       .subscribe( story => this.story = story,
         error => console.log('Error: ', error),
         () => this.taskService.getByStoryId(this.story.id)
-          .subscribe( tasks => this.tasks = tasks,
+          .subscribe( assignedTasks => this.assignedTasks = assignedTasks,
             error => console.log('Error: ', error),
-            () => this.epicService.getById(this.story.epicId)
-              .subscribe( epic => this.epic = epic,
+            () => this.taskService.getAll()
+              .subscribe(tasks => this.tasks = tasks,
                 error => console.log('Error: ', error),
-                () => this.dataSource = new MatTableDataSource<Task>(this.tasks)
+                () => this.epicService.getById(this.story.epicId)
+                  .subscribe( epic => this.epic = epic,
+                    error => console.log('Error: ', error),
+                    () => this.dataSource = new MatTableDataSource<Task>(this.tasks)
+                  )
               )
           )
       );
@@ -101,10 +105,13 @@ export class StoryDetailsComponent implements OnInit {
     console.log(this.checkedTasks);
     for (const task of this.checkedTasks) {
       task.storyId = this.story.id;
+      this.taskService.update(task)
+        .subscribe();
     }
   }
 
   delete() {
-    this.storyService.delete(this.story.id);
+    this.storyService.delete(this.story.id)
+      .subscribe();
   }
 }

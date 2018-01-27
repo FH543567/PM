@@ -54,6 +54,7 @@ export class DtoService {
    * @returns {Observable<any>}
    */
   create(resource): Observable<any> {
+    console.log('Creating Object');
     return this.http.post(this.url, resource, httpOptions)
       .pipe(
       tap((resource) => this.log(`added Object w/ id=${resource.toString()}`)),

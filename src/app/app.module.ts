@@ -40,7 +40,8 @@ import { EpicDetailsComponent } from './epic-details/epic-details.component';
 import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
   MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule ,
   MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule,
-  MatDatepickerModule, MatNativeDateModule, MatSliderModule, MatStepperModule, MatChipsModule, MatButtonToggleModule, MatDialogModule} from '@angular/material';
+  MatDatepickerModule, MatNativeDateModule, MatSliderModule, MatStepperModule,
+  MatChipsModule, MatButtonToggleModule, MatDialogModule} from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { PlanningpokerComponent } from './planningpoker/planningpoker.component';

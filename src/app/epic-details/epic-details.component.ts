@@ -36,9 +36,13 @@ export class EpicDetailsComponent implements OnInit {
       .subscribe( epic => this.epic = epic,
         error => console.log('Error: ' + error),
         () => this.storyService.getByEpicId(this.epic.id)
-          .subscribe( stories => this.stories = stories ,
+          .subscribe( assignedStories => this.assignedStories = assignedStories,
             error => console.log('Error: ', error),
-            () => this.dataSource = new MatTableDataSource<Story>(this.stories)
+            () => this.storyService.getAll()
+              .subscribe( stories => this.stories = stories,
+                error => console.log('Error: ', error),
+                () => this.dataSource = new MatTableDataSource<Story>(this.stories)
+                )
             )
     );
   }
@@ -79,15 +83,18 @@ export class EpicDetailsComponent implements OnInit {
   }
 
   // TODO: muss noch über den Service auf der DB geändert werden
-  addTasks() {
-    console.log('addTasks');
+  addStories() {
+    console.log('addStories');
     console.log(this.checkedStories);
-    for (const task of this.checkedStories) {
-      task.epicId = this.epic.id;
+    for (const story of this.checkedStories) {
+      story.epicId = this.epic.id;
+      this.storyService.update(story)
+        .subscribe();
     }
   }
 
   delete() {
-    this.epicService.delete(this.epic.id);
+    this.epicService.delete(this.epic.id)
+      .subscribe();
   }
 }

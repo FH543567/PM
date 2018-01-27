@@ -93,12 +93,14 @@ export class TaskDetailsComponent implements OnInit {
     this.tempWorkedTime = this.task.workedTime;
   }
 
-  save(value: number) {
+  save() {
     this.task.workedTime = this.tempWorkedTime;
+    this.taskService.update(this.task);
     this.updateProgress();
   }
 
   delete() {
-    this.storyService.delete(this.story.id);
+    this.taskService.delete(this.task.id)
+      .subscribe();
   }
 }
