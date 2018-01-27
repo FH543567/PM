@@ -10,7 +10,7 @@ import { User } from '../user/user';
 import { Sprint } from '../sprint/sprint';
 import { Backlog } from '../backlog/backlog';
 import { Poker } from '../planningpoker-page/poker';
-import { Message } from '../planningpoker-page/Message';
+import { Message } from '../planningpoker-page/message';
 import { Round } from '../planningpoker-page/round';
 
 @Injectable()
