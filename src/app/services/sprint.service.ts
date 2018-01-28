@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { DtoService } from './dto.service';
 import { HttpClient } from '@angular/common/http';
+import {HistoryEntry} from '../chart-page/historyEntry';
 
 @Injectable()
 export class SprintService extends DtoService {
