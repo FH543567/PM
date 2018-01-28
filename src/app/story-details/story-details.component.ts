@@ -49,8 +49,8 @@ export class StoryDetailsComponent implements OnInit {
                 error => console.log('Error: ', error),
                 () => this.epicService.getById(this.story.epicId)
                   .subscribe( epic => this.epic = epic,
-                    error => console.log('Error: ', error),
-                    () => this.done()
+                    error => this.dataSource = new MatTableDataSource<Task>(this.tasks),
+                    () => this.dataSource = new MatTableDataSource<Task>(this.tasks)
                   )
               )
           )
@@ -58,7 +58,7 @@ export class StoryDetailsComponent implements OnInit {
   }
   done() {
     console.log('##############' + this.story.epicId);
-    this.dataSource = new MatTableDataSource<Task>(this.tasks);
+
   }
 
   /*
