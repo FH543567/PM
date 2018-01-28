@@ -48,14 +48,12 @@ export class PlanningpokerPageComponent implements OnInit {
     console.log(this.poker.roundData[this.poker.roundData.length - 1]);
     // this.roundService.create(this.poker.roundData[this.poker.roundData.length - 1]).subscribe();
     // const tempobj = new Round(0, 1, new Array<string>(), new Array<number>());
-
-
         // wenn noch keine eingabe gemacht wird soll keine neue runde starten
     if (this.poker.roundData[this.poker.roundData.length - 1].users !== undefined) {
       if (this.poker.roundData[this.poker.roundData.length - 1].users.length >= 1) {
         this.poker.roundData.push(new Round(0, 1, new Array<string>(), new Array<number>()));
-        console.log('AUSGABE!!!: ')
         this.roundService.create(new Round(0, 1, new Array<string>(), new Array<number>())).subscribe();
+        this.setIsPPokerOver();
       }
     }
   }
@@ -92,7 +90,7 @@ export class PlanningpokerPageComponent implements OnInit {
    * sendet eine Chatnachricht
    */
   onChatSubmit() {
-    if (this.newMessage !== '') {
+    if (this.newMessage !== '' && typeof this.newMessage !== 'undefined') {
       const tempMsg = new Message();
       tempMsg.user = localStorage.getItem('username');
       tempMsg.text = this.newMessage;
@@ -129,10 +127,29 @@ export class PlanningpokerPageComponent implements OnInit {
 
           console.log(this.poker);
           this.pokerService.update(this.poker).subscribe();
+          this.roundService.create(new Round(0, 1, new Array<string>(), new Array<number>())).subscribe();
+          this.isPPokerRunning = false;
+          this.isPPokerNotOver = false;
           console.log('new Planning-Poker Started!');
         }
       }
     });
+  }
+
+  setIsPPokerOver() {
+    // Set isPPokerOver
+    if (this.poker.roundData.length >= 2) {
+      // prüfen ob sich eine von einer anderen zahl unterscheidet
+      const est = this.poker.roundData[this.poker.roundData.length - 2].hours[0];
+      for ( const estimate of this.poker.roundData[this.poker.roundData.length - 2].hours) {
+        // console.log('Round ' + (this.poker.roundData.length - 1) + ' ' + estimate + ' !== ' + est);
+        if (estimate !== est) {
+          this.isPPokerNotOver = false;
+        }else {
+          this.isPPokerNotOver = true;
+        }
+      }
+    }
   }
 
   getData() {
@@ -140,6 +157,10 @@ export class PlanningpokerPageComponent implements OnInit {
     this.pokerService.getAll().subscribe(pokers => {
       this.poker = pokers ? pokers[0] : undefined;
       // Prämisse: alle rounds gehören zum ersten Poker
+      console.log( res);
+      if (res.length === 0) {
+        res.push(new Round(0, 1, new Array<string>(), new Array<number>()));
+      }
       this.poker.roundData = res;
       console.log(JSON.stringify(this.poker));
 
@@ -156,6 +177,9 @@ export class PlanningpokerPageComponent implements OnInit {
           // console.log('Round ' + (this.poker.roundData.length - 1) + ' ' + estimate + ' !== ' + est);
           if (estimate !== est) {
             this.isPPokerNotOver = false;
+
+          }else {
+            this.isPPokerNotOver = true;
           }
         }
       }
