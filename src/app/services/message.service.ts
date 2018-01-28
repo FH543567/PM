@@ -78,7 +78,7 @@ export class MessageService extends DtoService {
   }
 
   /**
-   * Ein Message anhand der ID löschen
+   * ALLE(!) Messages löschen
    * @returns {Observable<number>}
    * @param id ID des zu löschenden Messages
    */

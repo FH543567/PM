@@ -1046,9 +1046,9 @@ router.put('/messages', (req, res) => {
 router.delete('/messages/:id', (req, res) => {
 
 	pool.getConnection(function (err, connection) {
-		console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
+		console.log('Express: got HTTP-Delete from client. All Messages get deleted');
 
-		connection.query('DELETE FROM message WHERE MessageID = ?', req.params.id, function (err, rows, fields) {
+		connection.query('DELETE FROM message', function (err, rows, fields) {
 			if (err) {
 				console.error("Error occured on Express-Server: " + err.message)
 				res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
@@ -1174,9 +1174,9 @@ router.put('/rounds', (req, res) => {
 router.delete('/rounds/:id', (req, res) => {
 
 	pool.getConnection(function (err, connection) {
-		console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
+		console.log('Express: got HTTP-Delete from client. All rounds get deleted');
 
-		connection.query('DELETE FROM round WHERE RoundID = ?', req.params.id, function (err, rows, fields) {
+		connection.query('DELETE FROM round', function (err, rows, fields) {
 			if (err) {
 				console.error("Error occured on Express-Server: " + err.round)
 				res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, round: err.round });

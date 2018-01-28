@@ -93,7 +93,7 @@ export class RoundService extends DtoService {
   }
 
   /**
-   * Ein Round anhand der ID löschen
+   * ALLE(!) Rounds löschen
    * @returns {Observable<number>}
    * @param id ID des zu löschenden Rounds
    */
