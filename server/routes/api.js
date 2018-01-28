@@ -21,7 +21,7 @@ var pool = mysql.createPool({
 	host: 'localhost',
 	user: 'root',
 	password: 'mfj123',
-	database: 'pm'
+	database: 'heroku_57b74cfd3c406d8'
 
 	/*
 	host: process.env.DB_HOST,
