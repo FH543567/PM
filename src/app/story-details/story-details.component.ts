@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { StoryService } from '../services/story.service';
 import { Story } from '../story/story';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Epic } from '../epic/epic';
 import { EpicService } from '../services/epic.service';
 import { Task } from '../task/task';
 import { TaskService } from '../services/task.service';
 import { MatTableDataSource } from '@angular/material';
-
+import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component';
+import { MatDialog } from '@angular/material';
 @Component({
   selector: 'app-story-details',
   templateUrl: './story-details.component.html',
   styleUrls: ['./story-details.component.css']
 })
 export class StoryDetailsComponent implements OnInit {
+  result = false;
   id: number;
   private sub: any;
   story: Story;
@@ -24,7 +26,8 @@ export class StoryDetailsComponent implements OnInit {
   displayedColumns = ['Id', 'Name', 'EstTime', 'Add'];
   dataSource: any;
   constructor(private route: ActivatedRoute, private storyService: StoryService,
-              private epicService: EpicService, private taskService: TaskService) { }
+              private epicService: EpicService, private taskService: TaskService,
+              private dialog: MatDialog, public router: Router) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -110,8 +113,27 @@ export class StoryDetailsComponent implements OnInit {
     }
   }
 
+  deleteDialog() {
+    const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+      height: '150px',
+      width: '300px',
+      data: { type: 'Story', name: this.story.name}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.result = true;
+      }
+    }, error => console.log('Error: ', error),
+    () => this.delete());
+  }
+
   delete() {
-    this.storyService.delete(this.story.id)
-      .subscribe();
+    if (this.result === true) {
+      this.storyService.delete(this.story.id)
+        .subscribe(empty => this.result = false,
+          error => console.log('Error: ', error),
+          () => this.router.navigate(['../../../backlog'])
+        );
+    }
   }
 }

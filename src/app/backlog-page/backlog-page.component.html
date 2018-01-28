@@ -36,7 +36,7 @@
   </mat-table>
 </div>
 <br>
-<button id="create" mat-raised-button color="primary" *ngIf="authService.isScrumMaster" routerLink="/backlog/create">New Item</button>
+<button id="create" mat-raised-button color="primary" *ngIf="authService.isScrumMaster" routerLink="/backlog/create" (click)="openDialog()">New Item</button>
 
 <!--<p *ngFor="let backlog of backlogItems">{{backlog.id}} {{backlog.name}} {{backlog.priority}} {{backlog.estimatedTime}} {{backlog.workedTime}}</p>-->
 

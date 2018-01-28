@@ -25,11 +25,13 @@ export class AuthService {
   }
 
   get isScrumMaster(): boolean {
+    return true;
+    /*
     if (localStorage.getItem('role') === 'ScrumMaster') {
       return true;
     } else {
       return false;
-    }
+    }*/
   }
 
   get isProductOwner(): boolean {

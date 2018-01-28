@@ -3,7 +3,7 @@ import { Task } from '../task/task';
 import { Story } from '../story/story';
 import { Epic } from '../epic/epic';
 import { Backlog } from '../backlog/backlog';
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
 import { TaskService } from '../services/task.service';
 import { StoryService } from '../services/story.service';
 import { EpicService } from '../services/epic.service';
@@ -15,6 +15,7 @@ import {AuthService} from '../services/auth.service';
   styleUrls: ['./backlog-page.component.css']
 })
 export class BacklogPageComponent implements OnInit {
+
   tasks: Task[];
   stories: Story[];
   epics: Epic[];
@@ -26,8 +27,7 @@ export class BacklogPageComponent implements OnInit {
   constructor(private taskService: TaskService,
               private storyService: StoryService,
               private epicService: EpicService,
-              private authService: AuthService,
-              private dialog: MatDialog) {}
+              private authService: AuthService) {}
 
   ngOnInit() {
     this.getData();
@@ -124,4 +124,6 @@ export class BacklogPageComponent implements OnInit {
     }
     this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems);
   }
+
+
 }

@@ -45,6 +45,7 @@ import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
 import { ChartsModule } from 'ng2-charts';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { PlanningpokerComponent } from './planningpoker/planningpoker.component';
+import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { PlanningpokerComponent } from './planningpoker/planningpoker.component'
     TaskDetailsComponent,
     StoryDetailsComponent,
     EpicDetailsComponent,
+    DeleteConfirmComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -101,6 +103,6 @@ import { PlanningpokerComponent } from './planningpoker/planningpoker.component'
     DatePipe
   ],
   bootstrap: [AppComponent],
-  entryComponents: [PlanningpokerComponent]
+  entryComponents: [PlanningpokerComponent,DeleteConfirmComponent]
 })
 export class AppModule { }
