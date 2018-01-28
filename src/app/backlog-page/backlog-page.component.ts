@@ -3,11 +3,11 @@ import { Task } from '../task/task';
 import { Story } from '../story/story';
 import { Epic } from '../epic/epic';
 import { Backlog } from '../backlog/backlog';
-import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
+import { MatTableDataSource} from '@angular/material';
 import { TaskService } from '../services/task.service';
 import { StoryService } from '../services/story.service';
 import { EpicService } from '../services/epic.service';
-import {AuthService} from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-backlog-page',
@@ -22,7 +22,6 @@ export class BacklogPageComponent implements OnInit {
   backlogItems: Backlog[] = [];
   displayedColumns = ['Id', 'Name', 'Type', 'Priority', 'Progress'];
   dataSource: any;
-  // dataSource = new BacklogDataSource(this.dataService);
 
   constructor(private taskService: TaskService,
               private storyService: StoryService,
@@ -31,9 +30,6 @@ export class BacklogPageComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
-    // this.getTasks();
-    // this.getStories();
-    // this.getEpics();
   }
 
   getData() {
@@ -50,28 +46,6 @@ export class BacklogPageComponent implements OnInit {
               )
           )
       );
-  }
-
-  getTasks() {
-    this.taskService.getAll()
-      .subscribe(tasks => {this.tasks = tasks, this.taskToBacklog()});
-  }
-
-  getStories() {
-    this.storyService.getAll()
-      .subscribe(stories => this.stories = stories,
-        error => console.log('Error: ', error),
-        () => this.storyToBacklog()
-      );
-  }
-
-  getEpics() {
-    this.epicService.getAll()
-      .subscribe(epics => {
-        this.epics = epics,
-        this.epicToBacklog(),
-        this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems)
-      });
   }
 
   taskToBacklog() {

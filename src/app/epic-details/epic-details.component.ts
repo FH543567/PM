@@ -6,6 +6,7 @@ import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Story } from '../story/story';
 import { StoryService } from '../services/story.service';
 import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-epic-details',
@@ -24,7 +25,7 @@ export class EpicDetailsComponent implements OnInit {
   dataSource: any;
   constructor(private route: ActivatedRoute, private epicService: EpicService,
               private storyService: StoryService, private dialog: MatDialog,
-              public router: Router) { }
+              public router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {

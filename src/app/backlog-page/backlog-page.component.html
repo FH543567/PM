@@ -25,7 +25,6 @@
       <mat-cell *matCellDef="let backlog"> {{backlog?.priority}} </mat-cell>
     </ng-container>
 
-    <!-- TODO: Add progress instead of Estimated -->
     <ng-container matColumnDef="Progress">
       <mat-header-cell *matHeaderCellDef> Progress </mat-header-cell>
       <mat-cell *matCellDef="let backlog"> {{backlog?.progress | number:0}}%  </mat-cell>
@@ -37,7 +36,3 @@
 </div>
 <br>
 <button id="create" mat-raised-button color="primary" *ngIf="authService.isScrumMaster" routerLink="/backlog/create" (click)="openDialog()">New Item</button>
-
-<!--<p *ngFor="let backlog of backlogItems">{{backlog.id}} {{backlog.name}} {{backlog.priority}} {{backlog.estimatedTime}} {{backlog.workedTime}}</p>-->
-
-

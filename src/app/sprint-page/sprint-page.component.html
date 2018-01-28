@@ -25,7 +25,7 @@
 </mat-table>
 </div>
 <br>
-<button id="create" mat-raised-button color="primary" routerLink="/sprint/create">New Sprint</button>
+<button id="create" mat-raised-button color="primary" *ngIf="authService.isScrumMaster" routerLink="/sprint/create">New Sprint</button>
 
 
 

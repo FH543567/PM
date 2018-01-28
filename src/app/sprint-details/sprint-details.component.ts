@@ -5,6 +5,7 @@ import { Task } from '../task/task';
 import { MatTableDataSource } from '@angular/material';
 import { SprintService } from '../services/sprint.service';
 import { TaskService } from '../services/task.service';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-sprint-details',
@@ -21,21 +22,14 @@ export class SprintDetailsComponent implements OnInit {
   assignedTasks: Task[] = [];
   displayedColumns = ['Id', 'Name', 'EstTime', 'Add'];
   dataSource: any;
-  constructor(private route: ActivatedRoute, private sprintService: SprintService, private taskService: TaskService) { }
+  constructor(private route: ActivatedRoute, private sprintService: SprintService,
+              private taskService: TaskService, private authService: AuthService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
     });
     this.getData(this.id);
-    // this.getSprint();
-    // this.getTasks();
-    /*
-    for (let i = 0; i < this.sprints.length; i++) {
-      if (this.id = this.sprints[i].id) {
-        this.sprint = this.sprints[i];
-      }
-    }*/
   }
 
   getData(id: number) {
@@ -52,36 +46,6 @@ export class SprintDetailsComponent implements OnInit {
               )
           )
       );
-  }
-
-  getSprint()  {
-    this.sprintService.getById(this.id)
-      .subscribe(sprint => this.sprint = sprint,
-        error => console.log('Error: ', error),
-        () => this.getAssignedTasks()
-      );
-  }
-
-  getTasks()  {
-    this.taskService.getAll()
-      .subscribe(tasks => this.tasks = tasks,
-        error => console.log('Error: ', error),
-        () => this.dataSource = new MatTableDataSource<Task>(this.tasks)
-      );
-  }
-
-  // TODO: Vom Service abfragen
-  getAssignedTasks() {
-    this.taskService.getBySprintId(this.sprint.id)
-      .subscribe(tasks => this.assignedTasks = tasks);
-
-    /* old getAssignedTasks()
-    for (const task of this.tasks) {
-      if (task.sprintId === this.sprint.id) {
-        this.assignedTasks.push(task);
-      }
-    }
-     */
   }
 
   check(task: Task) {

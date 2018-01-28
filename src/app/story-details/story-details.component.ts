@@ -9,6 +9,7 @@ import { TaskService } from '../services/task.service';
 import { MatTableDataSource } from '@angular/material';
 import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component';
 import { MatDialog } from '@angular/material';
+import {AuthService} from '../services/auth.service';
 @Component({
   selector: 'app-story-details',
   templateUrl: './story-details.component.html',
@@ -27,16 +28,13 @@ export class StoryDetailsComponent implements OnInit {
   dataSource: any;
   constructor(private route: ActivatedRoute, private storyService: StoryService,
               private epicService: EpicService, private taskService: TaskService,
-              private dialog: MatDialog, public router: Router) { }
+              private dialog: MatDialog, public router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
     });
     this.getData();
-    // this.getStory(this.id);
-    // this.getEpic(this.story.epicId);
-    // this.getTasks();
   }
 
   getData() {
@@ -59,36 +57,6 @@ export class StoryDetailsComponent implements OnInit {
       );
   }
 
-  getStory(id: number) {
-    this.storyService.getById(id)
-      .subscribe( story => this.story = story,
-        error => console.log('Error: ', error),
-        () => this.getAssignedTasks(this.story.id)
-      );
-  }
-
-  getEpic(id: number) {
-    this.epicService.getById(id)
-      .subscribe( epic => this.epic = epic,
-        error => console.log('Error: ', error)
-      );
-  }
-
-  getAssignedTasks(storyId: number) {
-    this.taskService.getByStoryId(storyId)
-      .subscribe( tasks => this.assignedTasks = tasks,
-        error => console.log('Error: ', error)
-      );
-  }
-
-  getTasks() {
-    this.taskService.getAll()
-      .subscribe( tasks => this.tasks = tasks,
-        error => console.log('Error: ', error),
-        () => this.dataSource = new MatTableDataSource<Task>(this.tasks)
-      );
-  }
-
   check(task: Task) {
     let included = this.checkedTasks.includes(task);
     console.log('Included before: ' + included);
@@ -102,7 +70,6 @@ export class StoryDetailsComponent implements OnInit {
     console.log('Included after: ' + included);
   }
 
-  // TODO: muss noch über den Service auf der DB geändert werden
   addTasks() {
     console.log('addTasks');
     console.log(this.checkedTasks);
