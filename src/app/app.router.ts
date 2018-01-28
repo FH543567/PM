@@ -40,5 +40,5 @@ export const routes = [
     { path: 'roadmap', component: RoadmapPageComponent, canActivate: [AuthGuard]},
 
     // otherwise redirect to home
-    { path: '**', redirectTo: '/home' }
+    { path: '**', redirectTo: '/login' }
 ];

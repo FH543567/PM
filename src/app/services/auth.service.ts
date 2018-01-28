@@ -20,12 +20,18 @@ export class AuthService {
     } else {
       return false;
     }
-   // return this.loggedIn.getValue();
-   // return this.loggedIn.asObservable();
   }
 
   get isScrumMaster(): boolean {
-    if (localStorage.getItem('role') === 'ScrumMaster') {
+    if (localStorage.getItem('role') === '0') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  get isDeveloper(): boolean {
+    if (localStorage.getItem('role') === '1') {
       return true;
     } else {
       return false;
@@ -33,43 +39,43 @@ export class AuthService {
   }
 
   get isProductOwner(): boolean {
-    if (localStorage.getItem('role') === 'ProductOwner') {
+    if (localStorage.getItem('role') === '2') {
       return true;
     } else {
       return false;
     }
   }
 
-  //Request an Server, ob userToVerify existiert
+  // Request an Server, ob userToVerify existiert
   login(userToVerify: User) {
     if (userToVerify.username !== '' && userToVerify.password !== '') {
-        this.userService.getByUsername(userToVerify.username).subscribe(loginResult => this.setLogin(userToVerify, loginResult))
+        this.userService.getByUsername(userToVerify.username).subscribe(loginResult => this.setLogin(userToVerify, loginResult));
     }
   }
 
-  //Überprüft Login-Daten und wenn erfolgreich - setzt LocalStorage
-  //Bei mehreren Usern wird nur der oberste in der DB genommen => kann zu Fehlern (insb. in der PW-Überprüfung) führen
+  // Überprüft Login-Daten und wenn erfolgreich - setzt LocalStorage
+  // Bei mehreren Usern wird nur der oberste in der DB genommen => kann zu Fehlern (insb. in der PW-Überprüfung) führen
   setLogin(userToVerify: User, loginResult: User) {
-    if(!loginResult) {
-      //result ist undefined
-      console.error("Fehler beim Login: Username konnte nicht gefunden werden.");
-    } else if(userToVerify.password != loginResult.password)
-    {
-      //Password stimmt nicht überein
-      console.error("Fehler beim Login: Das angegebene Passwort ist falsch.");
+    if (!loginResult) {
+      // result ist undefined
+      console.error('Fehler beim Login: Username konnte nicht gefunden werden.');
+    } else if (userToVerify.password !== loginResult.password) {
+      // Password stimmt nicht überein
+      console.error('Fehler beim Login: Das angegebene Passwort ist falsch.');
     } else {
-      //überprüfung erfolgreich
+      // überprüfung erfolgreich
       this.loggedIn.next(true);
       localStorage.setItem('username', loginResult.username);
-      localStorage.setItem('role',  'ScrumMaster');
-      this.router.navigate(['/home']);
+      console.log(loginResult);
+      localStorage.setItem('role',  loginResult.role + '');
+      this.router.navigate(['/backlog']);
     }
   }
 
   logout() {
     this.loggedIn.next(false);
     localStorage.removeItem('username');
-    console.log(this.loggedIn.getValue());
+    localStorage.removeItem('role');
     this.router.navigate(['/login']);
   }
 }
