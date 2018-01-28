@@ -3,10 +3,11 @@ import { Task } from '../task/task';
 import { Story } from '../story/story';
 import { Epic } from '../epic/epic';
 import { Backlog } from '../backlog/backlog';
-import { MatTableDataSource } from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import { TaskService } from '../services/task.service';
 import { StoryService } from '../services/story.service';
 import { EpicService } from '../services/epic.service';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-backlog-page',
@@ -22,7 +23,11 @@ export class BacklogPageComponent implements OnInit {
   dataSource: any;
   // dataSource = new BacklogDataSource(this.dataService);
 
-  constructor(private taskService: TaskService, private storyService: StoryService, private epicService: EpicService) { }
+  constructor(private taskService: TaskService,
+              private storyService: StoryService,
+              private epicService: EpicService,
+              private authService: AuthService,
+              private dialog: MatDialog) {}
 
   ngOnInit() {
     this.getData();
@@ -63,8 +68,8 @@ export class BacklogPageComponent implements OnInit {
   getEpics() {
     this.epicService.getAll()
       .subscribe(epics => {
-        this.epics = epics, 
-        this.epicToBacklog(), 
+        this.epics = epics,
+        this.epicToBacklog(),
         this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems)
       });
   }
