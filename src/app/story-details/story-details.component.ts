@@ -30,31 +30,56 @@ export class StoryDetailsComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
     });
-    this.getStory(this.id);
-    this.getEpic(this.story.epicId);
-    this.getTasks();
-    this.getAssignedTasks(this.story.id);
-    this.dataSource = new MatTableDataSource<Task>(this.tasks);
+    this.getData();
+    // this.getStory(this.id);
+    // this.getEpic(this.story.epicId);
+    // this.getTasks();
+  }
+
+  getData() {
+    this.storyService.getById(this.id)
+      .subscribe( story => this.story = story,
+        error => console.log('Error: ', error),
+        () => this.taskService.getByStoryId(this.story.id)
+          .subscribe( tasks => this.tasks = tasks,
+            error => console.log('Error: ', error),
+            () => this.epicService.getById(this.story.epicId)
+              .subscribe( epic => this.epic = epic,
+                error => console.log('Error: ', error),
+                () => this.dataSource = new MatTableDataSource<Task>(this.tasks)
+              )
+          )
+      );
   }
 
   getStory(id: number) {
     this.storyService.getById(id)
-      .subscribe( story => this.story = story);
+      .subscribe( story => this.story = story,
+        error => console.log('Error: ', error),
+        () => this.getAssignedTasks(this.story.id)
+      );
   }
 
   getEpic(id: number) {
     this.epicService.getById(id)
-      .subscribe( epic => this.epic = epic);
+      .subscribe( epic => this.epic = epic,
+        error => console.log('Error: ', error)
+      );
   }
 
   getAssignedTasks(storyId: number) {
     this.taskService.getByStoryId(storyId)
-      .subscribe( tasks => this.assignedTasks = tasks);
+      .subscribe( tasks => this.assignedTasks = tasks,
+        error => console.log('Error: ', error)
+      );
   }
 
   getTasks() {
     this.taskService.getAll()
-      .subscribe( tasks => this.tasks = tasks);
+      .subscribe( tasks => this.tasks = tasks,
+        error => console.log('Error: ', error),
+        () => this.dataSource = new MatTableDataSource<Task>(this.tasks)
+      );
   }
 
   check(task: Task) {

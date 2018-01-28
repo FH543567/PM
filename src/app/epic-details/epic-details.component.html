@@ -4,23 +4,23 @@
       <tbody>
       <tr>
         <td style="font-weight: bold">ID: </td>
-        <td>{{epic.id}}</td>
+        <td>{{epic?.id}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold">Name: </td>
-        <td>{{epic.name}}</td>
+        <td>{{epic?.name}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold">Description: </td>
-        <td>{{epic.description}}</td>
+        <td>{{epic?.description}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold">Priority: </td>
-        <td>{{epic.priority}}</td>
+        <td>{{epic?.priority}}</td>
       </tr>
       <tr><td style="font-weight: bold">Stories: </td></tr>
       <tr *ngFor="let story of assignedStories">
-        <td><button  mat-raised-button color="accent" [routerLink]="['../../../stories/details', story.id]">{{story.name}}</button></td>
+        <td><button  mat-raised-button color="accent" [routerLink]="['../../../stories/details', story?.id]">{{story.name}}</button></td>
       </tr>
       <br>
       <br>
@@ -34,17 +34,17 @@
     <mat-table #table [dataSource]="dataSource">
       <ng-container matColumnDef="Id">
         <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-        <mat-cell *matCellDef="let story"> {{story.id}} </mat-cell>
+        <mat-cell *matCellDef="let story"> {{story?.id}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="Name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let story"> {{story.name}} </mat-cell>
+        <mat-cell *matCellDef="let story"> {{story?.name}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="EstTime">
         <mat-header-cell *matHeaderCellDef> Workload </mat-header-cell>
-        <mat-cell *matCellDef="let story"> {{story.workload}} </mat-cell>
+        <mat-cell *matCellDef="let story"> {{story?.workload}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="Add">

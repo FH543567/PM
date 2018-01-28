@@ -18,12 +18,15 @@ export class SprintPageComponent implements OnInit {
 
   ngOnInit() {
     this.getSprints();
-    this.dataSource = new MatTableDataSource<Sprint>(this.sprints);
   }
 
 
   getSprints() {
+    console.log('getSprints');
     this.sprintService.getAll()
-      .subscribe(sprints => this.sprints = sprints);
+      .subscribe(sprints => this.sprints = sprints,
+        error => console.log('Error: ', error),
+        () => this.dataSource = new MatTableDataSource<Sprint>(this.sprints)
+      );
   }
 }

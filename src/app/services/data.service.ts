@@ -10,9 +10,8 @@ import { User } from '../user/user';
 import { Sprint } from '../sprint/sprint';
 import { Backlog } from '../backlog/backlog';
 import { Poker } from '../planningpoker-page/poker';
-import { Message } from '../planningpoker-page/Message';
+import { Message } from '../planningpoker-page/message';
 import { Round } from '../planningpoker-page/round';
-import {forEach} from '@angular/router/src/utils/collection';
 
 @Injectable()
 export class DataService {
@@ -37,6 +36,9 @@ export class DataService {
   // TODO: Service für Poker, Burndown, Chat
 
   // Methode für die Registrierung eines neuen Users im Server
+  /**
+  * @deprecated nicht mehr Benutzen, da keine Verbindung zur DB!
+  */
   register(user: User): boolean {
     console.log('username:', user.username);
     console.log('password:', user.password);
@@ -46,6 +48,7 @@ export class DataService {
     return true;
   }
 
+  //TODO: Wird das noch gebraucht?
   createBacklog(backlog: Backlog): boolean {
     console.log('id', backlog.id);
     console.log('name', backlog.name);
@@ -71,13 +74,11 @@ export class DataService {
    * @returns {Message[]}
    */
   getMessages(): Message[] {
-      return this.chat;
+    return this.chat;
   }
 
   /**
    * fügt der aktuellen runde eine neue schätzung durch einen User hinzu
-   * wenn bereits eine schätzung von diesem user existiert passiert nichts
-   *
    * @param {number} estimate
    */
   enterEstimate(estimate: number): void {

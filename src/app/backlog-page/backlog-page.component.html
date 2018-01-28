@@ -3,32 +3,32 @@
 
     <ng-container matColumnDef="Id">
       <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-      <mat-cell *matCellDef="let backlog"> {{backlog.id}} </mat-cell>
+      <mat-cell *matCellDef="let backlog"> {{backlog?.id}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let backlog">
-        <button mat-raised-button color="accent" *ngIf="backlog.type === 'Task'" [routerLink]="['../tasks/details', backlog.id]">{{backlog.name}}</button>
-        <button mat-raised-button color="accent" *ngIf="backlog.type === 'Story'" [routerLink]="['../stories/details', backlog.id]">{{backlog.name}}</button>
-        <button mat-raised-button color="accent" *ngIf="backlog.type === 'Epic'" [routerLink]="['../epics/details', backlog.id]">{{backlog.name}}</button>
+        <button mat-raised-button color="accent" *ngIf="backlog.type === 'Task'" [routerLink]="['../tasks/details', backlog.id]">{{backlog?.name}}</button>
+        <button mat-raised-button color="accent" *ngIf="backlog.type === 'Story'" [routerLink]="['../stories/details', backlog.id]">{{backlog?.name}}</button>
+        <button mat-raised-button color="accent" *ngIf="backlog.type === 'Epic'" [routerLink]="['../epics/details', backlog.id]">{{backlog?.name}}</button>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="Type">
       <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
-      <mat-cell *matCellDef="let backlog"> {{backlog.type}} </mat-cell>
+      <mat-cell *matCellDef="let backlog"> {{backlog?.type}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="Priority">
       <mat-header-cell *matHeaderCellDef> Priority </mat-header-cell>
-      <mat-cell *matCellDef="let backlog"> {{backlog.priority}} </mat-cell>
+      <mat-cell *matCellDef="let backlog"> {{backlog?.priority}} </mat-cell>
     </ng-container>
 
     <!-- TODO: Add progress instead of Estimated -->
     <ng-container matColumnDef="Progress">
       <mat-header-cell *matHeaderCellDef> Progress </mat-header-cell>
-      <mat-cell *matCellDef="let backlog"> {{backlog.progress | number:0}}%  </mat-cell>
+      <mat-cell *matCellDef="let backlog"> {{backlog?.progress | number:0}}%  </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

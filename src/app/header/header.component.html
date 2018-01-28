@@ -22,7 +22,7 @@
   <button mat-button [matMenuTriggerFor]="appMenu"><mat-icon>more_vert</mat-icon></button>
   <mat-menu #appMenu="matMenu">
     <button mat-menu-item routerLink="login" *ngIf="!isLoggedIn"><mat-icon>account_box</mat-icon>Login</button>
-    <button mat-menu-item routerLink="register" *ngIf="!isLoggedIn"><mat-icon>assignment-ind</mat-icon>Register</button>
+    <button mat-menu-item routerLink="adduser" *ngIf="authService.isScrumMaster"><mat-icon>assignment-ind</mat-icon>Add User</button>
     <button mat-menu-item (click)="onLogout()" *ngIf="isLoggedIn"><mat-icon>close</mat-icon>Logout</button>
   </mat-menu>
 

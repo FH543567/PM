@@ -2,22 +2,22 @@
 <mat-table #table [dataSource]="dataSource">
   <ng-container matColumnDef="Id">
     <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-    <mat-cell *matCellDef="let sprint"> {{sprint.id}} </mat-cell>
+    <mat-cell *matCellDef="let sprint"> {{sprint?.id}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Name">
     <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-    <mat-cell *matCellDef="let sprint" [routerLink]="['details', sprint.id]"><button mat-raised-button color="accent">{{sprint.name}}</button></mat-cell>
+    <mat-cell *matCellDef="let sprint" [routerLink]="['details', sprint?.id]"><button mat-raised-button color="accent">{{sprint?.name}}</button></mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Start">
     <mat-header-cell *matHeaderCellDef> StartDate </mat-header-cell>
-    <mat-cell *matCellDef="let sprint">{{sprint.startDate.toLocaleDateString()}}</mat-cell>
+    <mat-cell *matCellDef="let sprint">{{sprint?.startDate.toLocaleDateString()}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="End">
     <mat-header-cell *matHeaderCellDef> EndDate </mat-header-cell>
-    <mat-cell *matCellDef="let sprint">{{sprint.endDate.toLocaleDateString()}}</mat-cell>
+    <mat-cell *matCellDef="let sprint">{{sprint?.endDate.toLocaleDateString()}}</mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

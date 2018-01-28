@@ -30,40 +30,70 @@ export class TaskDetailsComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       id = +params['id']; // (+) converts string 'id' to a number
     });
+    this.getData(id);
+    /*
     this.getTask(id);
     this.getStory(this.task.storyId);
     this.getSprint(this.task.sprintId);
     this.getUser(this.task.userId);
-    this.updateProgress();
-    this.tempWorkedTime = this.task.workedTime;
+    */
+  }
+
+  getData(id: number) {
+    this.taskService.getById(id)
+      .subscribe( task => this.task = task,
+        error => console.log('Error: ', error),
+        () => this.storyService.getById(this.task.storyId)
+          .subscribe( story => this.story = story,
+            error => console.log('Error: ', error),
+            () => this.sprintService.getById(this.task.sprintId)
+              .subscribe( sprint => this.sprint = sprint,
+                error => console.log('Error: ', error),
+                () => this.userService.getById(this.task.userId)
+                  .subscribe( user => this.user = user,
+                    error => console.log('Error: ', error),
+                    () => this.updateProgress()
+                  )
+              )
+          )
+      );
   }
 
   getTask(id: number) {
     this.taskService.getById(id)
-      .subscribe( task => this.task = task);
+      .subscribe( task => this.task = task,
+        error => console.log('Error: ', error),
+        () => this.updateProgress()
+      );
   }
 
   getStory(id: number) {
     this.storyService.getById(id)
-      .subscribe( story => this.story = story);
+      .subscribe( story => this.story = story,
+        error => console.log('Error: ', error)
+      );
   }
 
   getSprint(id: number) {
     this.sprintService.getById(id)
-      .subscribe( sprint => this.sprint = sprint);
+      .subscribe( sprint => this.sprint = sprint,
+        error => console.log('Error: ', error)
+      );
   }
 
   getUser(id: number) {
     this.userService.getById(id)
-      .subscribe( user => this.user = user);
+      .subscribe( user => this.user = user,
+        error => console.log('Error: ', error)
+      );
   }
 
   updateProgress() {
     this.progress = this.task.workedTime / this.task.workload * 100;
+    this.tempWorkedTime = this.task.workedTime;
   }
 
   save(value: number) {
-    console.log('Save');
     this.task.workedTime = this.tempWorkedTime;
     this.updateProgress();
   }

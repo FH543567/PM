@@ -17,12 +17,14 @@ import { SprintDetailsComponent } from './sprint-details/sprint-details.componen
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { StoryDetailsComponent } from './story-details/story-details.component';
 import { EpicDetailsComponent } from './epic-details/epic-details.component';
-
+import { Resolve } from '@angular/router';
+import {Story} from './story/story';
+// resolve: {storyTest: Story}
 export const routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full'},
-    { path: 'home', component: HomePageComponent},
+    { path: 'home', component: HomePageComponent, },
     { path: 'login', component: LoginComponent, canActivate: [LoggedOutGuard]},
-    { path: 'register', component: RegisterComponent, canActivate: [LoggedOutGuard]},
+    { path: 'adduser', component: RegisterComponent, canActivate: [AuthGuard]},
     { path: 'backlog', component: BacklogPageComponent, canActivate: [AuthGuard]},
     { path: 'backlog/create', component: BacklogComponent, canActivate: [AuthGuard]},
     { path: 'tasks/details/:id', component: TaskDetailsComponent, canActivate: [AuthGuard]},

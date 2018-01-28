@@ -12,21 +12,21 @@
       </thead>
       <tbody>
         <tr *ngFor="let story of stories">
-          <td><button mat-raised-button color="primary">{{story.name}}</button></td>
+          <td><button mat-raised-button color="primary">{{story?.name}}</button></td>
           <td>
             <table>
               <tr *ngFor="let task of tasksTodo" [dragula]="toDo">
                 <td *ngIf="task.storyId === story.id">
-                  <button mat-raised-button color="accent" [routerLink]="['../tasks/details', task.id]">{{task.name}}</button>
+                  <button mat-raised-button color="accent" [routerLink]="['../tasks/details', task.id]">{{task?.name}}</button>
                 </td>
               </tr>
             </table>
           </td>
           <td>
             <table>
-              <tr *ngFor="let task of tasksInprogress" [dragula]="inProgress">
+              <tr *ngFor="let task of tasksInProgress" [dragula]="inProgress">
                 <td *ngIf="task.storyId === story.id">
-                  <button mat-raised-button color="accent" [routerLink]="['../tasks/details', task.id]">{{task.name}}</button>
+                  <button mat-raised-button color="accent" [routerLink]="['../tasks/details', task.id]">{{task?.name}}</button>
                 </td>
               </tr>
             </table>
@@ -35,7 +35,7 @@
             <table>
               <tr *ngFor="let task of tasksDone" [dragula]="done">
                 <td *ngIf="task.storyId === story.id">
-                  <button mat-raised-button color="accent" [routerLink]="['../tasks/details', task.id]">{{task.name}}</button>
+                  <button mat-raised-button color="accent" [routerLink]="['../tasks/details', task.id]">{{task?.name}}</button>
                 </td>
               </tr>
             </table>

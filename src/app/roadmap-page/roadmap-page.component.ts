@@ -27,16 +27,22 @@ export class RoadmapPageComponent implements OnInit {
 
   getEpics() {
     this.epicService.getAll()
-      .subscribe(epics => this.epics = epics);
+      .subscribe(epics => this.epics = epics,
+        error => console.log('Error: ', error)
+      );
   }
 
   getSprints() {
     this.sprintService.getAll()
-      .subscribe(sprints => this.sprints = sprints);
+      .subscribe(sprints => this.sprints = sprints,
+        error => console.log('Error: ', error)
+      );
   }
 
   getStories() {
     this.storyService.getAll()
-      .subscribe(stories => this.stories = stories);
+      .subscribe(stories => this.stories = stories,
+        error => console.log('Error: ', error)
+      );
   }
 }

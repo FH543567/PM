@@ -1,6 +1,6 @@
 <div class="register-content">
   <mat-card>
-    <mat-card-title>Registration</mat-card-title>
+    <mat-card-title>Add  new User</mat-card-title>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <!-- Username -->
@@ -41,7 +41,7 @@
 
         <!-- Role -->
         <mat-form-field class="full-width-input">
-          <mat-select formControlName="role" placeholder="Your Role">
+          <mat-select formControlName="role" placeholder="Role">
             <mat-option *ngFor="let role of roles" [value]="role">
               {{role.viewValue}}
             </mat-option>
@@ -52,7 +52,7 @@
           </mat-error>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit">Create your account</button><span class="spacer"></span>
+        <button mat-raised-button color="primary" type="submit">Create User</button><span class="spacer"></span>
       </form>
     </mat-card-content>
   </mat-card>
