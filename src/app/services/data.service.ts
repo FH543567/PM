@@ -14,6 +14,9 @@ import { Message } from '../planningpoker-page/message';
 import { Round } from '../planningpoker-page/round';
 import {forEach} from '@angular/router/src/utils/collection';
 
+/**
+ * @deprecated wird nicht mehr verwendet
+ */
 @Injectable()
 export class DataService {
 
@@ -34,8 +37,6 @@ export class DataService {
   // --------------------------------------------------------------------------------
   constructor() { }
 
-  // TODO: Service für Poker, Burndown, Chat
-
   // Methode für die Registrierung eines neuen Users im Server
   /**
   * @deprecated nicht mehr Benutzen, da keine Verbindung zur DB!
@@ -49,7 +50,6 @@ export class DataService {
     return true;
   }
 
-  //TODO: Wird das noch gebraucht?
   createBacklog(backlog: Backlog): boolean {
     console.log('id', backlog.id);
     console.log('name', backlog.name);
@@ -61,7 +61,6 @@ export class DataService {
 
   /**
    * Stellt das Poker objekt zur verfügung
-   * TODO: Serververbidnung
    * @returns {Poker}
    * @deprecated nicht mehr Benutzen, da keine Verbindung zur DB! poker.service benutzen
    */
@@ -72,7 +71,6 @@ export class DataService {
 
   /**
    * stellt das Chat objekt zur verfügung
-   * TODO: Serververbindung
    * @returns {Message[]}
    * @deprecated nicht mehr Benutzen, da keine Verbindung zur DB! message.service benutzen
    */
@@ -90,11 +88,9 @@ export class DataService {
     console.log(this.poker);
     if ( estimate !== undefined && !this.hasPokerEnded() ) {
       // Erste Eingabe einer runde:
-      // TODO: Länge bei leerem array ist 0 also auf 0 prüfen und abfangen
       if (this.poker.roundData[this.poker.roundData.length - 1].users === undefined) {
         this.poker.roundData[this.poker.roundData.length - 1].users.push(localStorage.getItem('username'));
         this.poker.roundData[this.poker.roundData.length - 1].hours.push(estimate);
-        // TODO: Daten zum Server schicken
       }else {
         // Wenn schon eine eingabe diese runde gemacht wurde keine akzeptieren
         let temp = false;
@@ -106,7 +102,6 @@ export class DataService {
         if (!temp) {
           this.poker.roundData[this.poker.roundData.length - 1].users.push(localStorage.getItem('username'));
           this.poker.roundData[this.poker.roundData.length - 1].hours.push(estimate);
-          // TODO: Daten zum Server schicken
         }
       }
     }

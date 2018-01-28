@@ -16,11 +16,10 @@
           <mat-error *ngIf="isFieldInvalid('password')">
             Please enter your password.
           </mat-error>
-          <!-- TODO: <mat-hint>{{errorMessage}}</mat-hint> -->
         </mat-input-container>
         <button mat-raised-button color="primary" type="submit">Login</button><span class="spacer"></span>
-        <button mat-raised-button color="accent" routerLink="../register">Register</button>
       </form>
+      <mat-hint *ngIf="this.isError === true">Username and/or password wrong!</mat-hint>
     </mat-card-content>
   </mat-card>
 </div>

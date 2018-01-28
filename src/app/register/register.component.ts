@@ -65,7 +65,6 @@ export class RegisterComponent implements OnInit {
       console.log(this.userService.getByUsername(this.form.value.username).subscribe());
       this.userService.getByUsername(this.form.value.username).subscribe( result => {
         if (typeof result === 'undefined') {
-          // TODO: habe register() umgeschrieben in userService. evtl. noch zu überprüfen. (von Malte)
           // this.dataService.register(this.form.value);
           const user: User = new User();
           if (this.form.value.username) user.username = this.form.value.username;

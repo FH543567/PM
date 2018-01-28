@@ -12,6 +12,7 @@ import { User } from '../user/user';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   private formSubmitAttempt: boolean;
+  private isError: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       this.authService.login(this.form.value);
+      this.isError = true;
     }
     this.formSubmitAttempt = true;
   }
