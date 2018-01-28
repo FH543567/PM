@@ -90,7 +90,8 @@ export class SprintService extends DtoService {
    */
   getFullHistory(): Observable<HistoryEntry[]> {
     let tmpUrl: string = this.url;
-    this.url = "/api/history";
+    //this.url = "/api/history";
+    this.url = this.url.replace("sprints", "history");
     let result: Observable<HistoryEntry[]> = super.getAll()
       .map(historyList => historyList = historyList
         .map(historyDB => historyDB = new HistoryEntry(historyDB.Sprint, new Date(historyDB.Date), historyDB.WorkRemaining)));
