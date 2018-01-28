@@ -1,0 +1,8 @@
+<p style="text-align: center">
+  Please confirm deleting {{data.type}} {{data.name}}
+</p>
+<div class="buttons">
+  <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Confirm</button>
+  <button mat-raised-button color="primary" (click)="onNoClick()">Cancel</button>
+</div>
+
