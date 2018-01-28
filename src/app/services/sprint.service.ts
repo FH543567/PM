@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Sprint } from '../sprint/sprint';
-import { HistoryEntry } from '../chart-page/historyEntry';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/catch';

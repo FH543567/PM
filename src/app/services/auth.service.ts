@@ -20,12 +20,18 @@ export class AuthService {
     } else {
       return false;
     }
-   // return this.loggedIn.getValue();
-   // return this.loggedIn.asObservable();
   }
 
   get isScrumMaster(): boolean {
-    if (localStorage.getItem('role') === 'ScrumMaster') {
+    if (localStorage.getItem('role') === '0') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  get isDeveloper(): boolean {
+    if (localStorage.getItem('role') === '1') {
       return true;
     } else {
       return false;
@@ -33,7 +39,7 @@ export class AuthService {
   }
 
   get isProductOwner(): boolean {
-    if (localStorage.getItem('role') === 'ProductOwner') {
+    if (localStorage.getItem('role') === '2') {
       return true;
     } else {
       return false;
@@ -68,16 +74,16 @@ export class AuthService {
       // überprüfung erfolgreich
       this.loggedIn.next(true);
       localStorage.setItem('username', loginResult.username);
-      localStorage.setItem('role',  'ScrumMaster');
-      this.router.navigate(['/home']);
+      console.log(loginResult);
+      localStorage.setItem('role',  loginResult.role + '');
+      this.router.navigate(['/backlog']);
     }
   }
 
   logout() {
     this.loggedIn.next(false);
     localStorage.removeItem('username');
-    localStorage.removeItem(('role'));
-    console.log(this.loggedIn.getValue());
+    localStorage.removeItem('role');
     this.router.navigate(['/login']);
   }
 }

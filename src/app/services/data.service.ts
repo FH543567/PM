@@ -12,7 +12,6 @@ import { Backlog } from '../backlog/backlog';
 import { Poker } from '../planningpoker-page/poker';
 import { Message } from '../planningpoker-page/message';
 import { Round } from '../planningpoker-page/round';
-import {forEach} from '@angular/router/src/utils/collection';
 
 @Injectable()
 export class DataService {
@@ -20,12 +19,12 @@ export class DataService {
   // DEFAULT VALUES FOR TESTING
   // --------------- daten müssen später vom Server geholt werden ---------------
   poker: Poker = new Poker(1, 'exampleTask', 'this is an Example Task with a lot of text and bla and you have to see whats ' +
-    'going on and the bla bla bla is very important to blablablablabla', [
-      new Round(['Hans', 'Peter', 'Ute'], [3, 5, 6]),
-      new Round(['Hans', 'Peter', 'Ute'], [4, 5, 6]),
-      new Round(['Hans', 'Peter', 'Ute'], [4, 5, 5]),
-      new Round(['Hans', 'Peter', 'Ute'], [5, 5, 5])
-    ]);
+  'going on and the bla bla bla is very important to blablablablabla', [
+    new Round(['Hans', 'Peter', 'Ute'], [3, 5, 6]),
+    new Round(['Hans', 'Peter', 'Ute'], [4, 5, 6]),
+    new Round(['Hans', 'Peter', 'Ute'], [4, 5, 5]),
+    new Round(['Hans', 'Peter', 'Ute'], [5, 5, 5])
+  ]);
   chat: Message[] = [
     new Message('Peter', 'ich finde das doof diesen langen text der testen soll ob ein umbruch funktioniert'),
     new Message('Ute', 'beispieltext'),
@@ -80,8 +79,6 @@ export class DataService {
 
   /**
    * fügt der aktuellen runde eine neue schätzung durch einen User hinzu
-   * wenn bereits eine schätzung von diesem user existiert passiert nichts
-   *
    * @param {number} estimate
    */
   enterEstimate(estimate: number): void {
