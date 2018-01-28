@@ -24,7 +24,15 @@ export class SprintPageComponent implements OnInit {
     this.sprintService.getAll()
       .subscribe(sprints => this.sprints = sprints,
         error => console.log('Error: ', error),
-        () => this.dataSource = new MatTableDataSource<Sprint>(this.sprints)
+        () => this.formatDate()
       );
+  }
+
+  formatDate() {
+    for (const sprint of this.sprints) {
+      sprint.startDate = new Date(sprint.startDate).toLocaleDateString().toString();
+      sprint.endDate = new Date(sprint.endDate).toLocaleDateString().toString();
+    }
+    this.dataSource = new MatTableDataSource<Sprint>(this.sprints);
   }
 }

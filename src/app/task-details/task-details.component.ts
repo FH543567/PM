@@ -10,7 +10,7 @@ import { SprintService } from '../services/sprint.service';
 import { Sprint } from '../sprint/sprint';
 import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component';
 import { MatDialog } from '@angular/material';
-import {AuthService} from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-task-details',
@@ -66,7 +66,8 @@ export class TaskDetailsComponent implements OnInit {
 
   save() {
     this.task.workedTime = this.tempWorkedTime;
-    this.taskService.update(this.task);
+    this.taskService.update(this.task)
+      .subscribe();
     this.updateProgress();
   }
 

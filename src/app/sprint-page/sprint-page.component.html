@@ -12,12 +12,12 @@
 
   <ng-container matColumnDef="Start">
     <mat-header-cell *matHeaderCellDef> StartDate </mat-header-cell>
-    <mat-cell *matCellDef="let sprint">{{sprint?.startDate.toLocaleDateString()}}</mat-cell>
+    <mat-cell *matCellDef="let sprint">{{sprint?.startDate}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="End">
     <mat-header-cell *matHeaderCellDef> EndDate </mat-header-cell>
-    <mat-cell *matCellDef="let sprint">{{sprint?.endDate.toLocaleDateString()}}</mat-cell>
+    <mat-cell *matCellDef="let sprint">{{sprint?.endDate}}</mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { EPICS, TASKS, STORIES, SPRINTS } from './mockdata';
 import { UserService } from './user.service';
 import { Task } from '../task/task';
 import { Story } from '../story/story';
@@ -49,7 +48,7 @@ export class DataService {
     return true;
   }
 
-  //TODO: Wird das noch gebraucht?
+  // TODO: Wird das noch gebraucht?
   createBacklog(backlog: Backlog): boolean {
     console.log('id', backlog.id);
     console.log('name', backlog.name);

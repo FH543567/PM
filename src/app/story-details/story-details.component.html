@@ -55,7 +55,7 @@
 
       <ng-container matColumnDef="Add">
         <mat-header-cell *matHeaderCellDef> Add</mat-header-cell>
-        <mat-cell *matCellDef="let task"><mat-checkbox color="warn" (click)="check()">Add</mat-checkbox></mat-cell>
+        <mat-cell *matCellDef="let task"><mat-checkbox color="warn" (click)="check(task)">Add</mat-checkbox></mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Sprint } from '../sprint/sprint';
 import { Task } from '../task/task';
 import { MatTableDataSource } from '@angular/material';
 import { SprintService } from '../services/sprint.service';
 import { TaskService } from '../services/task.service';
-import {AuthService} from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
+import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-sprint-details',
@@ -14,16 +16,22 @@ import {AuthService} from '../services/auth.service';
 })
 export class SprintDetailsComponent implements OnInit {
   id: number;
+  result = false;
   private sub: any;
-  // sprints: Sprint[];
+  timeLeft = 0;
   sprint: Sprint;
   tasks: Task[];
   checkedTasks: Task[] = [];
   assignedTasks: Task[] = [];
   displayedColumns = ['Id', 'Name', 'EstTime', 'Add'];
   dataSource: any;
-  constructor(private route: ActivatedRoute, private sprintService: SprintService,
-              private taskService: TaskService, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute,
+              private sprintService: SprintService,
+              private taskService: TaskService,
+              private authService: AuthService,
+              public router: Router,
+              private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -42,34 +50,60 @@ export class SprintDetailsComponent implements OnInit {
             () => this.taskService.getBySprintId(this.sprint.id)
               .subscribe(assignedTasks => this.assignedTasks = assignedTasks,
                 error => console.log('Error: ', error),
-                () => this.dataSource = new MatTableDataSource<Task>(this.tasks)
+                () => this.calcTimeLeft()
               )
           )
       );
   }
 
+  calcTimeLeft() {
+    for (const task of this.assignedTasks) {
+      this.timeLeft += task.workload;
+    }
+    this.timeLeft = this.sprint.availableTime - this.timeLeft;
+    this.dataSource = new MatTableDataSource<Task>(this.tasks);
+  }
+
   check(task: Task) {
-    let included = this.checkedTasks.includes(task);
-    console.log('Included before: ' + included);
+    const included = this.checkedTasks.includes(task);
     if (included === true) {
       this.checkedTasks.splice(this.checkedTasks.indexOf(task), 1);
     }
     if (included === false) {
       this.checkedTasks.push(task);
     }
-    included = this.checkedTasks.includes(task);
-    console.log('Included after: ' + included);
   }
 
-  // TODO: muss noch über den Service auf der DB geändert werden
   addTasks() {
-    console.log('addTasks');
     for (const task of this.checkedTasks) {
       task.sprintId = this.sprint.id;
+      this.taskService.update(task)
+        .subscribe();
     }
+    this.ngOnInit();
+  }
+
+  deleteDialog() {
+    const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+      height: '150px',
+      width: '300px',
+      data: { type: 'Sprint', name: this.sprint.name}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+          this.result = true;
+        }
+      }, error => console.log('Error: ', error),
+      () => this.delete());
   }
 
   delete() {
-    this.sprintService.delete(this.sprint.id);
+    if (this.result === true) {
+      this.sprintService.delete(this.sprint.id)
+        .subscribe( empty => this.result = false,
+          error => console.log('Error: ', error),
+          () => this.router.navigate(['../../../sprint'])
+        );
+    }
   }
 }

@@ -50,34 +50,38 @@ export class StoryDetailsComponent implements OnInit {
                 () => this.epicService.getById(this.story.epicId)
                   .subscribe( epic => this.epic = epic,
                     error => console.log('Error: ', error),
-                    () => this.dataSource = new MatTableDataSource<Task>(this.tasks)
+                    () => this.done()
                   )
               )
           )
       );
   }
+  done() {
+    console.log('##############' + this.story.epicId);
+    this.dataSource = new MatTableDataSource<Task>(this.tasks);
+  }
+
+  /*
+
+   */
 
   check(task: Task) {
-    let included = this.checkedTasks.includes(task);
-    console.log('Included before: ' + included);
+    const included = this.checkedTasks.includes(task);
     if (included === true) {
       this.checkedTasks.splice(this.checkedTasks.indexOf(task), 1);
     }
     if (included === false) {
       this.checkedTasks.push(task);
     }
-    included = this.checkedTasks.includes(task);
-    console.log('Included after: ' + included);
   }
 
   addTasks() {
-    console.log('addTasks');
-    console.log(this.checkedTasks);
     for (const task of this.checkedTasks) {
       task.storyId = this.story.id;
       this.taskService.update(task)
         .subscribe();
     }
+    this.ngOnInit();
   }
 
   deleteDialog() {

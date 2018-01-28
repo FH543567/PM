@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Task } from '../task/task';
 import { Story } from '../story/story';
 import { Epic } from '../epic/epic';
 import { Backlog } from '../backlog/backlog';
-import { MatTableDataSource} from '@angular/material';
 import { TaskService } from '../services/task.service';
 import { StoryService } from '../services/story.service';
 import { EpicService } from '../services/epic.service';
 import { AuthService } from '../services/auth.service';
+import { MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-backlog-page',
@@ -15,18 +15,28 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./backlog-page.component.css']
 })
 export class BacklogPageComponent implements OnInit {
-
   tasks: Task[];
   stories: Story[];
   epics: Epic[];
   backlogItems: Backlog[] = [];
-  displayedColumns = ['Id', 'Name', 'Type', 'Priority', 'Progress'];
+  displayedColumns = ['id', 'name', 'type', 'priority', 'progress'];
   dataSource: any;
 
-  constructor(private taskService: TaskService,
-              private storyService: StoryService,
-              private epicService: EpicService,
-              private authService: AuthService) {}
+  @ViewChild(MatSort) sort: MatSort;
+
+  /**
+   * Set the sort after the view init since this component will
+   * be able to query its view for the initialized sort.
+   */
+  ngAfterViewInit() {
+  }
+
+  constructor(
+    private taskService: TaskService,
+    private storyService: StoryService,
+    private epicService: EpicService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.getData();
@@ -96,7 +106,8 @@ export class BacklogPageComponent implements OnInit {
       const backlog = new Backlog(epic.id, epic.name, 'Epic', epic.description, epic.priority, progress);
       this.backlogItems.push(backlog);
     }
-    this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems);
+    this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems,);
+    this.dataSource.sort = this.sort;
   }
 
 

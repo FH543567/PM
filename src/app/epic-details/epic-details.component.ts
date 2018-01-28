@@ -51,26 +51,22 @@ export class EpicDetailsComponent implements OnInit {
   }
 
   check(story: Story) {
-    let included = this.checkedStories.includes(story);
-    console.log('Included before: ' + included);
+    const included = this.checkedStories.includes(story);
     if (included === true) {
       this.checkedStories.splice(this.checkedStories.indexOf(story), 1);
     }
     if (included === false) {
       this.checkedStories.push(story);
     }
-    included = this.checkedStories.includes(story);
-    console.log('Included after: ' + included);
   }
 
   addStories() {
-    console.log('addStories');
-    console.log(this.checkedStories);
     for (const story of this.checkedStories) {
       story.epicId = this.epic.id;
       this.storyService.update(story)
         .subscribe();
     }
+    this.ngOnInit();
   }
 
   deleteDialog() {

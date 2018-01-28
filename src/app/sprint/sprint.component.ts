@@ -4,6 +4,8 @@ import { Task } from '../task/task';
 import { TaskService } from '../services/task.service';
 import { SprintService } from '../services/sprint.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthService} from '../services/auth.service';
 
 
 @Component({
@@ -23,7 +25,12 @@ export class SprintComponent implements OnInit {
   tasks: Task[];
   sprints: Sprint[];
   constructor(
-    private fb: FormBuilder, private sprintService: SprintService, private taskService: TaskService) {}
+    private fb: FormBuilder,
+    private sprintService: SprintService,
+    private taskService: TaskService,
+    public router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.getSprints();
@@ -56,27 +63,40 @@ export class SprintComponent implements OnInit {
 
   onSubmit() {
     console.log('Valid: ' + this.form.valid);
-    console.log('FormValue: ' + this.form.value);
+    console.log('toLocaleDateString(): ' + this.form.value.startDate.toLocaleDateString());
+    console.log('toDateString(): ' + this.form.value.startDate.toDateString());
+    console.log('toISOString(): ' + this.form.value.startDate.toISOString());
+    console.log('toUTCString(): ' + this.form.value.startDate.toUTCString());
+    console.log('getUTCDate(): ' + this.form.value.startDate.getUTCDate());
+    console.log('getDate(): ' + this.form.value.startDate.getDate());
+    console.log('getMonth(): ' + this.form.value.startDate.getMonth());
+    console.log('getVarDate: ' + this.form.value.startDate.getVarDate);
+    console.log('getFullYear(): ' + this.form.value.startDate.getFullYear());
+    console.log('toTimeString(): ' + this.form.value.startDate.toTimeString());
+    console.log('getUTCMonth(): ' + this.form.value.startDate.getUTCMonth());
+
     if (this.form.valid) {
-      this.sprintService.create(this.form.value)
-        .subscribe();
+      const startDay = this.form.value.startDate.getDate();
+      const startMonth = this.form.value.startDate.getMonth() + 1;
+      const startYear = this.form.value.startDate.getFullYear();
+      const startDate = startYear + '-' + startMonth + '-' + startDay;
+      const endDay = this.form.value.endDate.getDate();
+      const endMonth = this.form.value.endDate.getMonth() + 1;
+      const endYear = this.form.value.endDate.getFullYear();
+      const endDate = endYear + '-' + endMonth + '-' + endDay;
+      console.log(new Date(startDay, startMonth, startYear));
+      console.log(startDay + '-' + startMonth + '-' + startYear);
+      const sprint: Sprint = new Sprint(
+        null,
+        this.form.value.name,
+        this.form.value.description,
+        this.form.value.availableTime,
+        startDate,
+        endDate
+      );
+      this.sprintService.create(sprint)
+        .subscribe(() => this.router.navigate(['../sprint']));
     }
     this.formSubmitAttempt = true;
   }
-
-  setName(name: string) {
-    this.name = name;
-  }
-
-  setDescription(description: string) {
-    this.description = description;
-  }
-
-  createSprint() {
-    const sprint = new Sprint(this.id, this.name, this.description, this.availableTime, new Date(2018, 2, 5), new Date(2018, 2, 10));
-    this.id = this.id + 1;
-    this.sprints.push(sprint);
-    console.log('created Sprint');
-  }
-
 }

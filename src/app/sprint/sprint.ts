@@ -3,10 +3,10 @@ export class Sprint {
   name: string;
   description: string;
   availableTime: number;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
 
-  constructor(id: number, name: string, description: string, availableTime: number, startDate: Date, endDate: Date) {
+  constructor(id: number, name: string, description: string, availableTime: number, startDate: string, endDate: string) {
     this.id = id;
     this.name = name;
     this.description = description;

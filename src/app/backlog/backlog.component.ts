@@ -10,6 +10,7 @@ import { Epic } from '../epic/epic';
 import { DataService } from '../services/data.service';
 import { TaskService } from '../services/task.service';
 import {Task} from '../task/task';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-backlog',
@@ -36,7 +37,8 @@ export class BacklogComponent implements OnInit {
   epic: boolean;
 
   constructor(private fb: FormBuilder, private storyService: StoryService, private userService: UserService,
-              private epicService: EpicService, private dataService: DataService, private taskService: TaskService) { }
+              private epicService: EpicService, private dataService: DataService, private taskService: TaskService,
+              public router: Router) { }
   ngOnInit() {
     this.getStories();
     this.getUsers();
@@ -136,15 +138,28 @@ export class BacklogComponent implements OnInit {
         this.form.value.userId.id,
       );
       this.taskService.create(task)
-        .subscribe();
+        .subscribe(() => this.router.navigate(['../backlog']));
     }
     if (this.form.valid && this.type === 'Story') {
-      this.storyService.create(this.form.value)
-        .subscribe();
+      const story: Story = new Story(
+        null,
+        this.form.value.name,
+        this.form.value.description,
+        this.form.value.priority,
+        this.form.value.epicId.id
+      );
+      this.storyService.create(story)
+        .subscribe(() => this.router.navigate(['../backlog']));
     }
     if (this.form.valid && this.type === 'Epic') {
-      this.epicService.create(this.form.value)
-        .subscribe();
+      const epic: Epic = new Epic(
+        null,
+        this.form.value.name,
+        this.form.value.description,
+        this.form.value.priority
+      );
+      this.epicService.create(epic)
+        .subscribe(() => this.router.navigate(['../backlog']));
     }
     if (!this.form.valid) {
       console.log('Form not valid');
