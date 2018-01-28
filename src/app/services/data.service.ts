@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { EPICS, TASKS, STORIES, SPRINTS } from './mockdata';
 import { UserService } from './user.service';
 import { Task } from '../task/task';
 import { Story } from '../story/story';

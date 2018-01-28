@@ -27,7 +27,7 @@ export class EpicService extends DtoService {
 
   getById(id: number): Observable<Epic> {
     return super.getById(id)
-      .map(epicDB => epicDB = new Epic(epicDB.EpicID, epicDB.Name, epicDB.Description, epicDB.Priority))
+      .map(epicDB => epicDB = new Epic(epicDB.EpicID, epicDB.Name, epicDB.Description, epicDB.Priority));
         //.catch(e => { console.log(e); return undefined; })
   }
 

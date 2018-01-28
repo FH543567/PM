@@ -497,7 +497,7 @@ router.get('/sprints', (req, res) => {
 	pool.getConnection(function (err, connection) {
 		console.log('Express: got HTTP-Get from client. All Objects requested');
 
-		connection.query('SELECT * FROM sprint', function (err, rows, fields) {
+		connection.query('SELECT * FROM sprint ORDER BY StartDate', function (err, rows, fields) {
 			if (err) {
 				console.error("Error occured on Express-Server: " + err.message)
 				res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });

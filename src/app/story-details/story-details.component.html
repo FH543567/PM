@@ -29,13 +29,13 @@
       </tr>
       <br>
       <br>
-      <tr><td><button mat-raised-button color="warn" (click)="deleteDialog()">Delete</button></td></tr>
+      <tr><td><button mat-raised-button color="warn" *ngIf="authService.isScrumMaster" (click)="deleteDialog()">Delete</button></td></tr>
     </table>
   </mat-card>
 </div>
 
 
-<div class="right-side">
+<div class="right-side" *ngIf="authService.isScrumMaster">
   <div class="sprint-table mat-elevation-z8">
     <mat-table #table [dataSource]="dataSource">
       <ng-container matColumnDef="Id">
@@ -55,7 +55,7 @@
 
       <ng-container matColumnDef="Add">
         <mat-header-cell *matHeaderCellDef> Add</mat-header-cell>
-        <mat-cell *matCellDef="let task"><mat-checkbox color="warn" (click)="check()">Add</mat-checkbox></mat-cell>
+        <mat-cell *matCellDef="let task"><mat-checkbox color="warn" (click)="check(task)">Add</mat-checkbox></mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

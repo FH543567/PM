@@ -5,6 +5,7 @@ import { Story } from '../story/story';
 import { EpicService } from '../services/epic.service';
 import { SprintService } from '../services/sprint.service';
 import { StoryService } from '../services/story.service';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-roadmap-page',
@@ -17,7 +18,10 @@ export class RoadmapPageComponent implements OnInit {
   epics: Epic[];
   sprints: Sprint[];
   stories: Story[];
-  constructor(private epicService: EpicService, private sprintService: SprintService, private storyService: StoryService) { }
+  constructor(private epicService: EpicService,
+              private sprintService: SprintService,
+              private storyService: StoryService
+  ) {}
 
   ngOnInit() {
     this.getEpics();
@@ -35,7 +39,8 @@ export class RoadmapPageComponent implements OnInit {
   getSprints() {
     this.sprintService.getAll()
       .subscribe(sprints => this.sprints = sprints,
-        error => console.log('Error: ', error)
+        error => console.log('Error: ', error),
+        () => this.formatDate()
       );
   }
 
@@ -44,5 +49,12 @@ export class RoadmapPageComponent implements OnInit {
       .subscribe(stories => this.stories = stories,
         error => console.log('Error: ', error)
       );
+  }
+
+  formatDate() {
+    for (const sprint of this.sprints) {
+      sprint.startDate = new Date(sprint.startDate).toLocaleDateString().toString();
+      sprint.endDate = new Date(sprint.endDate).toLocaleDateString().toString();
+    }
   }
 }

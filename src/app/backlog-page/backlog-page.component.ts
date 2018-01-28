@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Task } from '../task/task';
 import { Story } from '../story/story';
 import { Epic } from '../epic/epic';
 import { Backlog } from '../backlog/backlog';
-import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
 import { TaskService } from '../services/task.service';
 import { StoryService } from '../services/story.service';
 import { EpicService } from '../services/epic.service';
-import {AuthService} from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
+import { MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-backlog-page',
@@ -15,25 +15,23 @@ import {AuthService} from '../services/auth.service';
   styleUrls: ['./backlog-page.component.css']
 })
 export class BacklogPageComponent implements OnInit {
-
   tasks: Task[];
   stories: Story[];
   epics: Epic[];
   backlogItems: Backlog[] = [];
-  displayedColumns = ['Id', 'Name', 'Type', 'Priority', 'Progress'];
+  displayedColumns = ['id', 'name', 'type', 'priority', 'progress'];
   dataSource: any;
-  // dataSource = new BacklogDataSource(this.dataService);
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private taskService: TaskService,
-              private storyService: StoryService,
-              private epicService: EpicService,
-              private authService: AuthService) {}
+  constructor(
+    private taskService: TaskService,
+    private storyService: StoryService,
+    private epicService: EpicService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.getData();
-    // this.getTasks();
-    // this.getStories();
-    // this.getEpics();
   }
 
   getData() {
@@ -50,28 +48,6 @@ export class BacklogPageComponent implements OnInit {
               )
           )
       );
-  }
-
-  getTasks() {
-    this.taskService.getAll()
-      .subscribe(tasks => {this.tasks = tasks, this.taskToBacklog()});
-  }
-
-  getStories() {
-    this.storyService.getAll()
-      .subscribe(stories => this.stories = stories,
-        error => console.log('Error: ', error),
-        () => this.storyToBacklog()
-      );
-  }
-
-  getEpics() {
-    this.epicService.getAll()
-      .subscribe(epics => {
-        this.epics = epics,
-        this.epicToBacklog(),
-        this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems)
-      });
   }
 
   taskToBacklog() {
@@ -122,7 +98,8 @@ export class BacklogPageComponent implements OnInit {
       const backlog = new Backlog(epic.id, epic.name, 'Epic', epic.description, epic.priority, progress);
       this.backlogItems.push(backlog);
     }
-    this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems);
+    this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems,);
+    this.dataSource.sort = this.sort;
   }
 
 
