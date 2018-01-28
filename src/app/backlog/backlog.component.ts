@@ -36,9 +36,14 @@ export class BacklogComponent implements OnInit {
   story: boolean;
   epic: boolean;
 
-  constructor(private fb: FormBuilder, private storyService: StoryService, private userService: UserService,
-              private epicService: EpicService, private dataService: DataService, private taskService: TaskService,
-              public router: Router) { }
+  constructor(private fb: FormBuilder,
+              private storyService: StoryService,
+              private userService: UserService,
+              private epicService: EpicService,
+              private dataService: DataService,
+              private taskService: TaskService,
+              public router: Router
+  ) {}
   ngOnInit() {
     this.getStories();
     this.getUsers();

@@ -23,9 +23,13 @@ export class EpicDetailsComponent implements OnInit {
   checkedStories: Story[] = [];
   displayedColumns = ['Id', 'Name', 'EstTime', 'Add'];
   dataSource: any;
-  constructor(private route: ActivatedRoute, private epicService: EpicService,
-              private storyService: StoryService, private dialog: MatDialog,
-              public router: Router, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute,
+              private epicService: EpicService,
+              private storyService: StoryService,
+              private dialog: MatDialog,
+              public router: Router,
+              private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
