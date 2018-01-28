@@ -6,11 +6,11 @@ const http = require('http');
 require('dotenv').config()
 const app = express();
 
-// API file for interacting with MongoDB
-const api = require('./server/routes/api');
-
 //Cors
 app.use(cors());
+
+// API file for interacting with DB
+const api = require('./server/routes/api');
 
 // Parsers
 app.use(bodyParser.json());

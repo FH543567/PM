@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  SERVER_URL: 'https://maltetest.herokuapp.com'
+  SERVER_URL: 'https://pmteam16.herokuapp.com'
 };
