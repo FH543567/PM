@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { DtoService } from './dto.service';
 import { HttpClient } from '@angular/common/http';
-//Für nicht-vererbte http-requests:
+// Für nicht-vererbte http-requests:
 import { catchError, map, tap } from 'rxjs/operators';
 
 /**
@@ -29,7 +29,7 @@ export class PokerService extends DtoService {
   getAll(): Observable<Poker[]> {
     return super.getAll()
       .map(pokerList => pokerList = pokerList
-        .map(pokerDB => pokerDB = new Poker(pokerDB.PokerID, pokerDB.Label, pokerDB.description, pokerDB.Firstname)));
+        .map(pokerDB => pokerDB = new Poker(pokerDB.PokerID, pokerDB.Label, pokerDB.Description, pokerDB.Firstname)));
   }
 
   /**
@@ -40,8 +40,8 @@ export class PokerService extends DtoService {
    */
   getById(id: number): Observable<Poker> {
     return super.getById(id)
-      .map(pokerDB => pokerDB = new Poker(pokerDB.PokerID, pokerDB.Label, pokerDB.description, pokerDB.Firstname))
-    //.catch(e => { console.log(e); return undefined; })
+      .map(pokerDB => pokerDB = new Poker(pokerDB.PokerID, pokerDB.Label, pokerDB.Description, pokerDB.Firstname))
+    // .catch(e => { console.log(e); return undefined; })
   }
 
 
@@ -53,16 +53,16 @@ export class PokerService extends DtoService {
    * @returns {Observable<Poker>}
    */
   create(poker): Observable<Poker> {
-    var transferObject: any = {};
-    //ID wird nicht berücksichtigt, da auto-increment
-    //transferObject.PokerId = poker.id;
+    const transferObject: any = {};
+    // ID wird nicht berücksichtigt, da auto-increment
+    // transferObject.PokerId = poker.id;
     transferObject.Label = poker.label;
     transferObject.Description = poker.description;
     transferObject.RoundData = poker.roundData;
     console.log(JSON.stringify(transferObject));
     return super.create(JSON.stringify(transferObject))
       .map(objects => objects[0])
-      .map(pokerDB => pokerDB = pokerDB ? new Poker(pokerDB.PokerID, pokerDB.Label, pokerDB.description, pokerDB.Firstname) : undefined);
+      .map(pokerDB => pokerDB = pokerDB ? new Poker(pokerDB.PokerID, pokerDB.Label, pokerDB.Description, pokerDB.Firstname) : undefined);
   }
 
   /**
@@ -73,11 +73,11 @@ export class PokerService extends DtoService {
    * @returns {Observable<Poker>}
    */
   update(poker): Observable<Poker> {
-    var transferObject: any = {};
+    const transferObject: any = {};
     transferObject.PokerID = poker.id;
     transferObject.Label = poker.label;
     transferObject.Description = poker.description;
-    transferObject.RoundData = poker.roundData;
+    // transferObject.RoundData = poker.roundData;
     console.log(JSON.stringify(transferObject));
     return super.update(JSON.stringify(transferObject));;
   }

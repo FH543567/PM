@@ -18,6 +18,8 @@ import { Round } from './round';
 
 export class PlanningpokerPageComponent implements OnInit {
   newPokerDialogRef: MatDialogRef<PlanningpokerComponent>;
+  isPPokerRunning = false;
+  isPPokerNotOver = false;
   poker: Poker;
   newPoker: Poker;
   messages: Message[];
@@ -36,50 +38,49 @@ export class PlanningpokerPageComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.roundService.getAll().subscribe(res => {
-      this.pokerService.getAll().subscribe(pokers => {
-        this.poker = pokers ? pokers[0] : undefined;
-        //Prämisse: alle rounds gehören zum ersten Poker
-        this.poker.roundData = res;
-        console.log(JSON.stringify(this.poker));
-      });
-    });
-    //this.poker = this.dataService.getPoker();
-    //this.messages = this.dataService.getMessages();
-    //Achtung: es wird nur der erst Poker in der DB verwendet
-    this.messageService.getAll().subscribe(messages => this.messages = messages);
-  }
-
-  /**
-   * wenn letzte runde alle estimates gleich sind dann ist poker beendet
-   * @returns {boolean}
-   */
-  get hasPokerEnded(): boolean {
-    return this.dataService.hasPokerEnded();
-  }
-
-
-  // TODO: Prüfen ob Daten in der Datenbank liegen
-  get isPPokerRunning(): boolean {
-    if (this.poker.label !== null && this.poker.description !== null) {
-      return true;
-    } else {
-      return false;
-    }
+  this.getData();
   }
 
   /**
    * beendet eine Pokerrunde
    */
   endRound(): void {
-    this.dataService.newRound();
+    // wenn noch keine eingabe gemacht wird soll keine neue runde starten
+    if (this.poker.roundData[this.poker.roundData.length - 1].users !== undefined) {
+      if (this.poker.roundData[this.poker.roundData.length - 1].users.length >= 1) {
+        this.poker.roundData.push(new Round(0, 1, new Array<string>(), new Array<number>()));
+        this.roundService.create(new Round(0, 1, ['Hans', 'Peter'], [4,5]));
+       // this.roundService.create(new Round(0, 1, new Array<string>(), new Array<number>()));
+      }
+    }
   }
 
   /**
    * gibt ein Estimate ab
    */
   onEstimateSubmit() {
-    this.dataService.enterEstimate(this.estimate);
+    this.roundService.create(this.estimate).subscribe();
+    if ( this.estimate !== undefined && !this.isPPokerNotOver ) {
+      // Erste Eingabe einer runde:
+      if (this.poker.roundData[this.poker.roundData.length - 1].users === undefined) {
+        this.poker.roundData[this.poker.roundData.length - 1].users.push(localStorage.getItem('username'));
+        this.poker.roundData[this.poker.roundData.length - 1].hours.push(this.estimate);
+        this.roundService.update(this.poker.roundData.push(this.poker.roundData[this.poker.roundData.length - 1])).subscribe();
+      }else {
+        // Wenn schon eine eingabe diese runde gemacht wurde keine akzeptieren
+        let temp = false;
+        for ( const username of this.poker.roundData[this.poker.roundData.length - 1].users) {
+          if (username === localStorage.getItem('username')) {
+            temp = true;
+          }
+        }
+        if (!temp) {
+          this.poker.roundData[this.poker.roundData.length - 1].users.push(localStorage.getItem('username'));
+          this.poker.roundData[this.poker.roundData.length - 1].hours.push(this.estimate);
+          this.roundService.update(this.poker.roundData.push(this.poker.roundData[this.poker.roundData.length - 1])).subscribe();
+        }
+      }
+    }
     this.estimate = undefined;
   }
 
@@ -87,10 +88,19 @@ export class PlanningpokerPageComponent implements OnInit {
    * sendet eine Chatnachricht
    */
   onChatSubmit() {
-    this.dataService.addMessage(this.newMessage);
-    this.newMessage = '';
+    if (this.newMessage !== '') {
+      const tempMsg = new Message();
+      tempMsg.user = localStorage.getItem('username');
+      tempMsg.text = this.newMessage;
+      this.messageService.create(tempMsg).subscribe();
+      this.messages.push(tempMsg);
+      this.newMessage = '';
+    }
   }
 
+  /**
+   * Startet ein neues Planningpoker
+   */
   openNewPokerDialog() {
     this.newPoker = new Poker();
     this.newPokerDialogRef = this.dialog.open(PlanningpokerComponent, {
@@ -104,17 +114,50 @@ export class PlanningpokerPageComponent implements OnInit {
       console.log('The dialog was closed');
       if (typeof result !== 'undefined') {
         if (typeof result.label !== 'undefined' && typeof result.description !== 'undefined') {
+         console.log(this.poker);
           this.poker = result;
+          this.poker.id = 1;
           this.poker.roundData = new Array<Round>();
           this.poker.roundData.push(new Round(0, 1, new Array<string>(), new Array<number>()));
           this.messages = new Array<Message>();
-          this.dataService.poker = this.poker;
-          this.dataService.chat = this.messages;
-          // this.messages = [];
-          // this.dataService.chat = [];
+          // this.dataService.poker = this.poker;
+          // this.dataService.chat = this.messages
+
+          console.log(this.poker);
+          this.pokerService.update(this.poker).subscribe();
           console.log('new Planning-Poker Started!');
         }
       }
     });
+  }
+
+  getData() {
+  this.roundService.getAll().subscribe(res => {
+    this.pokerService.getAll().subscribe(pokers => {
+      this.poker = pokers ? pokers[0] : undefined;
+      // Prämisse: alle rounds gehören zum ersten Poker
+      this.poker.roundData = res;
+      console.log(JSON.stringify(this.poker));
+
+      // Set isPPokerRunning
+      if (pokers) {
+        this.isPPokerRunning = true;
+      }
+
+      // Set isPPokerOver
+      if (res.length >= 2) {
+        // prüfen ob sich eine von einer anderen zahl unterscheidet
+        const est = res[res.length - 2].hours[0];
+        for ( const estimate of res[res.length - 2].hours) {
+          // console.log('Round ' + (this.poker.roundData.length - 1) + ' ' + estimate + ' !== ' + est);
+          if (estimate !== est) {
+            this.isPPokerNotOver = false;
+          }
+        }
+      }
+    });
+  });
+  // Achtung: es wird nur der erst Poker in der DB verwendet
+  this.messageService.getAll().subscribe(messages => this.messages = messages);
   }
 }

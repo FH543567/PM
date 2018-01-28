@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { DtoService } from './dto.service';
 import { HttpClient } from '@angular/common/http';
-//Für nicht-vererbte http-requests:
+// Für nicht-vererbte http-requests:
 import { catchError, map, tap } from 'rxjs/operators';
 
 /**
@@ -28,7 +28,7 @@ export class RoundService extends DtoService {
   getAll(): Observable<Round[]> {
     return super.getAll()
       .map(roundList => roundList = roundList
-        .map(roundDB => 
+        .map(roundDB =>
           roundDB = new Round(roundDB.RoundID, roundDB.PokerID, this.parseJsonArr(roundDB.Users), this.parseJsonArr(roundDB.Hours)))
         );
   }
@@ -40,18 +40,21 @@ export class RoundService extends DtoService {
    */
   getById(id: number): Observable<Round> {
     return super.getById(id)
-      .map(roundDB => 
+      .map(roundDB =>
         roundDB = new Round(roundDB.RoundID, roundDB.PokerID, this.parseJsonArr(roundDB.Users), this.parseJsonArr(roundDB.Hours))
       );
-    //.catch(e => { console.log(e); return undefined; })
+    // .catch(e => { console.log(e); return undefined; })
   }
 
   /**
    * mapped array, sodass er von typescript auch richtig als array erkannt wird
-   * @param array 
+   * @param array
    */
-  parseJsonArr(array) : any[] {
-    return JSON.parse(array.replace('\\',''));
+  parseJsonArr(array): any[] {
+    if (array === null || array === 'null') {
+      return new Array<String>();
+    }
+    return JSON.parse(array.replace('\\', ''));
   }
 
   /**
@@ -61,16 +64,16 @@ export class RoundService extends DtoService {
    * @returns {Observable<Round>}
    */
   create(round): Observable<Round> {
-    var transferObject: any = {};
-    //ID wird nicht berücksichtigt, da auto-increment
-    //transferObject.RoundId = round.id;
+    const transferObject: any = {};
+    // ID wird nicht berücksichtigt, da auto-increment
+    // transferObject.RoundId = round.id;
     transferObject.PokerID = round.pokerId;
     transferObject.Users = JSON.stringify(round.users);
     transferObject.Hours = JSON.stringify(round.hours);
     console.log("CREATE: " + JSON.stringify(transferObject));
     return super.create(JSON.stringify(transferObject))
       .map(objects => objects = objects ? objects[0] : undefined)
-      .map(roundDB => 
+      .map(roundDB =>
         roundDB = roundDB ? new Round(roundDB.RoundID, roundDB.PokerID, this.parseJsonArr(roundDB.Users), this.parseJsonArr(roundDB.Hours)) : undefined
       );
   }
@@ -83,7 +86,7 @@ export class RoundService extends DtoService {
    * @returns {Observable<Round>}
    */
   update(round): Observable<Round> {
-    var transferObject: any = {};
+    const transferObject: any = {};
     transferObject.RoundID = round.id;
     transferObject.PokerID = round.pokerId;
     transferObject.Users = JSON.stringify(round.users);
