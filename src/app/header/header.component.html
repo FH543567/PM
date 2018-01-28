@@ -7,7 +7,7 @@
       <button mat-button routerLink="backlog"><mat-icon>assessment</mat-icon>Product Backlog</button>
       <button mat-button routerLink="sprint">Sprint Planning</button>
       <button mat-button routerLink="scrumboard">Scrum Board</button>
-      <button mat-button routerLink="planningpoker">Planning Poker</button>
+      <button mat-button routerLink="planningpoker" *ngIf="!authService.isProductOwner">Planning Poker</button>
       <button mat-button routerLink="chart">Burn-Down-Chart</button>
       <button mat-button routerLink="roadmap">Roadmap</button>
     </div>

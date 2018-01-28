@@ -13,6 +13,9 @@ import { AuthService } from '../services/auth.service';
 export class RegisterComponent implements OnInit {
 
   form: FormGroup;
+  createdUsername: String;
+  errMessage: String = '';
+  userTest: User;
   private formSubmitAttempt: boolean;
 
   roles = [
@@ -59,42 +62,56 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     console.log(this.form.valid);
     if (this.form.valid) {
-      //TODO: habe register() umgeschrieben in userService. evtl. noch zu überprüfen. (von Malte)
-      //this.dataService.register(this.form.value);
-      let user: User = new User();
-      if (this.form.value.username) user.username = this.form.value.username;
-      if (this.form.value.password) user.password = this.form.value.password;
-      if (this.form.value.firstname) user.firstname = this.form.value.firstname;
-      if (this.form.value.lastname) user.lastname = this.form.value.lastname;
-      console.log("role: " + this.form.value.role.value);
-      if (this.form.value.role) user.role = this.form.value.role.value;
-      /*
-      switch (this.form.value.role) {
-        case "ProductOwner":
-          user.role = 0;
-          break;
-        case "ScrumMaster":
-          user.role = 1;
-          break;
-        case "Developer":
-          user.role = 2;
-          break;
-        default:
-          break;
-      }
-      */
-      this.userService.create(user).subscribe(registerResult => this.afterRegister(registerResult))
+      console.log(this.userService.getByUsername(this.form.value.username).subscribe());
+      this.userService.getByUsername(this.form.value.username).subscribe( result => {
+        if (typeof result === 'undefined') {
+          // TODO: habe register() umgeschrieben in userService. evtl. noch zu überprüfen. (von Malte)
+          // this.dataService.register(this.form.value);
+          const user: User = new User();
+          if (this.form.value.username) user.username = this.form.value.username;
+          if (this.form.value.password) user.password = this.form.value.password;
+          if (this.form.value.firstname) user.firstname = this.form.value.firstname;
+          if (this.form.value.lastname) user.lastname = this.form.value.lastname;
+          console.log('role: ' + this.form.value.role.value);
+          if (this.form.value.role) user.role = this.form.value.role.value;
+          /*
+          switch (this.form.value.role) {
+            case "ProductOwner":
+              user.role = 0;
+              break;
+            case "ScrumMaster":
+              user.role = 1;
+              break;
+            case "Developer":
+              user.role = 2;
+              break;
+            default:
+              break;
+          }
+          */
+          this.userService.create(user).subscribe(registerResult => this.afterRegister(registerResult));
+        } else {
+          this.errMessage = 'Username "' + this.form.value.username + '" already taken!';
+        }
+      });
     }
     this.formSubmitAttempt = true;
   }
 
-  //Bei erfolgreicher Registrierung, sende loginRequest
+  // Bei erfolgreicher Registrierung, sende loginRequest
   afterRegister(user: User) {
-    console.log("login mit user null: " + (user === null));
-    if (user)
+    console.log('login mit user null: ' + (user === null));
+    if (user) {
       // this.authService.login(user);
-      console.log('Benutzer angelegt')
-    else
-      console.error("Registrierung fehlgeschlagen");
+      this.createdUsername = this.form.value.username;
+      this.errMessage = '';
+      this.form.reset();
+      Object.keys(this.form.controls).forEach(key => {
+        this.form.controls[key].setErrors(null);
+      });
+      console.log('Benutzer angelegt');
+    } else {
+      console.error('Registrierung fehlgeschlagen');
+    }
   }
 }

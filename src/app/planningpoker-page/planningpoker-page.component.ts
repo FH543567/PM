@@ -128,7 +128,8 @@ export class PlanningpokerPageComponent implements OnInit {
           console.log(this.poker);
           this.pokerService.update(this.poker).subscribe();
           this.roundService.create(new Round(0, 1, new Array<string>(), new Array<number>())).subscribe();
-          this.isPPokerRunning = false;
+          this.messageService.delete(0).subscribe();
+          this.isPPokerRunning = true;
           this.isPPokerNotOver = false;
           console.log('new Planning-Poker Started!');
         }
