@@ -9,19 +9,19 @@ const DBHost = process.env.DATABASE_URL || 'localhost';
 var pool = mysql.createPool({
 	//'mysql://bd10f96685d9c8:8203766d@eu-cdbr-west-02.cleardb.net/heroku_57b74cfd3c406d8'
 
+  /*
 	//HEROKU
 	host: 'eu-cdbr-west-02.cleardb.net',
 	user: 'bd10f96685d9c8',
 	password: '8203766d',
 	database: 'heroku_57b74cfd3c406d8'
+  */
 
-	/*
 	// LOKAL
 	host: 'localhost',
 	user: 'root',
 	password: 'mfj123',
 	database: 'pm'
-	*/
 
 	/*
 	host: process.env.DB_HOST,
