@@ -29,15 +29,15 @@
 
         <mat-input-container class="full-width-input">
           <mat-select placeholder="Priority" formControlName="priority">
-            <mat-option value="option" (click)="setPriority(1)">1</mat-option>
-            <mat-option value="option" (click)="setPriority(2)">2</mat-option>
-            <mat-option value="option" (click)="setPriority(3)">3</mat-option>
+            <mat-option [value]="1" (click)="setPriority(1)">1</mat-option>
+            <mat-option [value]="2" (click)="setPriority(2)">2</mat-option>
+            <mat-option [value]="3" (click)="setPriority(3)">3</mat-option>
           </mat-select>
         </mat-input-container>
 
         <mat-input-container class="full-width-input" *ngIf="type==='Task'">
           <mat-select placeholder="Person in charge" formControlName="userId">
-            <mat-option value="option" *ngFor="let user of users">{{user.firstname}} {{user.lastname}}</mat-option>
+            <mat-option [value]="user" *ngFor="let user of users">{{user?.firstname}} {{user?.lastname}}</mat-option>
           </mat-select>
         </mat-input-container>
 
@@ -48,13 +48,13 @@
 
         <mat-input-container class="full-width-input" *ngIf="type==='Task'">
           <mat-select placeholder="Assigned Story" formControlName="storyId">
-            <mat-option value="option" *ngFor="let story of stories">{{story.name}}</mat-option>
+            <mat-option [value]="story" *ngFor="let story of stories">{{story?.name}}</mat-option>
           </mat-select>
         </mat-input-container>
 
         <mat-input-container class="full-width-input" *ngIf="type==='Story'">
           <mat-select placeholder="Assigned Epic" formControlName="epicId">
-            <mat-option value="option" *ngFor="let epic of epics">{{epic.name}}</mat-option>
+            <mat-option [value]="epic" *ngFor="let epic of epics">{{epic?.name}}</mat-option>
           </mat-select>
         </mat-input-container>
 

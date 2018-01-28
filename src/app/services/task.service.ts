@@ -91,6 +91,7 @@ export class TaskService extends DtoService {
    * @param id ID des zu löschenden Tasks
    */
   delete(id: number): Observable<number> {
+    console.log('Delete Task: ' + id);
     return super.delete(id);
   }
 

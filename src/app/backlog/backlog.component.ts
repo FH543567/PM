@@ -9,6 +9,7 @@ import { EpicService } from '../services/epic.service';
 import { Epic } from '../epic/epic';
 import { DataService } from '../services/data.service';
 import { TaskService } from '../services/task.service';
+import {Task} from '../task/task';
 
 @Component({
   selector: 'app-backlog',
@@ -33,7 +34,6 @@ export class BacklogComponent implements OnInit {
   task: boolean;
   story: boolean;
   epic: boolean;
-
 
   constructor(private fb: FormBuilder, private storyService: StoryService, private userService: UserService,
               private epicService: EpicService, private dataService: DataService, private taskService: TaskService) { }
@@ -124,13 +124,27 @@ export class BacklogComponent implements OnInit {
     console.log('Type: ' + this.type);
     console.log('Valid: ' + this.form.valid);
     if (this.form.valid && this.type === 'Task') {
-      this.taskService.create(this.form.value);
+      const task: Task = new Task(
+        null,
+        this.form.value.name,
+        this.form.value.description,
+        this.priority,
+        this.form.value.workload,
+        0,
+        this.form.value.storyId.id,
+        null,
+        this.form.value.userId.id,
+      );
+      this.taskService.create(task)
+        .subscribe();
     }
     if (this.form.valid && this.type === 'Story') {
-      this.storyService.create(this.form.value);
+      this.storyService.create(this.form.value)
+        .subscribe();
     }
     if (this.form.valid && this.type === 'Epic') {
-      this.epicService.create(this.form.value);
+      this.epicService.create(this.form.value)
+        .subscribe();
     }
     if (!this.form.valid) {
       console.log('Form not valid');

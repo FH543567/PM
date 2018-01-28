@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EpicService } from '../services/epic.service';
 import { Epic } from '../epic/epic';
-import { MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Story } from '../story/story';
 import { StoryService } from '../services/story.service';
+import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component';
 
 @Component({
   selector: 'app-epic-details',
@@ -12,6 +13,7 @@ import { StoryService } from '../services/story.service';
   styleUrls: ['./epic-details.component.css']
 })
 export class EpicDetailsComponent implements OnInit {
+  result = false;
   id: number;
   private sub: any;
   epic: Epic;
@@ -20,15 +22,15 @@ export class EpicDetailsComponent implements OnInit {
   checkedStories: Story[] = [];
   displayedColumns = ['Id', 'Name', 'EstTime', 'Add'];
   dataSource: any;
-  constructor(private route: ActivatedRoute, private epicService: EpicService, private storyService: StoryService) { }
+  constructor(private route: ActivatedRoute, private epicService: EpicService,
+              private storyService: StoryService, private dialog: MatDialog,
+              public router: Router) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
     });
     this.getData();
-    // this.getEpic(this.id);
-    // this.getStories();
   }
 
   getData() {
@@ -36,33 +38,15 @@ export class EpicDetailsComponent implements OnInit {
       .subscribe( epic => this.epic = epic,
         error => console.log('Error: ' + error),
         () => this.storyService.getByEpicId(this.epic.id)
-          .subscribe( stories => this.stories = stories ,
+          .subscribe( assignedStories => this.assignedStories = assignedStories,
             error => console.log('Error: ', error),
-            () => this.dataSource = new MatTableDataSource<Story>(this.stories)
+            () => this.storyService.getAll()
+              .subscribe( stories => this.stories = stories,
+                error => console.log('Error: ', error),
+                () => this.dataSource = new MatTableDataSource<Story>(this.stories)
+                )
             )
     );
-  }
-
-  getEpic(id: number) {
-    this.epicService.getById(id)
-      .subscribe( epic => {this.epic = epic,
-        this.getAssignedStories(this.epic.id)
-      });
-  }
-
-  getStories() {
-    this.storyService.getAll()
-      .subscribe( stories => this.stories = stories,
-        error => console.log('Error: ', error),
-        () => this.dataSource = new MatTableDataSource<Story>(this.stories)
-      );
-  }
-
-  getAssignedStories(epicId: number) {
-    this.storyService.getByEpicId(epicId)
-      .subscribe( stories => this.assignedStories = stories,
-        error => console.log('Error: ', error)
-      );
   }
 
   check(story: Story) {
@@ -78,16 +62,37 @@ export class EpicDetailsComponent implements OnInit {
     console.log('Included after: ' + included);
   }
 
-  // TODO: muss noch über den Service auf der DB geändert werden
-  addTasks() {
-    console.log('addTasks');
+  addStories() {
+    console.log('addStories');
     console.log(this.checkedStories);
-    for (const task of this.checkedStories) {
-      task.epicId = this.epic.id;
+    for (const story of this.checkedStories) {
+      story.epicId = this.epic.id;
+      this.storyService.update(story)
+        .subscribe();
     }
   }
 
+  deleteDialog() {
+    const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+      height: '150px',
+      width: '300px',
+      data: { type: 'Epic', name: this.epic.name}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.result = true;
+      }
+    }, error => console.log('Error: ', error),
+      () => this.delete());
+  }
+
   delete() {
-    this.epicService.delete(this.epic.id);
+    if (this.result === true) {
+      this.epicService.delete(this.epic.id)
+        .subscribe(empty => this.result = false,
+          error => console.log('Error: ', error),
+          () => this.router.navigate(['../../../backlog'])
+        );
+    }
   }
 }

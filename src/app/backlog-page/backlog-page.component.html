@@ -9,9 +9,9 @@
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let backlog">
-        <button mat-raised-button color="accent" *ngIf="backlog.type === 'Task'" [routerLink]="['../tasks/details', backlog.id]">{{backlog?.name}}</button>
-        <button mat-raised-button color="accent" *ngIf="backlog.type === 'Story'" [routerLink]="['../stories/details', backlog.id]">{{backlog?.name}}</button>
-        <button mat-raised-button color="accent" *ngIf="backlog.type === 'Epic'" [routerLink]="['../epics/details', backlog.id]">{{backlog?.name}}</button>
+        <button mat-raised-button color="accent" *ngIf="backlog.type === 'Task'" [routerLink]="['../tasks/details', backlog?.id]">{{backlog?.name}}</button>
+        <button mat-raised-button color="accent" *ngIf="backlog.type === 'Story'" [routerLink]="['../stories/details', backlog?.id]">{{backlog?.name}}</button>
+        <button mat-raised-button color="accent" *ngIf="backlog.type === 'Epic'" [routerLink]="['../epics/details', backlog?.id]">{{backlog?.name}}</button>
       </mat-cell>
     </ng-container>
 
@@ -36,7 +36,7 @@
   </mat-table>
 </div>
 <br>
-<button id="create" mat-raised-button color="primary" routerLink="/backlog/create">New Item</button>
+<button id="create" mat-raised-button color="primary" *ngIf="authService.isScrumMaster" routerLink="/backlog/create" (click)="openDialog()">New Item</button>
 
 <!--<p *ngFor="let backlog of backlogItems">{{backlog.id}} {{backlog.name}} {{backlog.priority}} {{backlog.estimatedTime}} {{backlog.workedTime}}</p>-->
 

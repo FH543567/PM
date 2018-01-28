@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../services/task.service';
 import { Task } from '../task/task';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StoryService } from '../services/story.service';
 import { Story } from '../story/story';
 import { UserService } from '../services/user.service';
 import { User } from '../user/user';
 import { SprintService } from '../services/sprint.service';
 import { Sprint } from '../sprint/sprint';
+import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-task-details',
@@ -15,6 +17,8 @@ import { Sprint } from '../sprint/sprint';
   styleUrls: ['./task-details.component.css']
 })
 export class TaskDetailsComponent implements OnInit {
+  // newPokerDialogRef: MatDialogRef<DeleteConfirmComponent>;
+  result = false;
   task: Task;
   story: Story;
   sprint: Sprint;
@@ -23,7 +27,8 @@ export class TaskDetailsComponent implements OnInit {
   tempWorkedTime: number;
   private sub: any;
   constructor(private route: ActivatedRoute, private taskService: TaskService, private storyService: StoryService,
-              private sprintService: SprintService, private userService: UserService) { }
+              private sprintService: SprintService, private userService: UserService, private dialog: MatDialog,
+              public router: Router) { }
 
   ngOnInit() {
     let id: number;
@@ -93,12 +98,33 @@ export class TaskDetailsComponent implements OnInit {
     this.tempWorkedTime = this.task.workedTime;
   }
 
-  save(value: number) {
+  save() {
     this.task.workedTime = this.tempWorkedTime;
+    this.taskService.update(this.task);
     this.updateProgress();
   }
 
+  deleteDialog() {
+    const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+      height: '150px',
+      width: '300px',
+      data: { type: 'Task', name: this.task.name}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.result = true;
+      }
+    }, error => console.log('Error: ', error),
+      () => this.delete());
+  }
+
   delete() {
-    this.storyService.delete(this.story.id);
+    if (this.result === true) {
+      this.taskService.delete(this.task.id)
+        .subscribe( empty => this.result = false,
+          error => console.log('Error: ', error),
+          () => this.router.navigate(['../../../backlog'])
+        );
+    }
   }
 }

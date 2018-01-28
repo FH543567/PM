@@ -58,7 +58,8 @@ export class SprintComponent implements OnInit {
     console.log('Valid: ' + this.form.valid);
     console.log('FormValue: ' + this.form.value);
     if (this.form.valid) {
-      this.sprintService.create(this.form.value);
+      this.sprintService.create(this.form.value)
+        .subscribe();
     }
     this.formSubmitAttempt = true;
   }
