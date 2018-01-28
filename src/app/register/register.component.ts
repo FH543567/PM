@@ -16,9 +16,9 @@ export class RegisterComponent implements OnInit {
   private formSubmitAttempt: boolean;
 
   roles = [
-    { value: 0, viewValue: 'Developer' },
-    { value: 1, viewValue: 'Scrum Master' },
-    { value: 2, viewValue: 'Admin' }
+    { value: 0, viewValue: 'Scrum Master' },
+    { value: 1, viewValue: 'Developer' },
+    { value: 2, viewValue: 'Product Owner' },
   ];
 
   constructor(
@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
     console.log(this.form.valid);
     if (this.form.valid) {
       //TODO: habe register() umgeschrieben in userService. evtl. noch zu überprüfen. (von Malte)
-      //this.dataService.register(this.form.value); 
+      //this.dataService.register(this.form.value);
       let user: User = new User();
       if (this.form.value.username) user.username = this.form.value.username;
       if (this.form.value.password) user.password = this.form.value.password;
@@ -92,7 +92,8 @@ export class RegisterComponent implements OnInit {
   afterRegister(user: User) {
     console.log("login mit user null: " + (user === null));
     if (user)
-      this.authService.login(user);
+      // this.authService.login(user);
+      console.log('Benutzer angelegt')
     else
       console.error("Registrierung fehlgeschlagen");
   }
