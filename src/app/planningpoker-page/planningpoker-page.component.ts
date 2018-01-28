@@ -45,12 +45,17 @@ export class PlanningpokerPageComponent implements OnInit {
    * beendet eine Pokerrunde
    */
   endRound(): void {
-    // wenn noch keine eingabe gemacht wird soll keine neue runde starten
+    console.log(this.poker.roundData[this.poker.roundData.length - 1]);
+    // this.roundService.create(this.poker.roundData[this.poker.roundData.length - 1]).subscribe();
+    // const tempobj = new Round(0, 1, new Array<string>(), new Array<number>());
+
+
+        // wenn noch keine eingabe gemacht wird soll keine neue runde starten
     if (this.poker.roundData[this.poker.roundData.length - 1].users !== undefined) {
       if (this.poker.roundData[this.poker.roundData.length - 1].users.length >= 1) {
         this.poker.roundData.push(new Round(0, 1, new Array<string>(), new Array<number>()));
-        this.roundService.create(new Round(0, 1, ['Hans', 'Peter'], [4,5]));
-       // this.roundService.create(new Round(0, 1, new Array<string>(), new Array<number>()));
+        console.log('AUSGABE!!!: ')
+        this.roundService.create(new Round(0, 1, new Array<string>(), new Array<number>())).subscribe();
       }
     }
   }
@@ -59,13 +64,12 @@ export class PlanningpokerPageComponent implements OnInit {
    * gibt ein Estimate ab
    */
   onEstimateSubmit() {
-    this.roundService.create(this.estimate).subscribe();
     if ( this.estimate !== undefined && !this.isPPokerNotOver ) {
       // Erste Eingabe einer runde:
       if (this.poker.roundData[this.poker.roundData.length - 1].users === undefined) {
         this.poker.roundData[this.poker.roundData.length - 1].users.push(localStorage.getItem('username'));
         this.poker.roundData[this.poker.roundData.length - 1].hours.push(this.estimate);
-        this.roundService.update(this.poker.roundData.push(this.poker.roundData[this.poker.roundData.length - 1])).subscribe();
+        this.roundService.update(this.poker.roundData[this.poker.roundData.length - 1]).subscribe();
       }else {
         // Wenn schon eine eingabe diese runde gemacht wurde keine akzeptieren
         let temp = false;
@@ -77,7 +81,7 @@ export class PlanningpokerPageComponent implements OnInit {
         if (!temp) {
           this.poker.roundData[this.poker.roundData.length - 1].users.push(localStorage.getItem('username'));
           this.poker.roundData[this.poker.roundData.length - 1].hours.push(this.estimate);
-          this.roundService.update(this.poker.roundData.push(this.poker.roundData[this.poker.roundData.length - 1])).subscribe();
+          this.roundService.update(this.poker.roundData[this.poker.roundData.length - 1]).subscribe();
         }
       }
     }
