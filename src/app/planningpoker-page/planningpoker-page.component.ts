@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { DataService } from '../services/data.service';
+import { PokerService } from '../services/poker.service';
+import { RoundService } from '../services/round.service';
+import { MessageService } from '../services/message.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PlanningpokerComponent } from '../planningpoker/planningpoker.component';
 import { Poker } from './poker';
@@ -21,14 +24,30 @@ export class PlanningpokerPageComponent implements OnInit {
   newMessage: string;
   estimate: number;
 
+  usersTest: string[];
+  hoursTest: number[];
+
   constructor(
     private authService: AuthService,
     private dataService: DataService,
-    private dialog: MatDialog) {}
+    private pokerService: PokerService,
+    private roundService: RoundService,
+    private messageService: MessageService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.poker = this.dataService.getPoker();
-    this.messages = this.dataService.getMessages();
+    this.roundService.getAll().subscribe(res => {
+      this.pokerService.getAll().subscribe(pokers => {
+        this.poker = pokers ? pokers[0] : undefined;
+        //Prämisse: alle rounds gehören zum ersten Poker
+        this.poker.roundData = res;
+        console.log(JSON.stringify(this.poker));
+      });
+    });
+    //this.poker = this.dataService.getPoker();
+    //this.messages = this.dataService.getMessages();
+    //Achtung: es wird nur der erst Poker in der DB verwendet
+    this.messageService.getAll().subscribe(messages => this.messages = messages);
   }
 
   /**
@@ -78,7 +97,7 @@ export class PlanningpokerPageComponent implements OnInit {
       hasBackdrop: true,
       width: '500',
       height: '500',
-      data: {label: this.newPoker.label, description: this.newPoker.description}
+      data: { label: this.newPoker.label, description: this.newPoker.description }
     });
 
     this.newPokerDialogRef.afterClosed().subscribe(result => {
@@ -87,7 +106,7 @@ export class PlanningpokerPageComponent implements OnInit {
         if (typeof result.label !== 'undefined' && typeof result.description !== 'undefined') {
           this.poker = result;
           this.poker.roundData = new Array<Round>();
-          this.poker.roundData.push(new Round(new Array<string>(), new Array<number>()));
+          this.poker.roundData.push(new Round(0, 1, new Array<string>(), new Array<number>()));
           this.messages = new Array<Message>();
           this.dataService.poker = this.poker;
           this.dataService.chat = this.messages;

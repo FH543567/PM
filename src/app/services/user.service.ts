@@ -18,7 +18,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class UserService extends DtoService {
 
   constructor(http: HttpClient) {
-    super('http://localhost:3000/api/users', http);
+    super('/api/users', http);
   }
 
   /**
@@ -94,7 +94,7 @@ export class UserService extends DtoService {
 
 
   /**
-   * Ein User anhand der ID abfragen
+   * Ein User anhand des usernames abfragen
    * @returns {Observable<User>} returnt 'undefined' wenn id nicht gefunden wurde
    * @param id ID des gesuchten Users
    */

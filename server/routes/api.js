@@ -4,12 +4,24 @@ var mysql = require('mysql');
 const HttpStatus = require('http-status-codes');
 require('dotenv').config()
 
-var connection = mysql.createConnection({
+const DBHost = process.env.DATABASE_URL || 'localhost';
 
+var connection = mysql.createConnection({
+//'mysql://bd10f96685d9c8:8203766d@eu-cdbr-west-02.cleardb.net/heroku_57b74cfd3c406d8'
+
+	//HEROKU
+	host: 'eu-cdbr-west-02.cleardb.net',
+	user: 'bd10f96685d9c8',
+	password: '8203766d',
+	database: 'heroku_57b74cfd3c406d8'
+
+	/*
+	// LOKAL
 	host: 'localhost',
 	user: 'root',
 	password: 'mfj123',
 	database: 'pm'
+	*/
 
 	/*
 	host: process.env.DB_HOST,
@@ -643,4 +655,355 @@ router.delete('/users/:id', (req, res) => {
 		}
 	});
 });
+
+
+
+
+
+////////////////////
+// Poker-Planning //
+////////////////////
+
+
+////////////
+// Pokers //
+////////////
+//----------------------------------------------------------------------
+// GET /pokers
+//----------------------------------------------------------------------
+router.get('/pokers', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. All Pokers requested');
+
+	connection.query('SELECT * FROM poker', function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// GET /pokers/:id
+//----------------------------------------------------------------------
+router.get('/pokers/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. Poker with id = ', req.params.id + ' requested');
+
+	connection.query('SELECT * FROM poker WHERE PokerID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.send({ error: err, message: err.message });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// POST /pokers
+//----------------------------------------------------------------------
+router.post('/pokers', (req, res) => {
+
+	console.log('Express: got HTTP-Post from client. ', req.body + ' gets created');
+
+	connection.query('INSERT INTO poker SET ?', req.body, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// PUT /pokers
+//----------------------------------------------------------------------
+router.put('/pokers', (req, res) => {
+
+	console.log('Express: got HTTP-Put from client. ', req + ' gets updated');
+
+	connection.query('REPLACE INTO poker SET ?', req.body, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+			connection.query('SELECT * FROM poker WHERE PokerID = ?', req.body.PokerID, function (err, rows, fields) {
+				if (err) {
+					console.error("Error occured on Express-Server: " + err.message)
+					res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+						.send({ error: err, message: err.message });
+					//throw err;
+				} else {
+					res.send(rows);
+				}
+			})
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// DELETE /pokers/:id
+//----------------------------------------------------------------------
+router.delete('/pokers/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
+
+	connection.query('DELETE FROM poker WHERE PokerID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+
+
+
+
+
+
+
+//////////////
+// Messages //
+//////////////
+//----------------------------------------------------------------------
+// GET /messages
+//----------------------------------------------------------------------
+router.get('/messages', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. All Messages requested');
+
+	connection.query('SELECT * FROM message', function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// GET /messages/:id
+//----------------------------------------------------------------------
+router.get('/messages/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. Message with id = ', req.params.id + ' requested');
+
+	connection.query('SELECT * FROM message WHERE MessageID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.send({ error: err, message: err.message });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// GET /messages/byStory/:id
+//----------------------------------------------------------------------
+router.get('/messages/byStory/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. Messages with StoryID = ', req.params.id + ' requested');
+
+	connection.query('SELECT * FROM message WHERE StoryID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.send({ error: err, message: err.message });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// POST /messages
+//----------------------------------------------------------------------
+router.post('/messages', (req, res) => {
+
+	console.log('Express: got HTTP-Post from client. ', req.body + ' gets created');
+
+	connection.query('INSERT INTO message SET ?', req.body, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// PUT /messages
+//----------------------------------------------------------------------
+router.put('/messages', (req, res) => {
+
+	console.log('Express: got HTTP-Put from client. ', req + ' gets updated');
+
+	connection.query('REPLACE INTO message SET ?', req.body, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+			connection.query('SELECT * FROM message WHERE MessageID = ?', req.body.MessageID, function (err, rows, fields) {
+				if (err) {
+					console.error("Error occured on Express-Server: " + err.message)
+					res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+						.send({ error: err, message: err.message });
+					//throw err;
+				} else {
+					res.send(rows);
+				}
+			})
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// DELETE /messages/:id
+//----------------------------------------------------------------------
+router.delete('/messages/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
+
+	connection.query('DELETE FROM message WHERE MessageID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.message)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+
+
+
+
+
+//////////////
+// Rounds //
+//////////////
+//----------------------------------------------------------------------
+// GET /rounds
+//----------------------------------------------------------------------
+router.get('/rounds', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. All Rounds requested');
+
+	connection.query('SELECT * FROM round', function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.round)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, round: err.round });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// GET /rounds/:id
+//----------------------------------------------------------------------
+router.get('/rounds/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Get from client. Round with id = ', req.params.id + ' requested');
+
+	connection.query('SELECT * FROM round WHERE RoundID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.round)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.send({ error: err, round: err.round });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// POST /rounds
+//----------------------------------------------------------------------
+router.post('/rounds', (req, res) => {
+
+	console.log('Express: got HTTP-Post from client. ', req.body + ' gets created');
+
+	connection.query('INSERT INTO round SET ?', req.body, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.round)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, round: err.round });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// PUT /rounds
+//----------------------------------------------------------------------
+router.put('/rounds', (req, res) => {
+
+	console.log('Express: got HTTP-Put from client. ', req + ' gets updated');
+
+	connection.query('REPLACE INTO round SET ?', req.body, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.round)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, round: err.round });
+			//throw err;
+		} else {
+			connection.query('SELECT * FROM round WHERE RoundID = ?', req.body.RoundID, function (err, rows, fields) {
+				if (err) {
+					console.error("Error occured on Express-Server: " + err.round)
+					res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+						.send({ error: err, round: err.round });
+					//throw err;
+				} else {
+					res.send(rows);
+				}
+			})
+		}
+	});
+});
+
+//----------------------------------------------------------------------
+// DELETE /rounds/:id
+//----------------------------------------------------------------------
+router.delete('/rounds/:id', (req, res) => {
+
+	console.log('Express: got HTTP-Delete from client. Object with id=', req.params.id + ' gets deleted');
+
+	connection.query('DELETE FROM round WHERE RoundID = ?', req.params.id, function (err, rows, fields) {
+		if (err) {
+			console.error("Error occured on Express-Server: " + err.round)
+			res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, round: err.round });
+			//throw err;
+		} else {
+			res.send(rows);
+		}
+	});
+});
 module.exports = router;
+
+

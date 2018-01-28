@@ -7,6 +7,8 @@ import 'rxjs/add/observable/throw';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Type } from '@angular/compiler/src/core';
+import dotenv from 'dotenv';
+import { environment } from '../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,7 +17,10 @@ const httpOptions = {
 @Injectable()
 export class DtoService {
 
-  constructor(protected url: string, protected http: HttpClient) { }
+  constructor(protected url: string, protected http: HttpClient) {
+    this.url = environment.production ? environment.SERVER_URL + url : "http://localhost:3000" + url;
+    console.log("this.url " + this.url);
+   }
 
   /**
    * Alle Objekte auf der DB abfragen

@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class SprintService extends DtoService {
 
   constructor(http: HttpClient) {
-    super('http://localhost:3000/api/sprints', http);
+    super('/api/sprints', http);
   }
 
   /**
@@ -89,7 +89,7 @@ export class SprintService extends DtoService {
    */
   getFullHistory(): Observable<HistoryEntry[]> {
     let tmpUrl: string = this.url;
-    this.url = "http://localhost:3000/api/history";
+    this.url = "/api/history";
     let result: Observable<HistoryEntry[]> = super.getAll()
       .map(historyList => historyList = historyList
         .map(historyDB => historyDB = new HistoryEntry(historyDB.Sprint, new Date(historyDB.Date), historyDB.WorkRemaining)));

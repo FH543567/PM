@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 export class EpicService extends DtoService {
 
   constructor(http: HttpClient) {
-    super('http://localhost:3000/api/epics', http);
+    super('/api/epics', http);
   }
 
   getAll(): Observable<Epic[]> {
