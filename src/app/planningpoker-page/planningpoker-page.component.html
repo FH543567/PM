@@ -25,8 +25,13 @@
         <mat-list dense>
           <!-- Anzeige der planning Poker runden (tabelle)-->
           <div *ngFor="let roundData of poker.roundData; let i = index;">
-            <h3 mat-subheader>Round {{i}}</h3>
-            <mat-list-item *ngFor="let user of roundData.users; let j = index;">{{user}}<span class="spacer"></span>{{roundData.hours[j]}}h</mat-list-item>
+            <h3 mat-subheader>Round {{i+1}}</h3>
+            <mat-divider></mat-divider>
+            <mat-list-item *ngFor="let user of roundData.users; let j = index;">{{user}}<span class="spacer"></span>
+              <div *ngIf="i < poker.roundData.length-1">{{roundData.hours[j]}}h</div>
+              <div *ngIf="i === poker.roundData.length-1">??h</div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
             <mat-divider></mat-divider>
           </div>
           <h3 *ngIf="hasPokerEnded">Planning Poker has ended!</h3>

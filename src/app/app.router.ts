@@ -24,7 +24,7 @@ export const routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full'},
     { path: 'home', component: HomePageComponent, },
     { path: 'login', component: LoginComponent, canActivate: [LoggedOutGuard]},
-    { path: 'register', component: RegisterComponent, canActivate: [LoggedOutGuard]},
+    { path: 'adduser', component: RegisterComponent, canActivate: [AuthGuard]},
     { path: 'backlog', component: BacklogPageComponent, canActivate: [AuthGuard]},
     { path: 'backlog/create', component: BacklogComponent, canActivate: [AuthGuard]},
     { path: 'tasks/details/:id', component: TaskDetailsComponent, canActivate: [AuthGuard]},
@@ -40,5 +40,5 @@ export const routes = [
     { path: 'roadmap', component: RoadmapPageComponent, canActivate: [AuthGuard]},
 
     // otherwise redirect to home
-    { path: '**', redirectTo: '/login' }
+    { path: '**', redirectTo: '/home' }
 ];

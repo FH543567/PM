@@ -73,13 +73,18 @@ export class PlanningpokerPageComponent implements OnInit {
 
     this.newPokerDialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // TODO: Prüfen ob daten vorhanden sind und dann neues PlanningPoker
-
-      if (typeof result.label !== 'undefined' && typeof result.description !== 'undefined') {
-        this.poker = result;
-        //this.messages = [];
-        //this.dataService.chat = [];
-        console.log('new Planning-Poker Started!');
+      if (typeof result !== 'undefined') {
+        if (typeof result.label !== 'undefined' && typeof result.description !== 'undefined') {
+          this.poker = result;
+          this.poker.roundData = new Array<Round>();
+          this.poker.roundData.push(new Round(new Array<string>(), new Array<number>()));
+          this.messages = new Array<Message>();
+          this.dataService.poker = this.poker;
+          this.dataService.chat = this.messages;
+          // this.messages = [];
+          // this.dataService.chat = [];
+          console.log('new Planning-Poker Started!');
+        }
       }
     });
   }
