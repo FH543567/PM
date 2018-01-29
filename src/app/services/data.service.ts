@@ -52,7 +52,6 @@ export class DataService {
   createBacklog(backlog: Backlog): boolean {
     console.log('id', backlog.id);
     console.log('name', backlog.name);
-    console.log('description', backlog.description);
     console.log('priority', backlog.priority);
     console.log('type', backlog.type);
     return true;

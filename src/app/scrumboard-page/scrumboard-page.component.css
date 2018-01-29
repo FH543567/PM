@@ -22,3 +22,14 @@
   text-align: center;
 }
 
+tr,td,th,table {
+  text-align: center;
+}
+
+.border {
+  border:1pt solid black;
+}
+
+.margin {
+  margin: 1%;
+}
