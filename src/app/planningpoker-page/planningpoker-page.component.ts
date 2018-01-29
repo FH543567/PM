@@ -190,4 +190,8 @@ export class PlanningpokerPageComponent implements OnInit {
   // Achtung: es wird nur der erst Poker in der DB verwendet
   this.messageService.getAll().subscribe(messages => this.messages = messages);
   }
+
+  get isScrumMaster() {
+    return this.authService.isScrumMaster;
+  }
 }

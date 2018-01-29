@@ -4,7 +4,7 @@
     <img src="assets/img/logo.jpg" class="angular-logo" routerLink="/home">
   </span>
     <div *ngIf="isLoggedIn">
-      <button mat-button routerLink="backlog"><mat-icon>reorder</mat-icon>Product Backlog</button>
+      <button mat-button routerLink="backlog"><mat-icon>line_style</mat-icon>Product Backlog</button>
       <button mat-button routerLink="sprint"><mat-icon>loop</mat-icon>Sprint Planning</button>
       <button mat-button routerLink="scrumboard"><mat-icon>view_list</mat-icon>Scrum Board</button>
       <button mat-button routerLink="planningpoker" *ngIf="!authService.isProductOwner"><mat-icon>chat</mat-icon>Planning Poker</button>

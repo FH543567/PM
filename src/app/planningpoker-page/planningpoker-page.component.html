@@ -70,6 +70,6 @@
 <br>
 <!-- Buttons für den ScrumMaster zum starten und enden neuer Runden -->
 <div class="bottom">
-  <button mat-raised-button color="Primary"*ngIf="authService.isScrumMaster" (click)="openNewPokerDialog()">Start a new Planning Poker round</button>
-  <button mat-raised-button color="Warn" *ngIf="authService.isScrumMaster" (click)="endRound()">End Round</button>
+  <button mat-raised-button color="Primary"*ngIf="isScrumMaster" (click)="openNewPokerDialog()">Start a new Planning Poker round</button>
+  <button mat-raised-button color="Warn" *ngIf="isScrumMaster" (click)="endRound()">End Round</button>
 </div>
