@@ -6,6 +6,7 @@ import { SprintService } from '../services/sprint.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
+import {HistoryEntry} from '../chart-page/historyEntry';
 
 
 @Component({
@@ -42,6 +43,8 @@ export class SprintComponent implements OnInit {
       startDate: ['', Validators.required],
       endDate: ['', Validators.required]
     });
+
+    //this.createHistoryEntries(new Sprint(4001, "vd", "test", 10, "2018-01-02", "2018-01-03"));
   }
 
   getSprints() {
@@ -63,17 +66,6 @@ export class SprintComponent implements OnInit {
 
   onSubmit() {
     console.log('Valid: ' + this.form.valid);
-    console.log('toLocaleDateString(): ' + this.form.value.startDate.toLocaleDateString());
-    console.log('toDateString(): ' + this.form.value.startDate.toDateString());
-    console.log('toISOString(): ' + this.form.value.startDate.toISOString());
-    console.log('toUTCString(): ' + this.form.value.startDate.toUTCString());
-    console.log('getUTCDate(): ' + this.form.value.startDate.getUTCDate());
-    console.log('getDate(): ' + this.form.value.startDate.getDate());
-    console.log('getMonth(): ' + this.form.value.startDate.getMonth());
-    console.log('getVarDate: ' + this.form.value.startDate.getVarDate);
-    console.log('getFullYear(): ' + this.form.value.startDate.getFullYear());
-    console.log('toTimeString(): ' + this.form.value.startDate.toTimeString());
-    console.log('getUTCMonth(): ' + this.form.value.startDate.getUTCMonth());
 
     if (this.form.valid) {
       const startDay = this.form.value.startDate.getDate();
@@ -95,9 +87,38 @@ export class SprintComponent implements OnInit {
         endDate
       );
       this.sprintService.create(sprint)
-        .subscribe(() => this.router.navigate(['../sprint']));
+        .subscribe(result => {
+          this.sprintService.getById(result[0].id).subscribe(sprint => {
+            this.createHistoryEntries(sprint);
+          });
+          
+          this.router.navigate(['../sprint']);
+        });
     }
     this.formSubmitAttempt = true;
+  }
+
+  createHistoryEntries(sprint : Sprint) {
+
+    console.log("createHistoryEntries()");
+    // Erstellt leer History Entries für jeden Tag des Sprints
+    let tempDate : Date = new Date(sprint.startDate);
+    
+    console.log("compare start:" + sprint.startDate + " end: " + sprint.endDate);
+    console.log("compare start:" + new Date(sprint.startDate).toLocaleString() + " end: " + new Date(sprint.endDate).toLocaleString());
+    while(tempDate <= new Date(sprint.endDate)) {
+
+
+      console.log("temp: " + tempDate);
+      const startDay = tempDate.getDate();
+      const startMonth = tempDate.getMonth() + 1;
+      const startYear = tempDate.getFullYear();
+      const tempDateString = startYear + '-' + startMonth + '-' + startDay;
+
+
+      this.sprintService.createHistory(new HistoryEntry(sprint.id, tempDateString, null)).subscribe();
+      tempDate.setDate( tempDate.getDate() + 1 );
+    }
   }
 
   isScrumMaster(): boolean {

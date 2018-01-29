@@ -542,13 +542,22 @@ router.post('/sprints', (req, res) => {
 	pool.getConnection(function (err, connection) {
 		console.log('Express: got HTTP-Post from client. ', req.body + ' gets created');
 
-		connection.query('INSERT INTO sprint SET ?', req.body, function (err, rows, fields) {
+		connection.query('INSERT INTO sprint SET ?;', req.body, function (err, rows, fields) {
 			if (err) {
 				console.error("Error occured on Express-Server: " + err.message)
 				res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
 				//throw err;
 			} else {
-				res.send(rows);
+				connection.query('SELECT LAST_INSERT_ID() as id;', function (err, rows, fields) {
+					if (err) {
+						console.error("Error occured on Express-Server: " + err.message)
+						res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+							.send({ error: err, round: err.round });
+						//throw err;
+					} else {
+						res.send(rows);
+					}
+				})
 			}
 		});
 		connection.release();
@@ -625,7 +634,36 @@ router.get('/history', (req, res) => {
 	});
 });
 
+//----------------------------------------------------------------------
+// POST /history
+//----------------------------------------------------------------------
+router.post('/history', (req, res) => {
 
+	pool.getConnection(function (err, connection) {
+		console.log('Express: got HTTP-Post from client. ', req.body + ' gets created');
+
+		connection.query('INSERT INTO history SET ?', req.body, function (err, rows, fields) {
+			if (err) {
+				console.error("Error occured on Express-Server: " + err.message)
+				res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: err.message });
+				//throw err;
+			} else {
+				connection.query('SELECT * FROM history WHERE Sprint = ? AND Date = ?', [req.body.Sprint, req.body.Date], function (err, rows, fields) {
+					if (err) {
+						console.error("Error occured on Express-Server: " + err.message)
+						res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+							.send({ error: err, message: err.message });
+						//throw err;
+					} else {
+						res.send(rows);
+					}
+				});
+			}
+		});
+		connection.release();
+		if (err) console.log(err.message);
+	});
+});
 
 
 

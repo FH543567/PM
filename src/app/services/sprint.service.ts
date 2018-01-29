@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { DtoService } from './dto.service';
 import { HttpClient } from '@angular/common/http';
-import {HistoryEntry} from '../chart-page/historyEntry';
+import { HistoryEntry } from '../chart-page/historyEntry';
 
 @Injectable()
 export class SprintService extends DtoService {
@@ -42,7 +42,7 @@ export class SprintService extends DtoService {
    * @param {resource} Sprint
    * @returns {Observable<Sprint>}
    */
-  create(sprint): Observable<Sprint> {
+  create(sprint): Observable<any> {
     var transferObject: any = {};
     //ID wird nicht berücksichtigt, da auto-increment
     //transferObject.SprintId = sprint.id;
@@ -52,7 +52,11 @@ export class SprintService extends DtoService {
     transferObject.StartDate = sprint.startDate;
     transferObject.EndDate = sprint.endDate;
     console.log(JSON.stringify(transferObject));
-    return super.create(JSON.stringify(transferObject));;
+    return super.create(JSON.stringify(transferObject))
+    /*
+      .map(objects => objects[0])
+        .map(sprintDB => sprintDB = new Sprint(sprintDB.SprintID, sprintDB.Name, sprintDB.Description, sprintDB.AvailableTime, sprintDB.StartDate, sprintDB.EndDate));
+        */
   }
 
   /**
@@ -94,7 +98,28 @@ export class SprintService extends DtoService {
     this.url = this.url.replace("sprints", "history");
     let result: Observable<HistoryEntry[]> = super.getAll()
       .map(historyList => historyList = historyList
-        .map(historyDB => historyDB = new HistoryEntry(historyDB.Sprint, new Date(historyDB.Date), historyDB.WorkRemaining)));
+        .map(historyDB => historyDB = new HistoryEntry(historyDB.Sprint, historyDB.Date, historyDB.WorkRemaining)));
+    //Reset URL
+    this.url = tmpUrl;
+    return result;
+  }
+
+  /**
+   * History erstellen
+   * History wird ohne ID an den Server geschickt (ID wird einfach ignoriert)
+   * @param {resource} Sprint
+   * @returns {Observable<Sprint>}
+   */
+  createHistory(historyEntry): Observable<HistoryEntry> {
+    let tmpUrl: string = this.url;
+    //this.url = "/api/history";
+    this.url = this.url.replace("sprints", "history");
+    var transferObject: any = {};
+    transferObject.Sprint = historyEntry.sprintID;
+    transferObject.Date = historyEntry.date;
+    transferObject.WorkRemaining = historyEntry.workRemaining;
+    console.log(JSON.stringify(transferObject));
+    let result: Observable<HistoryEntry> = super.create(JSON.stringify(transferObject));
     //Reset URL
     this.url = tmpUrl;
     return result;
