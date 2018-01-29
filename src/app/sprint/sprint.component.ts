@@ -107,15 +107,11 @@ export class SprintComponent implements OnInit {
     console.log("compare start:" + sprint.startDate + " end: " + sprint.endDate);
     console.log("compare start:" + new Date(sprint.startDate).toLocaleString() + " end: " + new Date(sprint.endDate).toLocaleString());
     while(tempDate <= new Date(sprint.endDate)) {
-
-
       console.log("temp: " + tempDate);
       const startDay = tempDate.getDate();
       const startMonth = tempDate.getMonth() + 1;
       const startYear = tempDate.getFullYear();
       const tempDateString = startYear + '-' + startMonth + '-' + startDay;
-
-
       this.sprintService.createHistory(new HistoryEntry(sprint.id, tempDateString, null)).subscribe();
       tempDate.setDate( tempDate.getDate() + 1 );
     }
