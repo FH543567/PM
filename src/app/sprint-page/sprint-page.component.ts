@@ -14,7 +14,7 @@ export class SprintPageComponent implements OnInit {
   dataSource: any;
   sprints: Sprint[];
   constructor(private sprintService: SprintService,
-              authService: AuthService
+              private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -36,5 +36,9 @@ export class SprintPageComponent implements OnInit {
       sprint.endDate = new Date(sprint.endDate).toLocaleDateString().toString();
     }
     this.dataSource = new MatTableDataSource<Sprint>(this.sprints);
+  }
+
+  isScrumMaster(): boolean {
+    return this.authService.isScrumMaster;
   }
 }

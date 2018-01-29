@@ -41,7 +41,7 @@
           </mat-select>
         </mat-input-container>
         -->
-        <button mat-raised-button color="primary" *ngIf="authService.isScrumMaster" type="submit">Submit</button><span class="spacer"></span>
+        <button mat-raised-button color="primary" *ngIf="isScrumMaster()" type="submit">Submit</button><span class="spacer"></span>
       </form>
     </mat-card-content>
   </mat-card>

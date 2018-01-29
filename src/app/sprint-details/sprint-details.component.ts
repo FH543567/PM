@@ -28,7 +28,7 @@ export class SprintDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private sprintService: SprintService,
               private taskService: TaskService,
-              authService: AuthService,
+              private authService: AuthService,
               public router: Router,
               private dialog: MatDialog
   ) {}
@@ -105,5 +105,9 @@ export class SprintDetailsComponent implements OnInit {
           () => this.router.navigate(['../../../sprint'])
         );
     }
+  }
+
+  isScrumMaster(): boolean {
+    return this.authService.isScrumMaster;
   }
 }

@@ -27,7 +27,7 @@ export class BacklogPageComponent implements OnInit {
     private taskService: TaskService,
     private storyService: StoryService,
     private epicService: EpicService,
-    authService: AuthService
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -102,5 +102,7 @@ export class BacklogPageComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-
+  isScrumMaster(): boolean {
+    return this.authService.isScrumMaster;
+  }
 }

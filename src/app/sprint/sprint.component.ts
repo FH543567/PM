@@ -29,7 +29,7 @@ export class SprintComponent implements OnInit {
     private sprintService: SprintService,
     private taskService: TaskService,
     public router: Router,
-    authService: AuthService
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -98,5 +98,9 @@ export class SprintComponent implements OnInit {
         .subscribe(() => this.router.navigate(['../sprint']));
     }
     this.formSubmitAttempt = true;
+  }
+
+  isScrumMaster(): boolean {
+    return this.authService.isScrumMaster;
   }
 }
