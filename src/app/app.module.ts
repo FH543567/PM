@@ -19,9 +19,6 @@ import { routes } from './app.router';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
-import { TaskComponent } from './task/task.component';
-import { StoryComponent } from './story/story.component';
-import { EpicComponent } from './epic/epic.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -65,9 +62,6 @@ import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.componen
     PlanningpokerPageComponent,
     ChartPageComponent,
     RoadmapPageComponent,
-    TaskComponent,
-    StoryComponent,
-    EpicComponent,
     HeaderComponent,
     SprintDetailsComponent,
     PlanningpokerComponent,
