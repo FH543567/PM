@@ -1,39 +1,38 @@
-<!-- TODO: Mat-Grid testen -->
-<div>
+<div class="margin">
   <div class="first-column">
     <table>
       <thead>
         <tr>
-          <td><button mat-raised-button color="primary">UserStory</button></td>
-          <td><button mat-raised-button color="primary">ToDo</button></td>
-          <td><button mat-raised-button color="primary">In Progress</button></td>
-          <td><button mat-raised-button color="primary">Done</button></td>
+          <td class="border"><button mat-raised-button color="primary">UserStory</button></td>
+          <td class="border"><button mat-raised-button color="primary">ToDo</button></td>
+          <td class="border"><button mat-raised-button color="primary">In Progress</button></td>
+          <td class="border"><button mat-raised-button color="primary">Done</button></td>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let story of stories">
-          <td><button mat-raised-button color="primary">{{story?.name}}</button></td>
-          <td>
+          <td class="border"><button mat-raised-button color="primary">{{story?.name}}</button></td>
+          <td class="border">
             <table>
-              <tr *ngFor="let task of tasksTodo" [dragula]="toDo">
+              <tr *ngFor="let task of tasksTodo">
                 <td *ngIf="task.storyId === story.id">
                   <button mat-raised-button color="accent" [routerLink]="['../tasks/details', task.id]">{{task?.name}}</button>
                 </td>
               </tr>
             </table>
           </td>
-          <td>
+          <td class="border">
             <table>
-              <tr *ngFor="let task of tasksInProgress" [dragula]="inProgress">
+              <tr *ngFor="let task of tasksInProgress">
                 <td *ngIf="task.storyId === story.id">
                   <button mat-raised-button color="accent" [routerLink]="['../tasks/details', task.id]">{{task?.name}}</button>
                 </td>
               </tr>
             </table>
           </td>
-          <td>
+          <td class="border">
             <table>
-              <tr *ngFor="let task of tasksDone" [dragula]="done">
+              <tr *ngFor="let task of tasksDone">
                 <td *ngIf="task.storyId === story.id">
                   <button mat-raised-button color="accent" [routerLink]="['../tasks/details', task.id]">{{task?.name}}</button>
                 </td>

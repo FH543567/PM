@@ -44,7 +44,7 @@ import { MatButtonModule, MatCheckboxModule, MatCardModule, MatToolbarModule,
   MatIconModule, MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule ,
   MatOptionModule, MatTableModule, MatFormFieldModule, MatSidenavModule, MatListModule,
   MatDatepickerModule, MatNativeDateModule, MatSliderModule, MatStepperModule,
-  MatChipsModule, MatButtonToggleModule, MatDialogModule} from '@angular/material';
+  MatChipsModule, MatButtonToggleModule, MatDialogModule, MatSortModule} from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { PlanningpokerComponent } from './planningpoker/planningpoker.component';
@@ -91,7 +91,7 @@ import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.componen
       MatMenuModule, MatGridListModule, MatInputModule, MatSelectModule, MatOptionModule,
       MatTableModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule,
       MatSidenavModule, MatListModule, MatDatepickerModule, MatNativeDateModule, MatSliderModule,
-      MatStepperModule, MatChipsModule, MatButtonToggleModule, MatDialogModule]
+      MatStepperModule, MatChipsModule, MatButtonToggleModule, MatDialogModule, MatSortModule]
   ],
   providers: [
     UserService,
@@ -109,6 +109,6 @@ import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.componen
     DatePipe
   ],
   bootstrap: [AppComponent],
-  entryComponents: [PlanningpokerComponent,DeleteConfirmComponent]
+  entryComponents: [PlanningpokerComponent, DeleteConfirmComponent]
 })
 export class AppModule { }

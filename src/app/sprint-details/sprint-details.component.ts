@@ -50,10 +50,16 @@ export class SprintDetailsComponent implements OnInit {
             () => this.taskService.getBySprintId(this.sprint.id)
               .subscribe(assignedTasks => this.assignedTasks = assignedTasks,
                 error => console.log('Error: ', error),
-                () => this.calcTimeLeft()
+                () => this.formatDate()
               )
           )
       );
+  }
+
+  formatDate() {
+    this.sprint.startDate = new Date(this.sprint.startDate).toLocaleDateString().toString();
+    this.sprint.endDate = new Date(this.sprint.endDate).toLocaleDateString().toString();
+    this.calcTimeLeft();
   }
 
   calcTimeLeft() {
