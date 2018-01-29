@@ -33,6 +33,10 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
 </div>
 <br>
 <button id="create" mat-raised-button color="primary" *ngIf="isScrumMaster()" routerLink="/backlog/create">New Item</button>

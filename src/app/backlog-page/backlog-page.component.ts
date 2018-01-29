@@ -7,8 +7,7 @@ import { TaskService } from '../services/task.service';
 import { StoryService } from '../services/story.service';
 import { EpicService } from '../services/epic.service';
 import { AuthService } from '../services/auth.service';
-import { MatTableDataSource, MatSort } from '@angular/material';
-
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 @Component({
   selector: 'app-backlog-page',
   templateUrl: './backlog-page.component.html',
@@ -22,6 +21,7 @@ export class BacklogPageComponent implements OnInit {
   displayedColumns = ['id', 'name', 'type', 'priority', 'progress'];
   dataSource: any;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private taskService: TaskService,
@@ -100,6 +100,7 @@ export class BacklogPageComponent implements OnInit {
     }
     this.dataSource = new MatTableDataSource<Backlog>(this.backlogItems,);
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   isScrumMaster(): boolean {
