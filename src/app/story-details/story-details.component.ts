@@ -26,9 +26,14 @@ export class StoryDetailsComponent implements OnInit {
   checkedTasks: Task[] = [];
   displayedColumns = ['Id', 'Name', 'EstTime', 'Add'];
   dataSource: any;
-  constructor(private route: ActivatedRoute, private storyService: StoryService,
-              private epicService: EpicService, private taskService: TaskService,
-              private dialog: MatDialog, public router: Router, authService: AuthService) { }
+  constructor(private route: ActivatedRoute,
+              private storyService: StoryService,
+              private epicService: EpicService,
+              private taskService: TaskService,
+              private dialog: MatDialog,
+              public router: Router,
+              private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -106,5 +111,9 @@ export class StoryDetailsComponent implements OnInit {
           () => this.router.navigate(['../../../backlog'])
         );
     }
+  }
+
+  get isScrumMaster(): boolean {
+    return this.authService.isScrumMaster;
   }
 }

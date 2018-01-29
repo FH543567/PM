@@ -27,9 +27,14 @@ export class TaskDetailsComponent implements OnInit {
   progress: number;
   tempWorkedTime: number;
   private sub: any;
-  constructor(private route: ActivatedRoute, private taskService: TaskService, private storyService: StoryService,
-              private sprintService: SprintService, private userService: UserService, private dialog: MatDialog,
-              public router: Router, authService: AuthService) { }
+  constructor(private route: ActivatedRoute,
+              private taskService: TaskService,
+              private storyService: StoryService,
+              private sprintService: SprintService,
+              private userService: UserService,
+              private dialog: MatDialog,
+              public router: Router,
+              private authService: AuthService) { }
 
   ngOnInit() {
     let id: number;
@@ -93,5 +98,9 @@ export class TaskDetailsComponent implements OnInit {
           () => this.router.navigate(['../../../backlog'])
         );
     }
+  }
+
+  get isScrumMaster(): boolean {
+    return this.authService.isScrumMaster;
   }
 }

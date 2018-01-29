@@ -28,7 +28,7 @@ export class EpicDetailsComponent implements OnInit {
               private storyService: StoryService,
               private dialog: MatDialog,
               public router: Router,
-              authService: AuthService
+              private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -95,5 +95,9 @@ export class EpicDetailsComponent implements OnInit {
           () => this.router.navigate(['../../../backlog'])
         );
     }
+  }
+
+  get isScrumMaster(): boolean {
+    return this.authService.isScrumMaster;
   }
 }

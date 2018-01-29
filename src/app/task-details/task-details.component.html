@@ -21,8 +21,8 @@
       <tr>
         <td style="font-weight: bold">Worked: </td>
         <td>{{tempWorkedTime}}
-          <mat-slider *ngIf="authService.isScrumMaster" min="0" max="{{task?.workload}}" step="1" value="{{tempWorkedTime}}" [(ngModel)]="tempWorkedTime"></mat-slider>
-          <button *ngIf="authService.isScrumMaster" mat-raised-button color="primary" (click)="save()">Save</button>
+          <mat-slider *ngIf="isScrumMaster" min="0" max="{{task?.workload}}" step="1" value="{{tempWorkedTime}}" [(ngModel)]="tempWorkedTime"></mat-slider>
+          <button *ngIf="isScrumMaster" mat-raised-button color="primary" (click)="save()">Save</button>
         </td>
       </tr>
       <tr>
@@ -47,7 +47,7 @@
       </tr>
       <br>
       <br>
-      <tr><td><button mat-raised-button color="warn" *ngIf="authService.isScrumMaster" (click)="deleteDialog()">Delete</button></td></tr>
+      <tr><td><button mat-raised-button color="warn" *ngIf="isScrumMaster" (click)="deleteDialog()">Delete</button></td></tr>
     </table>
   </mat-card>
 </div>
