@@ -28,7 +28,7 @@ export class EpicDetailsComponent implements OnInit {
               private storyService: StoryService,
               private dialog: MatDialog,
               public router: Router,
-              private authService: AuthService
+              authService: AuthService
   ) {}
 
   ngOnInit() {

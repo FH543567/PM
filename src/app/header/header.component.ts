@@ -29,4 +29,8 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.authService.logout();
   }
+
+  isScrumMaster(): boolean {
+    return this.authService.isScrumMaster;
+  }
 }

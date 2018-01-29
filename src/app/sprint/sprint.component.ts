@@ -29,7 +29,7 @@ export class SprintComponent implements OnInit {
     private sprintService: SprintService,
     private taskService: TaskService,
     public router: Router,
-    private authService: AuthService
+    authService: AuthService
   ) {}
 
   ngOnInit() {

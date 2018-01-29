@@ -13,7 +13,9 @@ export class SprintPageComponent implements OnInit {
   displayedColumns = ['Id', 'Name', 'Start', 'End'];
   dataSource: any;
   sprints: Sprint[];
-  constructor(private sprintService: SprintService, private authService: AuthService) { }
+  constructor(private sprintService: SprintService,
+              authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.getSprints();

@@ -27,7 +27,7 @@ export class BacklogPageComponent implements OnInit {
     private taskService: TaskService,
     private storyService: StoryService,
     private epicService: EpicService,
-    private authService: AuthService
+    authService: AuthService
   ) {}
 
   ngOnInit() {

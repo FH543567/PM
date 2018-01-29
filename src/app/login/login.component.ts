@@ -12,7 +12,7 @@ import { User } from '../user/user';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   private formSubmitAttempt: boolean;
-  private isError: boolean;
+  isError: boolean;
 
   constructor(
     private fb: FormBuilder,

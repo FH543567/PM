@@ -28,7 +28,7 @@ export class StoryDetailsComponent implements OnInit {
   dataSource: any;
   constructor(private route: ActivatedRoute, private storyService: StoryService,
               private epicService: EpicService, private taskService: TaskService,
-              private dialog: MatDialog, public router: Router, private authService: AuthService) { }
+              private dialog: MatDialog, public router: Router, authService: AuthService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {

@@ -28,7 +28,7 @@ export class SprintDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private sprintService: SprintService,
               private taskService: TaskService,
-              private authService: AuthService,
+              authService: AuthService,
               public router: Router,
               private dialog: MatDialog
   ) {}
