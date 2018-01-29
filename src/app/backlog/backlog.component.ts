@@ -106,17 +106,10 @@ export class BacklogComponent implements OnInit {
       this.epic = true;
     }
     this.type = type;
-    console.log('Type: ' + type);
   }
 
   setPriority(priority: number) {
     this.priority = priority;
-    console.log('Priority: ' + priority);
-  }
-
-  setName(name: string) {
-    this.name = name;
-    console.log('Name: ' + name);
   }
 
   isFieldInvalid(field: string) {
@@ -127,9 +120,6 @@ export class BacklogComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('onSubmit');
-    console.log('Type: ' + this.type);
-    console.log('Valid: ' + this.form.valid);
     if (this.form.valid && this.type === 'Task') {
       const task: Task = new Task(
         null,
