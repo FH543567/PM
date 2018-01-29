@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { DataService } from '../services/data.service';
 import { PokerService } from '../services/poker.service';
@@ -14,6 +14,7 @@ import { Round } from './round';
   selector: 'app-planningpoker-page',
   templateUrl: './planningpoker-page.component.html',
   styleUrls: ['./planningpoker-page.component.css']
+
 })
 
 export class PlanningpokerPageComponent implements OnInit {

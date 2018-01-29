@@ -1,5 +1,5 @@
-<!-- Wird angezeigt wenn gerade keine Runde vom Planningpoker läuft -->
-<div *ngIf="!this.isPPokerRunning" class="poker-content">
+<!-- Wird angezeigt wenn gerade keine Runde vom Planningpoker läuft
+<div *ngIf="!this.isPPokerRunning" class="title">
   <h3>Currently there is no running Planning-Poker.</h3>
   <div *ngIf="!authService.isScrumMaster">
     <h3>Please wait until a ScrumMaster initiated a new Planning-Poker!</h3>
@@ -9,52 +9,49 @@
     <button mat-raised-button color="Primary"*ngIf="authService.isScrumMaster" (click)="openNewPokerDialog()">Start a new Planning Poker round</button>
   </div>
 </div>
-
+-->
 <!-- Wird angezeigt wenn Gerade eine runde Planningpoker läuft-->
-<div class="poker-content" *ngIf="this.isPPokerRunning">
+<div class="poker" *ngIf="this.isPPokerRunning">
   <mat-card>
-    <h1 mat-card-title>{{this.poker?.label}}</h1>
-    <p mat-card-subtitle>{{this.poker?.description}}</p>
+    <mat-card-title>
+      {{this.poker?.label}}
+      {{this.poker?.description}}
+    </mat-card-title>
+    <mat-card-content>
+      <mat-list dense>
+        <!-- Anzeige der planning Poker runden (tabelle)-->
+        <div *ngFor="let roundData of poker?.roundData; let i = index;">
+          <h3 mat-subheader>Round {{i+1}}</h3>
+          <mat-divider></mat-divider>
+          <mat-list-item *ngFor="let user of roundData.users; let j = index;">{{user}}<span class="spacer"></span>
+            <div *ngIf="i < poker?.roundData.length-1">{{roundData.hours[j]}}h</div>
+            <div *ngIf="i === poker?.roundData.length-1">??h</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-divider></mat-divider>
+        </div>
+        <h3 *ngIf="this.isPPokerNotOver">Planning Poker has ended!</h3>
+      </mat-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <!-- Eingabe eines Estimates-->
+      <mat-form-field>
+        <input type="number" matInput placeholder="Estimate" [(ngModel)]="this.estimate">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="onEstimateSubmit()">Send in Estimate</button><span class="spacer"></span>
+    </mat-card-actions>
   </mat-card>
-<mat-grid-list cols="3"  rowHeight="88%">
-  <mat-grid-tile [colspan]="2" [rowspan]="1">
-    <mat-card>
-      <mat-card-title>{{this.poker?.label}}</mat-card-title>
-      <mat-card-subtitle>{{this.poker?.description}}</mat-card-subtitle>
-      <mat-card-content>
-        <mat-list dense>
-          <!-- Anzeige der planning Poker runden (tabelle)-->
-          <div *ngFor="let roundData of poker?.roundData; let i = index;">
-            <h3 mat-subheader>Round {{i+1}}</h3>
-            <mat-divider></mat-divider>
-            <mat-list-item *ngFor="let user of roundData.users; let j = index;">{{user}}<span class="spacer"></span>
-              <div *ngIf="i < poker?.roundData.length-1">{{roundData.hours[j]}}h</div>
-              <div *ngIf="i === poker?.roundData.length-1">??h</div>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-divider></mat-divider>
-          </div>
-          <h3 *ngIf="this.isPPokerNotOver">Planning Poker has ended!</h3>
-        </mat-list>
-      </mat-card-content>
-      <mat-card-actions>
-        <!-- Eingabe eines Estimates-->
-        <mat-form-field>
-          <input type="number" matInput placeholder="Estimate" [(ngModel)]="this.estimate">
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="onEstimateSubmit()">Send in Estimate</button><span class="spacer"></span>
-      </mat-card-actions>
-    </mat-card>
-  </mat-grid-tile>
+</div>
+<br>
   <!-- Chat -->
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
+<div class="test">
+  <div class="chat" *ngIf="this.isPPokerRunning">
     <mat-card>
       <mat-card-title>Chat</mat-card-title>
       <mat-card-content>
         <mat-list dense>
           <div *ngFor="let message of messages">
             <mat-list-item><p mat-subheader>{{message.user}}:</p> {{message.text}}</mat-list-item>
-
           </div>
         </mat-list>
       </mat-card-content>
@@ -66,10 +63,13 @@
         <button mat-raised-button color="primary" (click)="onChatSubmit()">Send</button><span class="spacer"></span>
       </mat-card-actions>
     </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+  </div>
+</div>
 
-  <!-- Buttons für den ScrumMaster zum starten und enden neuer Runden -->
-<button mat-raised-button color="Primary"*ngIf="authService.isScrumMaster" (click)="openNewPokerDialog()">Start a new Planning Poker round</button>
-<button mat-raised-button color="Warn" *ngIf="authService.isScrumMaster" (click)="endRound()">End Round</button>
+<br>
+<br>
+<!-- Buttons für den ScrumMaster zum starten und enden neuer Runden -->
+<div class="bottom">
+  <button mat-raised-button color="Primary"*ngIf="authService.isScrumMaster" (click)="openNewPokerDialog()">Start a new Planning Poker round</button>
+  <button mat-raised-button color="Warn" *ngIf="authService.isScrumMaster" (click)="endRound()">End Round</button>
 </div>

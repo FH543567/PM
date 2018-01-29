@@ -3,6 +3,11 @@ mat-card {
   margin: 2em auto;
   text-align: center;
 }
+
+mat-form-field {
+  margin: 1%;
+}
+
 .chart-content {
   padding: 10px 1rem;
 }

@@ -1,19 +1,21 @@
-mat-card {
-  max-width: 1000px;
-  margin: 2em auto;
-  text-align: center;
+.poker {
+  float: left;
+  margin-left: 1%;
+  margin-bottom: 1%;
+  margin-right: 1%;
+  margin-top: 2.5%;
+  width: 48%;
 }
-.poker-content {
-  padding: 20px 1rem;
+.chat {
+  float: left;
+  margin: 1%;
+  width: 48%;
 }
-.full-width-input {
-  width: 100%;
+.bottom {
+  float: left;
+  margin: 1%;
 }
-mat-card-content {
-  flex-grow: 1;
-  overflow: auto;
-  height: 75%;
-}
+
 .spacer {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
