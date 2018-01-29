@@ -4,12 +4,12 @@
     <img src="assets/img/logo.jpg" class="angular-logo" routerLink="/home">
   </span>
     <div *ngIf="isLoggedIn">
-      <button mat-button routerLink="backlog"><mat-icon>assessment</mat-icon>Product Backlog</button>
-      <button mat-button routerLink="sprint">Sprint Planning</button>
-      <button mat-button routerLink="scrumboard">Scrum Board</button>
-      <button mat-button routerLink="planningpoker" *ngIf="!authService.isProductOwner">Planning Poker</button>
-      <button mat-button routerLink="chart">Burn-Down-Chart</button>
-      <button mat-button routerLink="roadmap">Roadmap</button>
+      <button mat-button routerLink="backlog"><mat-icon>reorder</mat-icon>Product Backlog</button>
+      <button mat-button routerLink="sprint"><mat-icon>loop</mat-icon>Sprint Planning</button>
+      <button mat-button routerLink="scrumboard"><mat-icon>view_list</mat-icon>Scrum Board</button>
+      <button mat-button routerLink="planningpoker" *ngIf="!authService.isProductOwner"><mat-icon>chat</mat-icon>Planning Poker</button>
+      <button mat-button routerLink="chart"><mat-icon>assessment</mat-icon>Burn-Down-Chart</button>
+      <button mat-button routerLink="roadmap"><mat-icon>linear_scale</mat-icon>Roadmap</button>
     </div>
 
 
