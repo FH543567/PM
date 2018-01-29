@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
   }
 
-  isScrumMaster(): boolean {
+  get isScrumMaster(): boolean {
     return this.authService.isScrumMaster;
   }
 }
